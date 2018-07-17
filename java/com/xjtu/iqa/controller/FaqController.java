@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xjtu.iqa.annotation.SystemControllerLog;
+import com.xjtu.iqa.mapper.TimeStampMapper;
 import com.xjtu.iqa.mapper.UserMapper;
 import com.xjtu.iqa.po.FaqPicture;
+import com.xjtu.iqa.po.TimeStamp;
+import com.xjtu.iqa.service.FaqPictureService;
 import com.xjtu.iqa.service.FaqQuestionService;
 import com.xjtu.iqa.vo.Faq_CommendView;
 import com.xjtu.iqa.vo.Faq_UserDynamics;
@@ -25,6 +28,10 @@ public class FaqController {
 	FaqQuestionService faqQuestionService;
 	@Autowired
 	UserMapper userMapper;
+	@Autowired
+	FaqPictureService faqPictureService;
+	@Autowired
+	TimeStampMapper timeStampMapper;
 
 	@RequestMapping(value = "faq", method = RequestMethod.GET)
 	@SystemControllerLog(description = "faq首页面")
@@ -47,7 +54,7 @@ public class FaqController {
 		session.setAttribute("urlPath", urlPath);
 
 		// faq推荐栏
-		List<FaqPicture> faqPicList = FaqPicService.faqPicture(1, 3);
+		List<FaqPicture> faqPicList = faqPictureService.faqPicture(1, 3);
 
 		if (username == null) {
 			// zzl未登录用户获取推荐faq_2017年9月14日21:43:52
@@ -68,7 +75,13 @@ public class FaqController {
 
 		long executionTime = System.currentTimeMillis() - startTime;
 		// 记录运行时间
-		TimeStampHelper.addTimeStamp(UUID.randomUUID().toString(), path, executionTime, startTime);
+		TimeStamp ts = new TimeStamp();
+		ts.setTIMEID(UUID.randomUUID().toString());
+		ts.setNAME(path);
+		ts.setTIME(Long.toString(executionTime));
+		ts.setBEGINTIME(Long.toString(startTime));
+		timeStampMapper.insert(ts);
+		
 		return mv;
 	}
 

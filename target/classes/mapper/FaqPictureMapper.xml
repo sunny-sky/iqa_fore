@@ -147,4 +147,15 @@
       STATE = #{STATE,jdbcType=INTEGER}
     where FAQPICTUREID = #{FAQPICTUREID,jdbcType=VARCHAR}
   </update>
+  
+  <select id="faqPicture" resultMap="BaseResultMap">
+  	SELECT * FROM tbl_faqpicture WHERE STATE = #{0} ORDER BY  TIME DESC LIMIT #{1}
+  </select>
+  <update id="deletePic">
+  	UPDATE tbl_faqpicture SET  STATE = #{1} WHERE FAQPICTUREID=#{0}
+  </update>
+  <update id="updateTitle">
+  	UPDATE tbl_faqpicture SET  DESCRIPTION = #{1} WHERE FAQPICTUREID=#{0}
+  </update>
+  
 </mapper>

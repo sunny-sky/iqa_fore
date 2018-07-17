@@ -21,6 +21,7 @@ import com.xjtu.iqa.po.FaqAnswer;
 import com.xjtu.iqa.po.FaqQuestion;
 import com.xjtu.iqa.po.Log;
 import com.xjtu.iqa.po.User;
+import com.xjtu.iqa.service.FaqQuestionService;
 import com.xjtu.iqa.service.LogService;
 import com.xjtu.iqa.vo.Faq2_faqContentView;
 import com.xjtu.iqa.vo.Faq2_faqUserView;
@@ -31,7 +32,7 @@ import com.xjtu.iqa.vo.Faq_UserDynamics;
 
 @Service
 @Transactional
-public class FaqQuestionServiceImpl {
+public class FaqQuestionServiceImpl implements FaqQuestionService {
 	@Autowired
 	FaqQuestionMapper faqQuestionMapper;
 	@Autowired
@@ -46,14 +47,16 @@ public class FaqQuestionServiceImpl {
 	FaqClassifyMapper faqClassifyMapper;
 	@Autowired
 	FaqAnswerMapper faqAnswerMapper;
+
 	/**
 	 * FAQ页面_用户动态
 	 */
+	@Override
 	public List<Faq_UserDynamics> userDynamics() {
 		List<Faq_UserDynamics> userDynamics = new ArrayList<Faq_UserDynamics>();
 
 		List<FaqQuestion> questionPersistences = faqQuestionMapper.faq_userDynamics(2, 5);
-		
+
 		for (FaqQuestion questionPersistence : questionPersistences) {
 			Faq_UserDynamics faq_UserDynamics = new Faq_UserDynamics();
 
@@ -77,6 +80,7 @@ public class FaqQuestionServiceImpl {
 	}
 
 	// 有权限的角色分享社区问题
+	@Override
 	public void saveShare2(String userId, String faqquestionId) {
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -87,6 +91,7 @@ public class FaqQuestionServiceImpl {
 	/**
 	 * abstract:获取未登录用户推荐列表
 	 */
+	@Override
 	public List<Faq_CommendView> faq_recommend_Limit(int faqstate, int startnum, int number) {
 		// Faq_CommendView中信息不全、后续可补充 !!!分类图片
 		List<Faq_CommendView> faq_CommendViews = new ArrayList<Faq_CommendView>();
@@ -118,6 +123,7 @@ public class FaqQuestionServiceImpl {
 	 * @param j
 	 * @param startnumber
 	 */
+	@Override
 	public List<Faq_CommendView> user_recommend_Limit(String userid, int state, int startnum, int num) {
 		// Faq_CommendView中信息不全、后续可补充
 		List<Faq_CommendView> faq_CommendViews = new ArrayList<Faq_CommendView>();
@@ -130,8 +136,7 @@ public class FaqQuestionServiceImpl {
 				String questionId = a[a.length - 1];
 				String faq_classifyId = faqQuestionMapper.faq3_faqclassifyId(questionId);
 				String parentId = faqClassifyMapper.faq_parentId(faq_classifyId);
-				List<FaqQuestion> questionPersistences = faqQuestionMapper.questionView(parentId, state, startnum,
-						num);
+				List<FaqQuestion> questionPersistences = faqQuestionMapper.questionView(parentId, state, startnum, num);
 				for (FaqQuestion questionPersistence : questionPersistences) {
 					Faq_CommendView faq_CommendView = new Faq_CommendView();
 					faq_CommendView.setFAQQUESTIONID(questionPersistence.getFAQQUESTIONID());
@@ -177,8 +182,9 @@ public class FaqQuestionServiceImpl {
 	/**
 	 * abstract:FAQ的增加
 	 */
-	public void saveFAQ2(String userId, String title, String keywords, String subspecialCategoryId,
-			String description, String faqcontent) {
+	@Override
+	public void saveFAQ2(String userId, String title, String keywords, String subspecialCategoryId, String description,
+			String faqcontent) {
 		// 保存faq问题
 		FaqQuestion questionPersistence = new FaqQuestion();
 		String questionid = UUID.randomUUID().toString();
@@ -210,6 +216,7 @@ public class FaqQuestionServiceImpl {
 	/**
 	 * abstract:推荐知识_根据收藏量推荐前4个
 	 */
+	@Override
 	public List<Faq_CommendView> faqInfo(String faqParentId) {
 		List<Faq_CommendView> faq_CommendViews = new ArrayList<Faq_CommendView>();
 		List<FaqQuestion> questionPersistences = faqQuestionMapper.faqInfo_limit(faqParentId);
@@ -226,6 +233,7 @@ public class FaqQuestionServiceImpl {
 	/**
 	 * faq2_知识列表
 	 */
+	@Override
 	public List<Faq2_faqContentView> faqlist_faq2(String ClassifyId, int pageNow) {
 		List<Faq2_faqContentView> faq2Views = new ArrayList<Faq2_faqContentView>();
 		// 每次获取一页5条信息
@@ -250,6 +258,7 @@ public class FaqQuestionServiceImpl {
 	/**
 	 * faq3_知识内容
 	 */
+	@Override
 	public List<Faq3_faqContentView> faq3_faqcontent(String QuestionId) {
 		List<Faq3_faqContentView> faq3Views = new ArrayList<Faq3_faqContentView>();
 		List<FaqQuestion> faqPersistences = faqQuestionMapper.faq3_faqcontent(QuestionId, 2);
@@ -279,6 +288,7 @@ public class FaqQuestionServiceImpl {
 	/**
 	 * faq浏览量+1
 	 */
+	@Override
 	public void updateFAQScan(String questionId) {
 		String scan = faqQuestionMapper.getFaqScan(questionId);
 		int faqScan = Integer.parseInt(scan);
@@ -289,6 +299,7 @@ public class FaqQuestionServiceImpl {
 	/**
 	 * faq3_ajax_分享的增加
 	 */
+	@Override
 	public void saveShare(String userId, String faqquestionId) {
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
