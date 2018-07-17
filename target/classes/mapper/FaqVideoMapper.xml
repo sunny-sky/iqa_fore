@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.FaqVideoMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.FaqVideo">
+    <id column="FAQVIDEOID" jdbcType="VARCHAR" property="FAQVIDEOID" />
+    <result column="URL" jdbcType="VARCHAR" property="URL" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="DESCRIPTION" />
+    <result column="FAQANSWERID" jdbcType="VARCHAR" property="FAQANSWERID" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    FAQVIDEOID, URL, DESCRIPTION, FAQANSWERID
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.FaqVideoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_faqvideo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_faqvideo
+    where FAQVIDEOID = #{FAQVIDEOID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_faqvideo
+    where FAQVIDEOID = #{FAQVIDEOID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.FaqVideo">
+    insert into tbl_faqvideo (FAQVIDEOID, URL, DESCRIPTION, 
+      FAQANSWERID)
+    values (#{FAQVIDEOID,jdbcType=VARCHAR}, #{URL,jdbcType=VARCHAR}, #{DESCRIPTION,jdbcType=VARCHAR}, 
+      #{FAQANSWERID,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.FaqVideo">
+    insert into tbl_faqvideo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="FAQVIDEOID != null">
+        FAQVIDEOID,
+      </if>
+      <if test="URL != null">
+        URL,
+      </if>
+      <if test="DESCRIPTION != null">
+        DESCRIPTION,
+      </if>
+      <if test="FAQANSWERID != null">
+        FAQANSWERID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="FAQVIDEOID != null">
+        #{FAQVIDEOID,jdbcType=VARCHAR},
+      </if>
+      <if test="URL != null">
+        #{URL,jdbcType=VARCHAR},
+      </if>
+      <if test="DESCRIPTION != null">
+        #{DESCRIPTION,jdbcType=VARCHAR},
+      </if>
+      <if test="FAQANSWERID != null">
+        #{FAQANSWERID,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.FaqVideo">
+    update tbl_faqvideo
+    <set>
+      <if test="URL != null">
+        URL = #{URL,jdbcType=VARCHAR},
+      </if>
+      <if test="DESCRIPTION != null">
+        DESCRIPTION = #{DESCRIPTION,jdbcType=VARCHAR},
+      </if>
+      <if test="FAQANSWERID != null">
+        FAQANSWERID = #{FAQANSWERID,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FAQVIDEOID = #{FAQVIDEOID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.FaqVideo">
+    update tbl_faqvideo
+    set URL = #{URL,jdbcType=VARCHAR},
+      DESCRIPTION = #{DESCRIPTION,jdbcType=VARCHAR},
+      FAQANSWERID = #{FAQANSWERID,jdbcType=VARCHAR}
+    where FAQVIDEOID = #{FAQVIDEOID,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.RolePermissionMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.RolePermission">
+    <id column="ROLEPERMISSIONID" jdbcType="VARCHAR" property="ROLEPERMISSIONID" />
+    <result column="ROLEID" jdbcType="VARCHAR" property="ROLEID" />
+    <result column="PERMISSIONID" jdbcType="VARCHAR" property="PERMISSIONID" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ROLEPERMISSIONID, ROLEID, PERMISSIONID
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.RolePermissionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_role_permission
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_role_permission
+    where ROLEPERMISSIONID = #{ROLEPERMISSIONID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_role_permission
+    where ROLEPERMISSIONID = #{ROLEPERMISSIONID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.RolePermission">
+    insert into tbl_role_permission (ROLEPERMISSIONID, ROLEID, PERMISSIONID
+      )
+    values (#{ROLEPERMISSIONID,jdbcType=VARCHAR}, #{ROLEID,jdbcType=VARCHAR}, #{PERMISSIONID,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.RolePermission">
+    insert into tbl_role_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ROLEPERMISSIONID != null">
+        ROLEPERMISSIONID,
+      </if>
+      <if test="ROLEID != null">
+        ROLEID,
+      </if>
+      <if test="PERMISSIONID != null">
+        PERMISSIONID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ROLEPERMISSIONID != null">
+        #{ROLEPERMISSIONID,jdbcType=VARCHAR},
+      </if>
+      <if test="ROLEID != null">
+        #{ROLEID,jdbcType=VARCHAR},
+      </if>
+      <if test="PERMISSIONID != null">
+        #{PERMISSIONID,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.RolePermission">
+    update tbl_role_permission
+    <set>
+      <if test="ROLEID != null">
+        ROLEID = #{ROLEID,jdbcType=VARCHAR},
+      </if>
+      <if test="PERMISSIONID != null">
+        PERMISSIONID = #{PERMISSIONID,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLEPERMISSIONID = #{ROLEPERMISSIONID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.RolePermission">
+    update tbl_role_permission
+    set ROLEID = #{ROLEID,jdbcType=VARCHAR},
+      PERMISSIONID = #{PERMISSIONID,jdbcType=VARCHAR}
+    where ROLEPERMISSIONID = #{ROLEPERMISSIONID,jdbcType=VARCHAR}
+  </update>
+</mapper>

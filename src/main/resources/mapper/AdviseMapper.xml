@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.AdviseMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.Advise">
+    <id column="ADVISEID" jdbcType="VARCHAR" property="ADVISEID" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="EMAIL" />
+    <result column="NAME" jdbcType="VARCHAR" property="NAME" />
+    <result column="PHONE" jdbcType="VARCHAR" property="PHONE" />
+    <result column="TEXT" jdbcType="VARCHAR" property="TEXT" />
+    <result column="ANNEX" jdbcType="VARCHAR" property="ANNEX" />
+    <result column="USERID" jdbcType="VARCHAR" property="USERID" />
+    <result column="STATES" jdbcType="INTEGER" property="STATES" />
+    <result column="ADVISETIME" jdbcType="VARCHAR" property="ADVISETIME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ADVISEID, EMAIL, NAME, PHONE, TEXT, ANNEX, USERID, STATES, ADVISETIME
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.AdviseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_advise
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_advise
+    where ADVISEID = #{ADVISEID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_advise
+    where ADVISEID = #{ADVISEID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.Advise">
+    insert into tbl_advise (ADVISEID, EMAIL, NAME, 
+      PHONE, TEXT, ANNEX, 
+      USERID, STATES, ADVISETIME
+      )
+    values (#{ADVISEID,jdbcType=VARCHAR}, #{EMAIL,jdbcType=VARCHAR}, #{NAME,jdbcType=VARCHAR}, 
+      #{PHONE,jdbcType=VARCHAR}, #{TEXT,jdbcType=VARCHAR}, #{ANNEX,jdbcType=VARCHAR}, 
+      #{USERID,jdbcType=VARCHAR}, #{STATES,jdbcType=INTEGER}, #{ADVISETIME,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.Advise">
+    insert into tbl_advise
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ADVISEID != null">
+        ADVISEID,
+      </if>
+      <if test="EMAIL != null">
+        EMAIL,
+      </if>
+      <if test="NAME != null">
+        NAME,
+      </if>
+      <if test="PHONE != null">
+        PHONE,
+      </if>
+      <if test="TEXT != null">
+        TEXT,
+      </if>
+      <if test="ANNEX != null">
+        ANNEX,
+      </if>
+      <if test="USERID != null">
+        USERID,
+      </if>
+      <if test="STATES != null">
+        STATES,
+      </if>
+      <if test="ADVISETIME != null">
+        ADVISETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ADVISEID != null">
+        #{ADVISEID,jdbcType=VARCHAR},
+      </if>
+      <if test="EMAIL != null">
+        #{EMAIL,jdbcType=VARCHAR},
+      </if>
+      <if test="NAME != null">
+        #{NAME,jdbcType=VARCHAR},
+      </if>
+      <if test="PHONE != null">
+        #{PHONE,jdbcType=VARCHAR},
+      </if>
+      <if test="TEXT != null">
+        #{TEXT,jdbcType=VARCHAR},
+      </if>
+      <if test="ANNEX != null">
+        #{ANNEX,jdbcType=VARCHAR},
+      </if>
+      <if test="USERID != null">
+        #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="STATES != null">
+        #{STATES,jdbcType=INTEGER},
+      </if>
+      <if test="ADVISETIME != null">
+        #{ADVISETIME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.Advise">
+    update tbl_advise
+    <set>
+      <if test="EMAIL != null">
+        EMAIL = #{EMAIL,jdbcType=VARCHAR},
+      </if>
+      <if test="NAME != null">
+        NAME = #{NAME,jdbcType=VARCHAR},
+      </if>
+      <if test="PHONE != null">
+        PHONE = #{PHONE,jdbcType=VARCHAR},
+      </if>
+      <if test="TEXT != null">
+        TEXT = #{TEXT,jdbcType=VARCHAR},
+      </if>
+      <if test="ANNEX != null">
+        ANNEX = #{ANNEX,jdbcType=VARCHAR},
+      </if>
+      <if test="USERID != null">
+        USERID = #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="STATES != null">
+        STATES = #{STATES,jdbcType=INTEGER},
+      </if>
+      <if test="ADVISETIME != null">
+        ADVISETIME = #{ADVISETIME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ADVISEID = #{ADVISEID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.Advise">
+    update tbl_advise
+    set EMAIL = #{EMAIL,jdbcType=VARCHAR},
+      NAME = #{NAME,jdbcType=VARCHAR},
+      PHONE = #{PHONE,jdbcType=VARCHAR},
+      TEXT = #{TEXT,jdbcType=VARCHAR},
+      ANNEX = #{ANNEX,jdbcType=VARCHAR},
+      USERID = #{USERID,jdbcType=VARCHAR},
+      STATES = #{STATES,jdbcType=INTEGER},
+      ADVISETIME = #{ADVISETIME,jdbcType=VARCHAR}
+    where ADVISEID = #{ADVISEID,jdbcType=VARCHAR}
+  </update>
+</mapper>

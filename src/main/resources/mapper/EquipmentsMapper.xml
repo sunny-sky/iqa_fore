@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.EquipmentsMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.Equipments">
+    <id column="EQUIPMENT_ID" jdbcType="INTEGER" property="EQUIPMENT_ID" />
+    <result column="BRAND" jdbcType="VARCHAR" property="BRAND" />
+    <result column="CONFIGURE_TIME" jdbcType="VARCHAR" property="CONFIGURE_TIME" />
+    <result column="DEPARTMENT" jdbcType="VARCHAR" property="DEPARTMENT" />
+    <result column="USER" jdbcType="VARCHAR" property="USER" />
+    <result column="CPU" jdbcType="VARCHAR" property="CPU" />
+    <result column="RAM" jdbcType="VARCHAR" property="RAM" />
+    <result column="ROM" jdbcType="VARCHAR" property="ROM" />
+    <result column="OS" jdbcType="VARCHAR" property="OS" />
+    <result column="BROWSER" jdbcType="VARCHAR" property="BROWSER" />
+    <result column="OFFICE_SOFTWARE" jdbcType="VARCHAR" property="OFFICE_SOFTWARE" />
+    <result column="USED_FOR" jdbcType="VARCHAR" property="USED_FOR" />
+    <result column="IP_ADDRESS" jdbcType="VARCHAR" property="IP_ADDRESS" />
+    <result column="MAC_ADDRESS" jdbcType="VARCHAR" property="MAC_ADDRESS" />
+    <result column="REGION" jdbcType="VARCHAR" property="REGION" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    EQUIPMENT_ID, BRAND, CONFIGURE_TIME, DEPARTMENT, USER, CPU, RAM, ROM, OS, BROWSER, 
+    OFFICE_SOFTWARE, USED_FOR, IP_ADDRESS, MAC_ADDRESS, REGION
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.EquipmentsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_equipments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_equipments
+    where EQUIPMENT_ID = #{EQUIPMENT_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_equipments
+    where EQUIPMENT_ID = #{EQUIPMENT_ID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.Equipments">
+    insert into tbl_equipments (EQUIPMENT_ID, BRAND, CONFIGURE_TIME, 
+      DEPARTMENT, USER, CPU, 
+      RAM, ROM, OS, BROWSER, 
+      OFFICE_SOFTWARE, USED_FOR, IP_ADDRESS, 
+      MAC_ADDRESS, REGION)
+    values (#{EQUIPMENT_ID,jdbcType=INTEGER}, #{BRAND,jdbcType=VARCHAR}, #{CONFIGURE_TIME,jdbcType=VARCHAR}, 
+      #{DEPARTMENT,jdbcType=VARCHAR}, #{USER,jdbcType=VARCHAR}, #{CPU,jdbcType=VARCHAR}, 
+      #{RAM,jdbcType=VARCHAR}, #{ROM,jdbcType=VARCHAR}, #{OS,jdbcType=VARCHAR}, #{BROWSER,jdbcType=VARCHAR}, 
+      #{OFFICE_SOFTWARE,jdbcType=VARCHAR}, #{USED_FOR,jdbcType=VARCHAR}, #{IP_ADDRESS,jdbcType=VARCHAR}, 
+      #{MAC_ADDRESS,jdbcType=VARCHAR}, #{REGION,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.Equipments">
+    insert into tbl_equipments
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="EQUIPMENT_ID != null">
+        EQUIPMENT_ID,
+      </if>
+      <if test="BRAND != null">
+        BRAND,
+      </if>
+      <if test="CONFIGURE_TIME != null">
+        CONFIGURE_TIME,
+      </if>
+      <if test="DEPARTMENT != null">
+        DEPARTMENT,
+      </if>
+      <if test="USER != null">
+        USER,
+      </if>
+      <if test="CPU != null">
+        CPU,
+      </if>
+      <if test="RAM != null">
+        RAM,
+      </if>
+      <if test="ROM != null">
+        ROM,
+      </if>
+      <if test="OS != null">
+        OS,
+      </if>
+      <if test="BROWSER != null">
+        BROWSER,
+      </if>
+      <if test="OFFICE_SOFTWARE != null">
+        OFFICE_SOFTWARE,
+      </if>
+      <if test="USED_FOR != null">
+        USED_FOR,
+      </if>
+      <if test="IP_ADDRESS != null">
+        IP_ADDRESS,
+      </if>
+      <if test="MAC_ADDRESS != null">
+        MAC_ADDRESS,
+      </if>
+      <if test="REGION != null">
+        REGION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="EQUIPMENT_ID != null">
+        #{EQUIPMENT_ID,jdbcType=INTEGER},
+      </if>
+      <if test="BRAND != null">
+        #{BRAND,jdbcType=VARCHAR},
+      </if>
+      <if test="CONFIGURE_TIME != null">
+        #{CONFIGURE_TIME,jdbcType=VARCHAR},
+      </if>
+      <if test="DEPARTMENT != null">
+        #{DEPARTMENT,jdbcType=VARCHAR},
+      </if>
+      <if test="USER != null">
+        #{USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CPU != null">
+        #{CPU,jdbcType=VARCHAR},
+      </if>
+      <if test="RAM != null">
+        #{RAM,jdbcType=VARCHAR},
+      </if>
+      <if test="ROM != null">
+        #{ROM,jdbcType=VARCHAR},
+      </if>
+      <if test="OS != null">
+        #{OS,jdbcType=VARCHAR},
+      </if>
+      <if test="BROWSER != null">
+        #{BROWSER,jdbcType=VARCHAR},
+      </if>
+      <if test="OFFICE_SOFTWARE != null">
+        #{OFFICE_SOFTWARE,jdbcType=VARCHAR},
+      </if>
+      <if test="USED_FOR != null">
+        #{USED_FOR,jdbcType=VARCHAR},
+      </if>
+      <if test="IP_ADDRESS != null">
+        #{IP_ADDRESS,jdbcType=VARCHAR},
+      </if>
+      <if test="MAC_ADDRESS != null">
+        #{MAC_ADDRESS,jdbcType=VARCHAR},
+      </if>
+      <if test="REGION != null">
+        #{REGION,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.Equipments">
+    update tbl_equipments
+    <set>
+      <if test="BRAND != null">
+        BRAND = #{BRAND,jdbcType=VARCHAR},
+      </if>
+      <if test="CONFIGURE_TIME != null">
+        CONFIGURE_TIME = #{CONFIGURE_TIME,jdbcType=VARCHAR},
+      </if>
+      <if test="DEPARTMENT != null">
+        DEPARTMENT = #{DEPARTMENT,jdbcType=VARCHAR},
+      </if>
+      <if test="USER != null">
+        USER = #{USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CPU != null">
+        CPU = #{CPU,jdbcType=VARCHAR},
+      </if>
+      <if test="RAM != null">
+        RAM = #{RAM,jdbcType=VARCHAR},
+      </if>
+      <if test="ROM != null">
+        ROM = #{ROM,jdbcType=VARCHAR},
+      </if>
+      <if test="OS != null">
+        OS = #{OS,jdbcType=VARCHAR},
+      </if>
+      <if test="BROWSER != null">
+        BROWSER = #{BROWSER,jdbcType=VARCHAR},
+      </if>
+      <if test="OFFICE_SOFTWARE != null">
+        OFFICE_SOFTWARE = #{OFFICE_SOFTWARE,jdbcType=VARCHAR},
+      </if>
+      <if test="USED_FOR != null">
+        USED_FOR = #{USED_FOR,jdbcType=VARCHAR},
+      </if>
+      <if test="IP_ADDRESS != null">
+        IP_ADDRESS = #{IP_ADDRESS,jdbcType=VARCHAR},
+      </if>
+      <if test="MAC_ADDRESS != null">
+        MAC_ADDRESS = #{MAC_ADDRESS,jdbcType=VARCHAR},
+      </if>
+      <if test="REGION != null">
+        REGION = #{REGION,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EQUIPMENT_ID = #{EQUIPMENT_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.Equipments">
+    update tbl_equipments
+    set BRAND = #{BRAND,jdbcType=VARCHAR},
+      CONFIGURE_TIME = #{CONFIGURE_TIME,jdbcType=VARCHAR},
+      DEPARTMENT = #{DEPARTMENT,jdbcType=VARCHAR},
+      USER = #{USER,jdbcType=VARCHAR},
+      CPU = #{CPU,jdbcType=VARCHAR},
+      RAM = #{RAM,jdbcType=VARCHAR},
+      ROM = #{ROM,jdbcType=VARCHAR},
+      OS = #{OS,jdbcType=VARCHAR},
+      BROWSER = #{BROWSER,jdbcType=VARCHAR},
+      OFFICE_SOFTWARE = #{OFFICE_SOFTWARE,jdbcType=VARCHAR},
+      USED_FOR = #{USED_FOR,jdbcType=VARCHAR},
+      IP_ADDRESS = #{IP_ADDRESS,jdbcType=VARCHAR},
+      MAC_ADDRESS = #{MAC_ADDRESS,jdbcType=VARCHAR},
+      REGION = #{REGION,jdbcType=VARCHAR}
+    where EQUIPMENT_ID = #{EQUIPMENT_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

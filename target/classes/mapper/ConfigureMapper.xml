@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.ConfigureMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.Configure">
+    <id column="CONFIGUREID" jdbcType="VARCHAR" property="CONFIGUREID" />
+    <result column="CONFIGURETYPE" jdbcType="VARCHAR" property="CONFIGURETYPE" />
+    <result column="CONFIGURENAME" jdbcType="VARCHAR" property="CONFIGURENAME" />
+    <result column="FILESIZE" jdbcType="VARCHAR" property="FILESIZE" />
+    <result column="URL" jdbcType="VARCHAR" property="URL" />
+    <result column="DOWNLOADTIMES" jdbcType="INTEGER" property="DOWNLOADTIMES" />
+    <result column="PRODUCER" jdbcType="VARCHAR" property="PRODUCER" />
+    <result column="CONFIGURETIME" jdbcType="VARCHAR" property="CONFIGURETIME" />
+    <result column="ISCONFIGURE" jdbcType="INTEGER" property="ISCONFIGURE" />
+    <result column="RENAME" jdbcType="VARCHAR" property="RENAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CONFIGUREID, CONFIGURETYPE, CONFIGURENAME, FILESIZE, URL, DOWNLOADTIMES, PRODUCER, 
+    CONFIGURETIME, ISCONFIGURE, RENAME
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.ConfigureExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_configure
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_configure
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_configure
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.Configure">
+    insert into tbl_configure (CONFIGUREID, CONFIGURETYPE, CONFIGURENAME, 
+      FILESIZE, URL, DOWNLOADTIMES, 
+      PRODUCER, CONFIGURETIME, ISCONFIGURE, 
+      RENAME)
+    values (#{CONFIGUREID,jdbcType=VARCHAR}, #{CONFIGURETYPE,jdbcType=VARCHAR}, #{CONFIGURENAME,jdbcType=VARCHAR}, 
+      #{FILESIZE,jdbcType=VARCHAR}, #{URL,jdbcType=VARCHAR}, #{DOWNLOADTIMES,jdbcType=INTEGER}, 
+      #{PRODUCER,jdbcType=VARCHAR}, #{CONFIGURETIME,jdbcType=VARCHAR}, #{ISCONFIGURE,jdbcType=INTEGER}, 
+      #{RENAME,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.Configure">
+    insert into tbl_configure
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="CONFIGUREID != null">
+        CONFIGUREID,
+      </if>
+      <if test="CONFIGURETYPE != null">
+        CONFIGURETYPE,
+      </if>
+      <if test="CONFIGURENAME != null">
+        CONFIGURENAME,
+      </if>
+      <if test="FILESIZE != null">
+        FILESIZE,
+      </if>
+      <if test="URL != null">
+        URL,
+      </if>
+      <if test="DOWNLOADTIMES != null">
+        DOWNLOADTIMES,
+      </if>
+      <if test="PRODUCER != null">
+        PRODUCER,
+      </if>
+      <if test="CONFIGURETIME != null">
+        CONFIGURETIME,
+      </if>
+      <if test="ISCONFIGURE != null">
+        ISCONFIGURE,
+      </if>
+      <if test="RENAME != null">
+        RENAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="CONFIGUREID != null">
+        #{CONFIGUREID,jdbcType=VARCHAR},
+      </if>
+      <if test="CONFIGURETYPE != null">
+        #{CONFIGURETYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="CONFIGURENAME != null">
+        #{CONFIGURENAME,jdbcType=VARCHAR},
+      </if>
+      <if test="FILESIZE != null">
+        #{FILESIZE,jdbcType=VARCHAR},
+      </if>
+      <if test="URL != null">
+        #{URL,jdbcType=VARCHAR},
+      </if>
+      <if test="DOWNLOADTIMES != null">
+        #{DOWNLOADTIMES,jdbcType=INTEGER},
+      </if>
+      <if test="PRODUCER != null">
+        #{PRODUCER,jdbcType=VARCHAR},
+      </if>
+      <if test="CONFIGURETIME != null">
+        #{CONFIGURETIME,jdbcType=VARCHAR},
+      </if>
+      <if test="ISCONFIGURE != null">
+        #{ISCONFIGURE,jdbcType=INTEGER},
+      </if>
+      <if test="RENAME != null">
+        #{RENAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.Configure">
+    update tbl_configure
+    <set>
+      <if test="CONFIGURETYPE != null">
+        CONFIGURETYPE = #{CONFIGURETYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="CONFIGURENAME != null">
+        CONFIGURENAME = #{CONFIGURENAME,jdbcType=VARCHAR},
+      </if>
+      <if test="FILESIZE != null">
+        FILESIZE = #{FILESIZE,jdbcType=VARCHAR},
+      </if>
+      <if test="URL != null">
+        URL = #{URL,jdbcType=VARCHAR},
+      </if>
+      <if test="DOWNLOADTIMES != null">
+        DOWNLOADTIMES = #{DOWNLOADTIMES,jdbcType=INTEGER},
+      </if>
+      <if test="PRODUCER != null">
+        PRODUCER = #{PRODUCER,jdbcType=VARCHAR},
+      </if>
+      <if test="CONFIGURETIME != null">
+        CONFIGURETIME = #{CONFIGURETIME,jdbcType=VARCHAR},
+      </if>
+      <if test="ISCONFIGURE != null">
+        ISCONFIGURE = #{ISCONFIGURE,jdbcType=INTEGER},
+      </if>
+      <if test="RENAME != null">
+        RENAME = #{RENAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.Configure">
+    update tbl_configure
+    set CONFIGURETYPE = #{CONFIGURETYPE,jdbcType=VARCHAR},
+      CONFIGURENAME = #{CONFIGURENAME,jdbcType=VARCHAR},
+      FILESIZE = #{FILESIZE,jdbcType=VARCHAR},
+      URL = #{URL,jdbcType=VARCHAR},
+      DOWNLOADTIMES = #{DOWNLOADTIMES,jdbcType=INTEGER},
+      PRODUCER = #{PRODUCER,jdbcType=VARCHAR},
+      CONFIGURETIME = #{CONFIGURETIME,jdbcType=VARCHAR},
+      ISCONFIGURE = #{ISCONFIGURE,jdbcType=INTEGER},
+      RENAME = #{RENAME,jdbcType=VARCHAR}
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </update>
+</mapper>

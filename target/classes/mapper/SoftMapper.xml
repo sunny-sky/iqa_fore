@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.SoftMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.Soft">
+    <id column="CONFIGUREID" jdbcType="VARCHAR" property="CONFIGUREID" />
+    <result column="SOFTID" jdbcType="VARCHAR" property="SOFTID" />
+    <result column="SCORE" jdbcType="VARCHAR" property="SCORE" />
+    <result column="LOGO" jdbcType="VARCHAR" property="LOGO" />
+    <result column="VERSIONTYPE" jdbcType="VARCHAR" property="VERSIONTYPE" />
+    <result column="VERSION" jdbcType="VARCHAR" property="VERSION" />
+    <result column="SOFTTYPE" jdbcType="VARCHAR" property="SOFTTYPE" />
+    <result column="SPAREURL" jdbcType="VARCHAR" property="SPAREURL" />
+    <result column="OS" jdbcType="VARCHAR" property="OS" />
+    <result column="WEBSITE" jdbcType="VARCHAR" property="WEBSITE" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xjtu.iqa.po.SoftWithBLOBs">
+    <result column="INTRODUCTION" jdbcType="LONGVARCHAR" property="INTRODUCTION" />
+    <result column="DESCRIPTION" jdbcType="LONGVARCHAR" property="DESCRIPTION" />
+    <result column="NEWVERSIONINTRODUCTION" jdbcType="LONGVARCHAR" property="NEWVERSIONINTRODUCTION" />
+    <result column="NEWVERSIONDESCRIPTION" jdbcType="LONGVARCHAR" property="NEWVERSIONDESCRIPTION" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CONFIGUREID, SOFTID, SCORE, LOGO, VERSIONTYPE, VERSION, SOFTTYPE, SPAREURL, OS, WEBSITE
+  </sql>
+  <sql id="Blob_Column_List">
+    INTRODUCTION, DESCRIPTION, NEWVERSIONINTRODUCTION, NEWVERSIONDESCRIPTION
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.xjtu.iqa.po.SoftExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_soft
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.SoftExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_soft
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_soft
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_soft
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.SoftWithBLOBs">
+    insert into tbl_soft (CONFIGUREID, SOFTID, SCORE, 
+      LOGO, VERSIONTYPE, VERSION, 
+      SOFTTYPE, SPAREURL, OS, 
+      WEBSITE, INTRODUCTION, DESCRIPTION, 
+      NEWVERSIONINTRODUCTION, NEWVERSIONDESCRIPTION
+      )
+    values (#{CONFIGUREID,jdbcType=VARCHAR}, #{SOFTID,jdbcType=VARCHAR}, #{SCORE,jdbcType=VARCHAR}, 
+      #{LOGO,jdbcType=VARCHAR}, #{VERSIONTYPE,jdbcType=VARCHAR}, #{VERSION,jdbcType=VARCHAR}, 
+      #{SOFTTYPE,jdbcType=VARCHAR}, #{SPAREURL,jdbcType=VARCHAR}, #{OS,jdbcType=VARCHAR}, 
+      #{WEBSITE,jdbcType=VARCHAR}, #{INTRODUCTION,jdbcType=LONGVARCHAR}, #{DESCRIPTION,jdbcType=LONGVARCHAR}, 
+      #{NEWVERSIONINTRODUCTION,jdbcType=LONGVARCHAR}, #{NEWVERSIONDESCRIPTION,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.SoftWithBLOBs">
+    insert into tbl_soft
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="CONFIGUREID != null">
+        CONFIGUREID,
+      </if>
+      <if test="SOFTID != null">
+        SOFTID,
+      </if>
+      <if test="SCORE != null">
+        SCORE,
+      </if>
+      <if test="LOGO != null">
+        LOGO,
+      </if>
+      <if test="VERSIONTYPE != null">
+        VERSIONTYPE,
+      </if>
+      <if test="VERSION != null">
+        VERSION,
+      </if>
+      <if test="SOFTTYPE != null">
+        SOFTTYPE,
+      </if>
+      <if test="SPAREURL != null">
+        SPAREURL,
+      </if>
+      <if test="OS != null">
+        OS,
+      </if>
+      <if test="WEBSITE != null">
+        WEBSITE,
+      </if>
+      <if test="INTRODUCTION != null">
+        INTRODUCTION,
+      </if>
+      <if test="DESCRIPTION != null">
+        DESCRIPTION,
+      </if>
+      <if test="NEWVERSIONINTRODUCTION != null">
+        NEWVERSIONINTRODUCTION,
+      </if>
+      <if test="NEWVERSIONDESCRIPTION != null">
+        NEWVERSIONDESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="CONFIGUREID != null">
+        #{CONFIGUREID,jdbcType=VARCHAR},
+      </if>
+      <if test="SOFTID != null">
+        #{SOFTID,jdbcType=VARCHAR},
+      </if>
+      <if test="SCORE != null">
+        #{SCORE,jdbcType=VARCHAR},
+      </if>
+      <if test="LOGO != null">
+        #{LOGO,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSIONTYPE != null">
+        #{VERSIONTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION != null">
+        #{VERSION,jdbcType=VARCHAR},
+      </if>
+      <if test="SOFTTYPE != null">
+        #{SOFTTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="SPAREURL != null">
+        #{SPAREURL,jdbcType=VARCHAR},
+      </if>
+      <if test="OS != null">
+        #{OS,jdbcType=VARCHAR},
+      </if>
+      <if test="WEBSITE != null">
+        #{WEBSITE,jdbcType=VARCHAR},
+      </if>
+      <if test="INTRODUCTION != null">
+        #{INTRODUCTION,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="DESCRIPTION != null">
+        #{DESCRIPTION,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="NEWVERSIONINTRODUCTION != null">
+        #{NEWVERSIONINTRODUCTION,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="NEWVERSIONDESCRIPTION != null">
+        #{NEWVERSIONDESCRIPTION,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.SoftWithBLOBs">
+    update tbl_soft
+    <set>
+      <if test="SOFTID != null">
+        SOFTID = #{SOFTID,jdbcType=VARCHAR},
+      </if>
+      <if test="SCORE != null">
+        SCORE = #{SCORE,jdbcType=VARCHAR},
+      </if>
+      <if test="LOGO != null">
+        LOGO = #{LOGO,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSIONTYPE != null">
+        VERSIONTYPE = #{VERSIONTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION != null">
+        VERSION = #{VERSION,jdbcType=VARCHAR},
+      </if>
+      <if test="SOFTTYPE != null">
+        SOFTTYPE = #{SOFTTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="SPAREURL != null">
+        SPAREURL = #{SPAREURL,jdbcType=VARCHAR},
+      </if>
+      <if test="OS != null">
+        OS = #{OS,jdbcType=VARCHAR},
+      </if>
+      <if test="WEBSITE != null">
+        WEBSITE = #{WEBSITE,jdbcType=VARCHAR},
+      </if>
+      <if test="INTRODUCTION != null">
+        INTRODUCTION = #{INTRODUCTION,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="DESCRIPTION != null">
+        DESCRIPTION = #{DESCRIPTION,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="NEWVERSIONINTRODUCTION != null">
+        NEWVERSIONINTRODUCTION = #{NEWVERSIONINTRODUCTION,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="NEWVERSIONDESCRIPTION != null">
+        NEWVERSIONDESCRIPTION = #{NEWVERSIONDESCRIPTION,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xjtu.iqa.po.SoftWithBLOBs">
+    update tbl_soft
+    set SOFTID = #{SOFTID,jdbcType=VARCHAR},
+      SCORE = #{SCORE,jdbcType=VARCHAR},
+      LOGO = #{LOGO,jdbcType=VARCHAR},
+      VERSIONTYPE = #{VERSIONTYPE,jdbcType=VARCHAR},
+      VERSION = #{VERSION,jdbcType=VARCHAR},
+      SOFTTYPE = #{SOFTTYPE,jdbcType=VARCHAR},
+      SPAREURL = #{SPAREURL,jdbcType=VARCHAR},
+      OS = #{OS,jdbcType=VARCHAR},
+      WEBSITE = #{WEBSITE,jdbcType=VARCHAR},
+      INTRODUCTION = #{INTRODUCTION,jdbcType=LONGVARCHAR},
+      DESCRIPTION = #{DESCRIPTION,jdbcType=LONGVARCHAR},
+      NEWVERSIONINTRODUCTION = #{NEWVERSIONINTRODUCTION,jdbcType=LONGVARCHAR},
+      NEWVERSIONDESCRIPTION = #{NEWVERSIONDESCRIPTION,jdbcType=LONGVARCHAR}
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.Soft">
+    update tbl_soft
+    set SOFTID = #{SOFTID,jdbcType=VARCHAR},
+      SCORE = #{SCORE,jdbcType=VARCHAR},
+      LOGO = #{LOGO,jdbcType=VARCHAR},
+      VERSIONTYPE = #{VERSIONTYPE,jdbcType=VARCHAR},
+      VERSION = #{VERSION,jdbcType=VARCHAR},
+      SOFTTYPE = #{SOFTTYPE,jdbcType=VARCHAR},
+      SPAREURL = #{SPAREURL,jdbcType=VARCHAR},
+      OS = #{OS,jdbcType=VARCHAR},
+      WEBSITE = #{WEBSITE,jdbcType=VARCHAR}
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </update>
+</mapper>

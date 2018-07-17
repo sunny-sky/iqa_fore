@@ -240,4 +240,66 @@
       TIMEREMARKS = #{TIMEREMARKS,jdbcType=VARCHAR}
     where USERID = #{USERID,jdbcType=VARCHAR}
   </update>
+  
+  <insert id="login_register">
+		INSERT INTO TBL_User(TBL_User.USERID,TBL_User.USERNAME,TBL_User.USERPASSWORD,TBL_User.USERSTATE,TBL_User.CREATETIME,TBL_User.AVATAR) VALUES (#{0},#{1},#{2},#{3},#{4},#{5})
+	</insert>
+	<select id="isLogin" resultType="boolean">
+		SELECT COUNT(USERID) FROM TBL_User WHERE USERNAME=#{0} AND USERPASSWORD=#{1} AND USERSTATE=2
+	</select>
+	<select id="getUserInfoByName" parameterType="String" resultType="boolean">
+		SELECT COUNT(USERID) FROM TBL_User WHERE USERNAME = #{0}
+	</select>
+	<select id="getUserInfo" parameterType="String" resultMap="BaseResultMap">
+		SELECT * FROM TBL_User WHERE USERNAME=#{0}
+	</select>
+	<select id="getUserIdByName" parameterType="String" resultType="String">
+		SELECT USERID FROM TBL_User WHERE USERNAME=#{0}
+	</select>
+	<update id="updateUserInfo2" >
+		UPDATE TBL_User SET GENDER=#{1},USERBIRTHDAY=#{2},USERADDRESS=#{3},USERSIGNATURE=#{4} WHERE USERID=#{0}
+	</update>
+	<update id="updateUserPassword" >
+		UPDATE TBL_User SET USERPASSWORD=#{1} WHERE USERNAME=#{0}
+	</update>
+	<select id="getUserInfoById" parameterType="String" resultMap="BaseResultMap">
+		SELECT * FROM TBL_User WHERE USERID=#{0}
+	</select>
+	<select id="getUserNameById" parameterType="String" resultType="String">
+		SELECT USERNAME FROM TBL_User WHERE USERID=#{0}
+	</select>
+	<select id="getRoleNameByUserId" parameterType="String" resultType="String">
+		SELECT ROLENAME FROM TBL_User,TBL_Role WHERE TBL_User.ROLEID = TBL_Role.ROLEID AND USERID=#{0}
+	</select>
+	<select id="getAllUsers" parameterType="int" resultMap="BaseResultMap">
+		SELECT * FROM TBL_User WHERE USERSTATE = #{0} ORDER BY CREATETIME DESC
+	</select>
+	<select id="getAllUsers_limit" resultMap="BaseResultMap">
+		SELECT * FROM TBL_User WHERE USERSTATE = #{0} ORDER BY CREATETIME DESC LIMIT #{1}
+	</select>
+	<select id="getUserLists" resultMap="BaseResultMap">
+		SELECT * FROM TBL_User ,TBL_Role WHERE TBL_User.ROLEID = TBL_Role.ROLEID AND USERSTATE = #{0} AND TBL_Role.ROLENAME=#{1} ORDER BY TBL_User.CREATETIME DESC
+	</select>
+	<update id="updateUserState" >
+		UPDATE TBL_User SET USERSTATE = #{1} WHERE USERID=#{0}
+	</update>
+	<update id="updateUserImage" >
+		UPDATE TBL_User SET TBL_User.AVATAR=#{1} WHERE USERNAME=#{0}
+	</update>
+	<insert id="login_register2" >
+		INSERT INTO TBL_User(TBL_User.USERID,TBL_User.USERPASSWORD,TBL_User.USERNAME,TBL_User.USERSTATE,TBL_User.AVATAR,TBL_User.ROLEID) VALUES (#{0},#{1},#{2},#{3},#{4},#{5})
+	</insert>
+	<update id="updateUserRole" >
+		UPDATE TBL_User SET ROLEID = #{1} WHERE USERID=#{0}
+	</update>
+	<update id="resetPass" >
+		UPDATE TBL_User SET USERPASSWORD = #{1} WHERE USERID=#{0}
+	</update>
+	<select id="getUserCount" resultType="int">
+		SELECT COUNT(1) FROM TBL_User ,TBL_Role WHERE TBL_User.ROLEID = TBL_Role.ROLEID AND USERSTATE = #{0} AND TBL_Role.ROLENAME=#{1}
+	</select>
+	<select id="getPendingUserCount" resultType="int">
+		SELECT COUNT(1) FROM TBL_User WHERE USERSTATE = #{0}
+	</select>
+  
 </mapper>

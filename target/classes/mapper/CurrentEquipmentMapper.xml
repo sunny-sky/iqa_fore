@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.CurrentEquipmentMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.CurrentEquipment">
+    <id column="EQUIPMENTID" jdbcType="VARCHAR" property="EQUIPMENTID" />
+    <result column="MACADDRESS" jdbcType="VARCHAR" property="MACADDRESS" />
+    <result column="EQUIPMENTMODEL" jdbcType="VARCHAR" property="EQUIPMENTMODEL" />
+    <result column="EQUIPMENTTIME" jdbcType="VARCHAR" property="EQUIPMENTTIME" />
+    <result column="IP" jdbcType="VARCHAR" property="IP" />
+    <result column="CPU" jdbcType="VARCHAR" property="CPU" />
+    <result column="RAM" jdbcType="VARCHAR" property="RAM" />
+    <result column="HARDDRIVER" jdbcType="VARCHAR" property="HARDDRIVER" />
+    <result column="HARDDRIVERMODEL" jdbcType="VARCHAR" property="HARDDRIVERMODEL" />
+    <result column="STORAGE" jdbcType="VARCHAR" property="STORAGE" />
+    <result column="NETWORKCARD" jdbcType="VARCHAR" property="NETWORKCARD" />
+    <result column="MOTHERBOARD" jdbcType="VARCHAR" property="MOTHERBOARD" />
+    <result column="OSNAME" jdbcType="VARCHAR" property="OSNAME" />
+    <result column="OSTYPE" jdbcType="VARCHAR" property="OSTYPE" />
+    <result column="OSVERSION" jdbcType="VARCHAR" property="OSVERSION" />
+    <result column="OSID" jdbcType="VARCHAR" property="OSID" />
+    <result column="USERID" jdbcType="VARCHAR" property="USERID" />
+    <result column="ISNOTICE" jdbcType="INTEGER" property="ISNOTICE" />
+    <result column="GRAPHICCARD" jdbcType="VARCHAR" property="GRAPHICCARD" />
+    <result column="AUDIOCARD" jdbcType="VARCHAR" property="AUDIOCARD" />
+    <result column="TIMEREMARKS" jdbcType="VARCHAR" property="TIMEREMARKS" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    EQUIPMENTID, MACADDRESS, EQUIPMENTMODEL, EQUIPMENTTIME, IP, CPU, RAM, HARDDRIVER, 
+    HARDDRIVERMODEL, STORAGE, NETWORKCARD, MOTHERBOARD, OSNAME, OSTYPE, OSVERSION, OSID, 
+    USERID, ISNOTICE, GRAPHICCARD, AUDIOCARD, TIMEREMARKS
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.CurrentEquipmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_currentequipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_currentequipment
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_currentequipment
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.CurrentEquipment">
+    insert into tbl_currentequipment (EQUIPMENTID, MACADDRESS, EQUIPMENTMODEL, 
+      EQUIPMENTTIME, IP, CPU, 
+      RAM, HARDDRIVER, HARDDRIVERMODEL, 
+      STORAGE, NETWORKCARD, MOTHERBOARD, 
+      OSNAME, OSTYPE, OSVERSION, 
+      OSID, USERID, ISNOTICE, 
+      GRAPHICCARD, AUDIOCARD, TIMEREMARKS
+      )
+    values (#{EQUIPMENTID,jdbcType=VARCHAR}, #{MACADDRESS,jdbcType=VARCHAR}, #{EQUIPMENTMODEL,jdbcType=VARCHAR}, 
+      #{EQUIPMENTTIME,jdbcType=VARCHAR}, #{IP,jdbcType=VARCHAR}, #{CPU,jdbcType=VARCHAR}, 
+      #{RAM,jdbcType=VARCHAR}, #{HARDDRIVER,jdbcType=VARCHAR}, #{HARDDRIVERMODEL,jdbcType=VARCHAR}, 
+      #{STORAGE,jdbcType=VARCHAR}, #{NETWORKCARD,jdbcType=VARCHAR}, #{MOTHERBOARD,jdbcType=VARCHAR}, 
+      #{OSNAME,jdbcType=VARCHAR}, #{OSTYPE,jdbcType=VARCHAR}, #{OSVERSION,jdbcType=VARCHAR}, 
+      #{OSID,jdbcType=VARCHAR}, #{USERID,jdbcType=VARCHAR}, #{ISNOTICE,jdbcType=INTEGER}, 
+      #{GRAPHICCARD,jdbcType=VARCHAR}, #{AUDIOCARD,jdbcType=VARCHAR}, #{TIMEREMARKS,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.CurrentEquipment">
+    insert into tbl_currentequipment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="EQUIPMENTID != null">
+        EQUIPMENTID,
+      </if>
+      <if test="MACADDRESS != null">
+        MACADDRESS,
+      </if>
+      <if test="EQUIPMENTMODEL != null">
+        EQUIPMENTMODEL,
+      </if>
+      <if test="EQUIPMENTTIME != null">
+        EQUIPMENTTIME,
+      </if>
+      <if test="IP != null">
+        IP,
+      </if>
+      <if test="CPU != null">
+        CPU,
+      </if>
+      <if test="RAM != null">
+        RAM,
+      </if>
+      <if test="HARDDRIVER != null">
+        HARDDRIVER,
+      </if>
+      <if test="HARDDRIVERMODEL != null">
+        HARDDRIVERMODEL,
+      </if>
+      <if test="STORAGE != null">
+        STORAGE,
+      </if>
+      <if test="NETWORKCARD != null">
+        NETWORKCARD,
+      </if>
+      <if test="MOTHERBOARD != null">
+        MOTHERBOARD,
+      </if>
+      <if test="OSNAME != null">
+        OSNAME,
+      </if>
+      <if test="OSTYPE != null">
+        OSTYPE,
+      </if>
+      <if test="OSVERSION != null">
+        OSVERSION,
+      </if>
+      <if test="OSID != null">
+        OSID,
+      </if>
+      <if test="USERID != null">
+        USERID,
+      </if>
+      <if test="ISNOTICE != null">
+        ISNOTICE,
+      </if>
+      <if test="GRAPHICCARD != null">
+        GRAPHICCARD,
+      </if>
+      <if test="AUDIOCARD != null">
+        AUDIOCARD,
+      </if>
+      <if test="TIMEREMARKS != null">
+        TIMEREMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="EQUIPMENTID != null">
+        #{EQUIPMENTID,jdbcType=VARCHAR},
+      </if>
+      <if test="MACADDRESS != null">
+        #{MACADDRESS,jdbcType=VARCHAR},
+      </if>
+      <if test="EQUIPMENTMODEL != null">
+        #{EQUIPMENTMODEL,jdbcType=VARCHAR},
+      </if>
+      <if test="EQUIPMENTTIME != null">
+        #{EQUIPMENTTIME,jdbcType=VARCHAR},
+      </if>
+      <if test="IP != null">
+        #{IP,jdbcType=VARCHAR},
+      </if>
+      <if test="CPU != null">
+        #{CPU,jdbcType=VARCHAR},
+      </if>
+      <if test="RAM != null">
+        #{RAM,jdbcType=VARCHAR},
+      </if>
+      <if test="HARDDRIVER != null">
+        #{HARDDRIVER,jdbcType=VARCHAR},
+      </if>
+      <if test="HARDDRIVERMODEL != null">
+        #{HARDDRIVERMODEL,jdbcType=VARCHAR},
+      </if>
+      <if test="STORAGE != null">
+        #{STORAGE,jdbcType=VARCHAR},
+      </if>
+      <if test="NETWORKCARD != null">
+        #{NETWORKCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="MOTHERBOARD != null">
+        #{MOTHERBOARD,jdbcType=VARCHAR},
+      </if>
+      <if test="OSNAME != null">
+        #{OSNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="OSTYPE != null">
+        #{OSTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="OSVERSION != null">
+        #{OSVERSION,jdbcType=VARCHAR},
+      </if>
+      <if test="OSID != null">
+        #{OSID,jdbcType=VARCHAR},
+      </if>
+      <if test="USERID != null">
+        #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="ISNOTICE != null">
+        #{ISNOTICE,jdbcType=INTEGER},
+      </if>
+      <if test="GRAPHICCARD != null">
+        #{GRAPHICCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="AUDIOCARD != null">
+        #{AUDIOCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="TIMEREMARKS != null">
+        #{TIMEREMARKS,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.CurrentEquipment">
+    update tbl_currentequipment
+    <set>
+      <if test="MACADDRESS != null">
+        MACADDRESS = #{MACADDRESS,jdbcType=VARCHAR},
+      </if>
+      <if test="EQUIPMENTMODEL != null">
+        EQUIPMENTMODEL = #{EQUIPMENTMODEL,jdbcType=VARCHAR},
+      </if>
+      <if test="EQUIPMENTTIME != null">
+        EQUIPMENTTIME = #{EQUIPMENTTIME,jdbcType=VARCHAR},
+      </if>
+      <if test="IP != null">
+        IP = #{IP,jdbcType=VARCHAR},
+      </if>
+      <if test="CPU != null">
+        CPU = #{CPU,jdbcType=VARCHAR},
+      </if>
+      <if test="RAM != null">
+        RAM = #{RAM,jdbcType=VARCHAR},
+      </if>
+      <if test="HARDDRIVER != null">
+        HARDDRIVER = #{HARDDRIVER,jdbcType=VARCHAR},
+      </if>
+      <if test="HARDDRIVERMODEL != null">
+        HARDDRIVERMODEL = #{HARDDRIVERMODEL,jdbcType=VARCHAR},
+      </if>
+      <if test="STORAGE != null">
+        STORAGE = #{STORAGE,jdbcType=VARCHAR},
+      </if>
+      <if test="NETWORKCARD != null">
+        NETWORKCARD = #{NETWORKCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="MOTHERBOARD != null">
+        MOTHERBOARD = #{MOTHERBOARD,jdbcType=VARCHAR},
+      </if>
+      <if test="OSNAME != null">
+        OSNAME = #{OSNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="OSTYPE != null">
+        OSTYPE = #{OSTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="OSVERSION != null">
+        OSVERSION = #{OSVERSION,jdbcType=VARCHAR},
+      </if>
+      <if test="OSID != null">
+        OSID = #{OSID,jdbcType=VARCHAR},
+      </if>
+      <if test="USERID != null">
+        USERID = #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="ISNOTICE != null">
+        ISNOTICE = #{ISNOTICE,jdbcType=INTEGER},
+      </if>
+      <if test="GRAPHICCARD != null">
+        GRAPHICCARD = #{GRAPHICCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="AUDIOCARD != null">
+        AUDIOCARD = #{AUDIOCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="TIMEREMARKS != null">
+        TIMEREMARKS = #{TIMEREMARKS,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.CurrentEquipment">
+    update tbl_currentequipment
+    set MACADDRESS = #{MACADDRESS,jdbcType=VARCHAR},
+      EQUIPMENTMODEL = #{EQUIPMENTMODEL,jdbcType=VARCHAR},
+      EQUIPMENTTIME = #{EQUIPMENTTIME,jdbcType=VARCHAR},
+      IP = #{IP,jdbcType=VARCHAR},
+      CPU = #{CPU,jdbcType=VARCHAR},
+      RAM = #{RAM,jdbcType=VARCHAR},
+      HARDDRIVER = #{HARDDRIVER,jdbcType=VARCHAR},
+      HARDDRIVERMODEL = #{HARDDRIVERMODEL,jdbcType=VARCHAR},
+      STORAGE = #{STORAGE,jdbcType=VARCHAR},
+      NETWORKCARD = #{NETWORKCARD,jdbcType=VARCHAR},
+      MOTHERBOARD = #{MOTHERBOARD,jdbcType=VARCHAR},
+      OSNAME = #{OSNAME,jdbcType=VARCHAR},
+      OSTYPE = #{OSTYPE,jdbcType=VARCHAR},
+      OSVERSION = #{OSVERSION,jdbcType=VARCHAR},
+      OSID = #{OSID,jdbcType=VARCHAR},
+      USERID = #{USERID,jdbcType=VARCHAR},
+      ISNOTICE = #{ISNOTICE,jdbcType=INTEGER},
+      GRAPHICCARD = #{GRAPHICCARD,jdbcType=VARCHAR},
+      AUDIOCARD = #{AUDIOCARD,jdbcType=VARCHAR},
+      TIMEREMARKS = #{TIMEREMARKS,jdbcType=VARCHAR}
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </update>
+</mapper>

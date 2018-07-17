@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.GeneralUserMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.GeneralUser">
+    <id column="USERID" jdbcType="VARCHAR" property="USERID" />
+    <result column="EMPLOYER" jdbcType="VARCHAR" property="EMPLOYER" />
+    <result column="DEPARTMENT" jdbcType="VARCHAR" property="DEPARTMENT" />
+    <result column="REALNAME" jdbcType="VARCHAR" property="REALNAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    USERID, EMPLOYER, DEPARTMENT, REALNAME
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.GeneralUserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_generaluser
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_generaluser
+    where USERID = #{USERID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_generaluser
+    where USERID = #{USERID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.GeneralUser">
+    insert into tbl_generaluser (USERID, EMPLOYER, DEPARTMENT, 
+      REALNAME)
+    values (#{USERID,jdbcType=VARCHAR}, #{EMPLOYER,jdbcType=VARCHAR}, #{DEPARTMENT,jdbcType=VARCHAR}, 
+      #{REALNAME,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.GeneralUser">
+    insert into tbl_generaluser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="USERID != null">
+        USERID,
+      </if>
+      <if test="EMPLOYER != null">
+        EMPLOYER,
+      </if>
+      <if test="DEPARTMENT != null">
+        DEPARTMENT,
+      </if>
+      <if test="REALNAME != null">
+        REALNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="USERID != null">
+        #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="EMPLOYER != null">
+        #{EMPLOYER,jdbcType=VARCHAR},
+      </if>
+      <if test="DEPARTMENT != null">
+        #{DEPARTMENT,jdbcType=VARCHAR},
+      </if>
+      <if test="REALNAME != null">
+        #{REALNAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.GeneralUser">
+    update tbl_generaluser
+    <set>
+      <if test="EMPLOYER != null">
+        EMPLOYER = #{EMPLOYER,jdbcType=VARCHAR},
+      </if>
+      <if test="DEPARTMENT != null">
+        DEPARTMENT = #{DEPARTMENT,jdbcType=VARCHAR},
+      </if>
+      <if test="REALNAME != null">
+        REALNAME = #{REALNAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USERID = #{USERID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.GeneralUser">
+    update tbl_generaluser
+    set EMPLOYER = #{EMPLOYER,jdbcType=VARCHAR},
+      DEPARTMENT = #{DEPARTMENT,jdbcType=VARCHAR},
+      REALNAME = #{REALNAME,jdbcType=VARCHAR}
+    where USERID = #{USERID,jdbcType=VARCHAR}
+  </update>
+</mapper>

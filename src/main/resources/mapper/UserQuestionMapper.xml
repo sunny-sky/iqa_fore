@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.UserQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.UserQuestion">
+    <id column="USERQUESTIONID" jdbcType="VARCHAR" property="USERQUESTIONID" />
+    <result column="QUESTIONTITLE" jdbcType="VARCHAR" property="QUESTIONTITLE" />
+    <result column="QUESTIONTIME" jdbcType="VARCHAR" property="QUESTIONTIME" />
+    <result column="ISFAQ" jdbcType="INTEGER" property="ISFAQ" />
+    <result column="USERID" jdbcType="VARCHAR" property="USERID" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    USERQUESTIONID, QUESTIONTITLE, QUESTIONTIME, ISFAQ, USERID
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.UserQuestionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_userquestion
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_userquestion
+    where USERQUESTIONID = #{USERQUESTIONID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_userquestion
+    where USERQUESTIONID = #{USERQUESTIONID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.UserQuestion">
+    insert into tbl_userquestion (USERQUESTIONID, QUESTIONTITLE, QUESTIONTIME, 
+      ISFAQ, USERID)
+    values (#{USERQUESTIONID,jdbcType=VARCHAR}, #{QUESTIONTITLE,jdbcType=VARCHAR}, #{QUESTIONTIME,jdbcType=VARCHAR}, 
+      #{ISFAQ,jdbcType=INTEGER}, #{USERID,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.UserQuestion">
+    insert into tbl_userquestion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="USERQUESTIONID != null">
+        USERQUESTIONID,
+      </if>
+      <if test="QUESTIONTITLE != null">
+        QUESTIONTITLE,
+      </if>
+      <if test="QUESTIONTIME != null">
+        QUESTIONTIME,
+      </if>
+      <if test="ISFAQ != null">
+        ISFAQ,
+      </if>
+      <if test="USERID != null">
+        USERID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="USERQUESTIONID != null">
+        #{USERQUESTIONID,jdbcType=VARCHAR},
+      </if>
+      <if test="QUESTIONTITLE != null">
+        #{QUESTIONTITLE,jdbcType=VARCHAR},
+      </if>
+      <if test="QUESTIONTIME != null">
+        #{QUESTIONTIME,jdbcType=VARCHAR},
+      </if>
+      <if test="ISFAQ != null">
+        #{ISFAQ,jdbcType=INTEGER},
+      </if>
+      <if test="USERID != null">
+        #{USERID,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.UserQuestion">
+    update tbl_userquestion
+    <set>
+      <if test="QUESTIONTITLE != null">
+        QUESTIONTITLE = #{QUESTIONTITLE,jdbcType=VARCHAR},
+      </if>
+      <if test="QUESTIONTIME != null">
+        QUESTIONTIME = #{QUESTIONTIME,jdbcType=VARCHAR},
+      </if>
+      <if test="ISFAQ != null">
+        ISFAQ = #{ISFAQ,jdbcType=INTEGER},
+      </if>
+      <if test="USERID != null">
+        USERID = #{USERID,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USERQUESTIONID = #{USERQUESTIONID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.UserQuestion">
+    update tbl_userquestion
+    set QUESTIONTITLE = #{QUESTIONTITLE,jdbcType=VARCHAR},
+      QUESTIONTIME = #{QUESTIONTIME,jdbcType=VARCHAR},
+      ISFAQ = #{ISFAQ,jdbcType=INTEGER},
+      USERID = #{USERID,jdbcType=VARCHAR}
+    where USERQUESTIONID = #{USERQUESTIONID,jdbcType=VARCHAR}
+  </update>
+</mapper>

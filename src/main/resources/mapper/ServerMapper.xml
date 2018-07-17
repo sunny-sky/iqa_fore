@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.ServerMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.Server">
+    <id column="EQUIPMENTID" jdbcType="VARCHAR" property="EQUIPMENTID" />
+    <result column="OSVERSION" jdbcType="VARCHAR" property="OSVERSION" />
+    <result column="COMPUTERNAME" jdbcType="VARCHAR" property="COMPUTERNAME" />
+    <result column="PCI" jdbcType="VARCHAR" property="PCI" />
+    <result column="USB" jdbcType="VARCHAR" property="USB" />
+    <result column="PATH" jdbcType="VARCHAR" property="PATH" />
+    <result column="RAM_EXCHANGEAREAUSE" jdbcType="VARCHAR" property="RAM_EXCHANGEAREAUSE" />
+    <result column="PARTATIONUSE" jdbcType="VARCHAR" property="PARTATIONUSE" />
+    <result column="IDLERAM" jdbcType="VARCHAR" property="IDLERAM" />
+    <result column="OS_TIME_USERNUM_LOAD" jdbcType="VARCHAR" property="OS_TIME_USERNUM_LOAD" />
+    <result column="OSLOAD" jdbcType="VARCHAR" property="OSLOAD" />
+    <result column="FIREWALL" jdbcType="VARCHAR" property="FIREWALL" />
+    <result column="ROUTINGTABLE" jdbcType="VARCHAR" property="ROUTINGTABLE" />
+    <result column="HASCONTACT" jdbcType="VARCHAR" property="HASCONTACT" />
+    <result column="NETWORK" jdbcType="VARCHAR" property="NETWORK" />
+    <result column="PROCESS" jdbcType="VARCHAR" property="PROCESS" />
+    <result column="REALTIMEPROCESS" jdbcType="VARCHAR" property="REALTIMEPROCESS" />
+    <result column="ACTIVEUSER" jdbcType="VARCHAR" property="ACTIVEUSER" />
+    <result column="BIOS" jdbcType="VARCHAR" property="BIOS" />
+    <result column="NETWORKCARD" jdbcType="VARCHAR" property="NETWORKCARD" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    EQUIPMENTID, OSVERSION, COMPUTERNAME, PCI, USB, PATH, RAM_EXCHANGEAREAUSE, PARTATIONUSE, 
+    IDLERAM, OS_TIME_USERNUM_LOAD, OSLOAD, FIREWALL, ROUTINGTABLE, HASCONTACT, NETWORK, 
+    PROCESS, REALTIMEPROCESS, ACTIVEUSER, BIOS, NETWORKCARD
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.ServerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_server
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_server
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_server
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.Server">
+    insert into tbl_server (EQUIPMENTID, OSVERSION, COMPUTERNAME, 
+      PCI, USB, PATH, RAM_EXCHANGEAREAUSE, 
+      PARTATIONUSE, IDLERAM, OS_TIME_USERNUM_LOAD, 
+      OSLOAD, FIREWALL, ROUTINGTABLE, 
+      HASCONTACT, NETWORK, PROCESS, 
+      REALTIMEPROCESS, ACTIVEUSER, BIOS, 
+      NETWORKCARD)
+    values (#{EQUIPMENTID,jdbcType=VARCHAR}, #{OSVERSION,jdbcType=VARCHAR}, #{COMPUTERNAME,jdbcType=VARCHAR}, 
+      #{PCI,jdbcType=VARCHAR}, #{USB,jdbcType=VARCHAR}, #{PATH,jdbcType=VARCHAR}, #{RAM_EXCHANGEAREAUSE,jdbcType=VARCHAR}, 
+      #{PARTATIONUSE,jdbcType=VARCHAR}, #{IDLERAM,jdbcType=VARCHAR}, #{OS_TIME_USERNUM_LOAD,jdbcType=VARCHAR}, 
+      #{OSLOAD,jdbcType=VARCHAR}, #{FIREWALL,jdbcType=VARCHAR}, #{ROUTINGTABLE,jdbcType=VARCHAR}, 
+      #{HASCONTACT,jdbcType=VARCHAR}, #{NETWORK,jdbcType=VARCHAR}, #{PROCESS,jdbcType=VARCHAR}, 
+      #{REALTIMEPROCESS,jdbcType=VARCHAR}, #{ACTIVEUSER,jdbcType=VARCHAR}, #{BIOS,jdbcType=VARCHAR}, 
+      #{NETWORKCARD,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.Server">
+    insert into tbl_server
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="EQUIPMENTID != null">
+        EQUIPMENTID,
+      </if>
+      <if test="OSVERSION != null">
+        OSVERSION,
+      </if>
+      <if test="COMPUTERNAME != null">
+        COMPUTERNAME,
+      </if>
+      <if test="PCI != null">
+        PCI,
+      </if>
+      <if test="USB != null">
+        USB,
+      </if>
+      <if test="PATH != null">
+        PATH,
+      </if>
+      <if test="RAM_EXCHANGEAREAUSE != null">
+        RAM_EXCHANGEAREAUSE,
+      </if>
+      <if test="PARTATIONUSE != null">
+        PARTATIONUSE,
+      </if>
+      <if test="IDLERAM != null">
+        IDLERAM,
+      </if>
+      <if test="OS_TIME_USERNUM_LOAD != null">
+        OS_TIME_USERNUM_LOAD,
+      </if>
+      <if test="OSLOAD != null">
+        OSLOAD,
+      </if>
+      <if test="FIREWALL != null">
+        FIREWALL,
+      </if>
+      <if test="ROUTINGTABLE != null">
+        ROUTINGTABLE,
+      </if>
+      <if test="HASCONTACT != null">
+        HASCONTACT,
+      </if>
+      <if test="NETWORK != null">
+        NETWORK,
+      </if>
+      <if test="PROCESS != null">
+        PROCESS,
+      </if>
+      <if test="REALTIMEPROCESS != null">
+        REALTIMEPROCESS,
+      </if>
+      <if test="ACTIVEUSER != null">
+        ACTIVEUSER,
+      </if>
+      <if test="BIOS != null">
+        BIOS,
+      </if>
+      <if test="NETWORKCARD != null">
+        NETWORKCARD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="EQUIPMENTID != null">
+        #{EQUIPMENTID,jdbcType=VARCHAR},
+      </if>
+      <if test="OSVERSION != null">
+        #{OSVERSION,jdbcType=VARCHAR},
+      </if>
+      <if test="COMPUTERNAME != null">
+        #{COMPUTERNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="PCI != null">
+        #{PCI,jdbcType=VARCHAR},
+      </if>
+      <if test="USB != null">
+        #{USB,jdbcType=VARCHAR},
+      </if>
+      <if test="PATH != null">
+        #{PATH,jdbcType=VARCHAR},
+      </if>
+      <if test="RAM_EXCHANGEAREAUSE != null">
+        #{RAM_EXCHANGEAREAUSE,jdbcType=VARCHAR},
+      </if>
+      <if test="PARTATIONUSE != null">
+        #{PARTATIONUSE,jdbcType=VARCHAR},
+      </if>
+      <if test="IDLERAM != null">
+        #{IDLERAM,jdbcType=VARCHAR},
+      </if>
+      <if test="OS_TIME_USERNUM_LOAD != null">
+        #{OS_TIME_USERNUM_LOAD,jdbcType=VARCHAR},
+      </if>
+      <if test="OSLOAD != null">
+        #{OSLOAD,jdbcType=VARCHAR},
+      </if>
+      <if test="FIREWALL != null">
+        #{FIREWALL,jdbcType=VARCHAR},
+      </if>
+      <if test="ROUTINGTABLE != null">
+        #{ROUTINGTABLE,jdbcType=VARCHAR},
+      </if>
+      <if test="HASCONTACT != null">
+        #{HASCONTACT,jdbcType=VARCHAR},
+      </if>
+      <if test="NETWORK != null">
+        #{NETWORK,jdbcType=VARCHAR},
+      </if>
+      <if test="PROCESS != null">
+        #{PROCESS,jdbcType=VARCHAR},
+      </if>
+      <if test="REALTIMEPROCESS != null">
+        #{REALTIMEPROCESS,jdbcType=VARCHAR},
+      </if>
+      <if test="ACTIVEUSER != null">
+        #{ACTIVEUSER,jdbcType=VARCHAR},
+      </if>
+      <if test="BIOS != null">
+        #{BIOS,jdbcType=VARCHAR},
+      </if>
+      <if test="NETWORKCARD != null">
+        #{NETWORKCARD,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.Server">
+    update tbl_server
+    <set>
+      <if test="OSVERSION != null">
+        OSVERSION = #{OSVERSION,jdbcType=VARCHAR},
+      </if>
+      <if test="COMPUTERNAME != null">
+        COMPUTERNAME = #{COMPUTERNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="PCI != null">
+        PCI = #{PCI,jdbcType=VARCHAR},
+      </if>
+      <if test="USB != null">
+        USB = #{USB,jdbcType=VARCHAR},
+      </if>
+      <if test="PATH != null">
+        PATH = #{PATH,jdbcType=VARCHAR},
+      </if>
+      <if test="RAM_EXCHANGEAREAUSE != null">
+        RAM_EXCHANGEAREAUSE = #{RAM_EXCHANGEAREAUSE,jdbcType=VARCHAR},
+      </if>
+      <if test="PARTATIONUSE != null">
+        PARTATIONUSE = #{PARTATIONUSE,jdbcType=VARCHAR},
+      </if>
+      <if test="IDLERAM != null">
+        IDLERAM = #{IDLERAM,jdbcType=VARCHAR},
+      </if>
+      <if test="OS_TIME_USERNUM_LOAD != null">
+        OS_TIME_USERNUM_LOAD = #{OS_TIME_USERNUM_LOAD,jdbcType=VARCHAR},
+      </if>
+      <if test="OSLOAD != null">
+        OSLOAD = #{OSLOAD,jdbcType=VARCHAR},
+      </if>
+      <if test="FIREWALL != null">
+        FIREWALL = #{FIREWALL,jdbcType=VARCHAR},
+      </if>
+      <if test="ROUTINGTABLE != null">
+        ROUTINGTABLE = #{ROUTINGTABLE,jdbcType=VARCHAR},
+      </if>
+      <if test="HASCONTACT != null">
+        HASCONTACT = #{HASCONTACT,jdbcType=VARCHAR},
+      </if>
+      <if test="NETWORK != null">
+        NETWORK = #{NETWORK,jdbcType=VARCHAR},
+      </if>
+      <if test="PROCESS != null">
+        PROCESS = #{PROCESS,jdbcType=VARCHAR},
+      </if>
+      <if test="REALTIMEPROCESS != null">
+        REALTIMEPROCESS = #{REALTIMEPROCESS,jdbcType=VARCHAR},
+      </if>
+      <if test="ACTIVEUSER != null">
+        ACTIVEUSER = #{ACTIVEUSER,jdbcType=VARCHAR},
+      </if>
+      <if test="BIOS != null">
+        BIOS = #{BIOS,jdbcType=VARCHAR},
+      </if>
+      <if test="NETWORKCARD != null">
+        NETWORKCARD = #{NETWORKCARD,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.Server">
+    update tbl_server
+    set OSVERSION = #{OSVERSION,jdbcType=VARCHAR},
+      COMPUTERNAME = #{COMPUTERNAME,jdbcType=VARCHAR},
+      PCI = #{PCI,jdbcType=VARCHAR},
+      USB = #{USB,jdbcType=VARCHAR},
+      PATH = #{PATH,jdbcType=VARCHAR},
+      RAM_EXCHANGEAREAUSE = #{RAM_EXCHANGEAREAUSE,jdbcType=VARCHAR},
+      PARTATIONUSE = #{PARTATIONUSE,jdbcType=VARCHAR},
+      IDLERAM = #{IDLERAM,jdbcType=VARCHAR},
+      OS_TIME_USERNUM_LOAD = #{OS_TIME_USERNUM_LOAD,jdbcType=VARCHAR},
+      OSLOAD = #{OSLOAD,jdbcType=VARCHAR},
+      FIREWALL = #{FIREWALL,jdbcType=VARCHAR},
+      ROUTINGTABLE = #{ROUTINGTABLE,jdbcType=VARCHAR},
+      HASCONTACT = #{HASCONTACT,jdbcType=VARCHAR},
+      NETWORK = #{NETWORK,jdbcType=VARCHAR},
+      PROCESS = #{PROCESS,jdbcType=VARCHAR},
+      REALTIMEPROCESS = #{REALTIMEPROCESS,jdbcType=VARCHAR},
+      ACTIVEUSER = #{ACTIVEUSER,jdbcType=VARCHAR},
+      BIOS = #{BIOS,jdbcType=VARCHAR},
+      NETWORKCARD = #{NETWORKCARD,jdbcType=VARCHAR}
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </update>
+</mapper>

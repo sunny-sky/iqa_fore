@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.CommunityQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.CommunityQuestion">
+    <id column="COMMUNITYQUESTIONID" jdbcType="VARCHAR" property="COMMUNITYQUESTIONID" />
+    <result column="TIME" jdbcType="VARCHAR" property="TIME" />
+    <result column="TITLE" jdbcType="VARCHAR" property="TITLE" />
+    <result column="CLASSIFYID" jdbcType="VARCHAR" property="CLASSIFYID" />
+    <result column="USERID" jdbcType="VARCHAR" property="USERID" />
+    <result column="SCAN" jdbcType="VARCHAR" property="SCAN" />
+    <result column="QUESTIONSTATE" jdbcType="INTEGER" property="QUESTIONSTATE" />
+    <result column="ISANSWER" jdbcType="INTEGER" property="ISANSWER" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xjtu.iqa.po.CommunityQuestion">
+    <result column="CONTENT" jdbcType="LONGVARCHAR" property="CONTENT" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    COMMUNITYQUESTIONID, TIME, TITLE, CLASSIFYID, USERID, SCAN, QUESTIONSTATE, ISANSWER
+  </sql>
+  <sql id="Blob_Column_List">
+    CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.xjtu.iqa.po.CommunityQuestionExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_communityquestion
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.CommunityQuestionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_communityquestion
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_communityquestion
+    where COMMUNITYQUESTIONID = #{COMMUNITYQUESTIONID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_communityquestion
+    where COMMUNITYQUESTIONID = #{COMMUNITYQUESTIONID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.CommunityQuestion">
+    insert into tbl_communityquestion (COMMUNITYQUESTIONID, TIME, TITLE, 
+      CLASSIFYID, USERID, SCAN, 
+      QUESTIONSTATE, ISANSWER, CONTENT
+      )
+    values (#{COMMUNITYQUESTIONID,jdbcType=VARCHAR}, #{TIME,jdbcType=VARCHAR}, #{TITLE,jdbcType=VARCHAR}, 
+      #{CLASSIFYID,jdbcType=VARCHAR}, #{USERID,jdbcType=VARCHAR}, #{SCAN,jdbcType=VARCHAR}, 
+      #{QUESTIONSTATE,jdbcType=INTEGER}, #{ISANSWER,jdbcType=INTEGER}, #{CONTENT,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.CommunityQuestion">
+    insert into tbl_communityquestion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="COMMUNITYQUESTIONID != null">
+        COMMUNITYQUESTIONID,
+      </if>
+      <if test="TIME != null">
+        TIME,
+      </if>
+      <if test="TITLE != null">
+        TITLE,
+      </if>
+      <if test="CLASSIFYID != null">
+        CLASSIFYID,
+      </if>
+      <if test="USERID != null">
+        USERID,
+      </if>
+      <if test="SCAN != null">
+        SCAN,
+      </if>
+      <if test="QUESTIONSTATE != null">
+        QUESTIONSTATE,
+      </if>
+      <if test="ISANSWER != null">
+        ISANSWER,
+      </if>
+      <if test="CONTENT != null">
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="COMMUNITYQUESTIONID != null">
+        #{COMMUNITYQUESTIONID,jdbcType=VARCHAR},
+      </if>
+      <if test="TIME != null">
+        #{TIME,jdbcType=VARCHAR},
+      </if>
+      <if test="TITLE != null">
+        #{TITLE,jdbcType=VARCHAR},
+      </if>
+      <if test="CLASSIFYID != null">
+        #{CLASSIFYID,jdbcType=VARCHAR},
+      </if>
+      <if test="USERID != null">
+        #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="SCAN != null">
+        #{SCAN,jdbcType=VARCHAR},
+      </if>
+      <if test="QUESTIONSTATE != null">
+        #{QUESTIONSTATE,jdbcType=INTEGER},
+      </if>
+      <if test="ISANSWER != null">
+        #{ISANSWER,jdbcType=INTEGER},
+      </if>
+      <if test="CONTENT != null">
+        #{CONTENT,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.CommunityQuestion">
+    update tbl_communityquestion
+    <set>
+      <if test="TIME != null">
+        TIME = #{TIME,jdbcType=VARCHAR},
+      </if>
+      <if test="TITLE != null">
+        TITLE = #{TITLE,jdbcType=VARCHAR},
+      </if>
+      <if test="CLASSIFYID != null">
+        CLASSIFYID = #{CLASSIFYID,jdbcType=VARCHAR},
+      </if>
+      <if test="USERID != null">
+        USERID = #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="SCAN != null">
+        SCAN = #{SCAN,jdbcType=VARCHAR},
+      </if>
+      <if test="QUESTIONSTATE != null">
+        QUESTIONSTATE = #{QUESTIONSTATE,jdbcType=INTEGER},
+      </if>
+      <if test="ISANSWER != null">
+        ISANSWER = #{ISANSWER,jdbcType=INTEGER},
+      </if>
+      <if test="CONTENT != null">
+        CONTENT = #{CONTENT,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where COMMUNITYQUESTIONID = #{COMMUNITYQUESTIONID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xjtu.iqa.po.CommunityQuestion">
+    update tbl_communityquestion
+    set TIME = #{TIME,jdbcType=VARCHAR},
+      TITLE = #{TITLE,jdbcType=VARCHAR},
+      CLASSIFYID = #{CLASSIFYID,jdbcType=VARCHAR},
+      USERID = #{USERID,jdbcType=VARCHAR},
+      SCAN = #{SCAN,jdbcType=VARCHAR},
+      QUESTIONSTATE = #{QUESTIONSTATE,jdbcType=INTEGER},
+      ISANSWER = #{ISANSWER,jdbcType=INTEGER},
+      CONTENT = #{CONTENT,jdbcType=LONGVARCHAR}
+    where COMMUNITYQUESTIONID = #{COMMUNITYQUESTIONID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.CommunityQuestion">
+    update tbl_communityquestion
+    set TIME = #{TIME,jdbcType=VARCHAR},
+      TITLE = #{TITLE,jdbcType=VARCHAR},
+      CLASSIFYID = #{CLASSIFYID,jdbcType=VARCHAR},
+      USERID = #{USERID,jdbcType=VARCHAR},
+      SCAN = #{SCAN,jdbcType=VARCHAR},
+      QUESTIONSTATE = #{QUESTIONSTATE,jdbcType=INTEGER},
+      ISANSWER = #{ISANSWER,jdbcType=INTEGER}
+    where COMMUNITYQUESTIONID = #{COMMUNITYQUESTIONID,jdbcType=VARCHAR}
+  </update>
+</mapper>

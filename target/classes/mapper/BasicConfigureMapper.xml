@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.BasicConfigureMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.BasicConfigure">
+    <id column="BASICCONFIGURE" jdbcType="VARCHAR" property="BASICCONFIGURE" />
+    <result column="CONFIGUREID" jdbcType="VARCHAR" property="CONFIGUREID" />
+    <result column="DEPARTMENTID" jdbcType="VARCHAR" property="DEPARTMENTID" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    BASICCONFIGURE, CONFIGUREID, DEPARTMENTID
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.BasicConfigureExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_basicconfigure
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_basicconfigure
+    where BASICCONFIGURE = #{BASICCONFIGURE,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_basicconfigure
+    where BASICCONFIGURE = #{BASICCONFIGURE,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.BasicConfigure">
+    insert into tbl_basicconfigure (BASICCONFIGURE, CONFIGUREID, DEPARTMENTID
+      )
+    values (#{BASICCONFIGURE,jdbcType=VARCHAR}, #{CONFIGUREID,jdbcType=VARCHAR}, #{DEPARTMENTID,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.BasicConfigure">
+    insert into tbl_basicconfigure
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="BASICCONFIGURE != null">
+        BASICCONFIGURE,
+      </if>
+      <if test="CONFIGUREID != null">
+        CONFIGUREID,
+      </if>
+      <if test="DEPARTMENTID != null">
+        DEPARTMENTID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="BASICCONFIGURE != null">
+        #{BASICCONFIGURE,jdbcType=VARCHAR},
+      </if>
+      <if test="CONFIGUREID != null">
+        #{CONFIGUREID,jdbcType=VARCHAR},
+      </if>
+      <if test="DEPARTMENTID != null">
+        #{DEPARTMENTID,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.BasicConfigure">
+    update tbl_basicconfigure
+    <set>
+      <if test="CONFIGUREID != null">
+        CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR},
+      </if>
+      <if test="DEPARTMENTID != null">
+        DEPARTMENTID = #{DEPARTMENTID,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BASICCONFIGURE = #{BASICCONFIGURE,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.BasicConfigure">
+    update tbl_basicconfigure
+    set CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR},
+      DEPARTMENTID = #{DEPARTMENTID,jdbcType=VARCHAR}
+    where BASICCONFIGURE = #{BASICCONFIGURE,jdbcType=VARCHAR}
+  </update>
+</mapper>

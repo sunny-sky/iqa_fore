@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.PatchMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.Patch">
+    <id column="CONFIGUREID" jdbcType="VARCHAR" property="CONFIGUREID" />
+    <result column="PATCHNUMBER" jdbcType="VARCHAR" property="PATCHNUMBER" />
+    <result column="LANGUAGE" jdbcType="VARCHAR" property="LANGUAGE" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xjtu.iqa.po.PatchWithBLOBs">
+    <result column="OS" jdbcType="LONGVARCHAR" property="OS" />
+    <result column="PATCHINTRODUCTION" jdbcType="LONGVARCHAR" property="PATCHINTRODUCTION" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CONFIGUREID, PATCHNUMBER, LANGUAGE
+  </sql>
+  <sql id="Blob_Column_List">
+    OS, PATCHINTRODUCTION
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.xjtu.iqa.po.PatchExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_patch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.PatchExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_patch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_patch
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_patch
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.PatchWithBLOBs">
+    insert into tbl_patch (CONFIGUREID, PATCHNUMBER, LANGUAGE, 
+      OS, PATCHINTRODUCTION)
+    values (#{CONFIGUREID,jdbcType=VARCHAR}, #{PATCHNUMBER,jdbcType=VARCHAR}, #{LANGUAGE,jdbcType=VARCHAR}, 
+      #{OS,jdbcType=LONGVARCHAR}, #{PATCHINTRODUCTION,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.PatchWithBLOBs">
+    insert into tbl_patch
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="CONFIGUREID != null">
+        CONFIGUREID,
+      </if>
+      <if test="PATCHNUMBER != null">
+        PATCHNUMBER,
+      </if>
+      <if test="LANGUAGE != null">
+        LANGUAGE,
+      </if>
+      <if test="OS != null">
+        OS,
+      </if>
+      <if test="PATCHINTRODUCTION != null">
+        PATCHINTRODUCTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="CONFIGUREID != null">
+        #{CONFIGUREID,jdbcType=VARCHAR},
+      </if>
+      <if test="PATCHNUMBER != null">
+        #{PATCHNUMBER,jdbcType=VARCHAR},
+      </if>
+      <if test="LANGUAGE != null">
+        #{LANGUAGE,jdbcType=VARCHAR},
+      </if>
+      <if test="OS != null">
+        #{OS,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="PATCHINTRODUCTION != null">
+        #{PATCHINTRODUCTION,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.PatchWithBLOBs">
+    update tbl_patch
+    <set>
+      <if test="PATCHNUMBER != null">
+        PATCHNUMBER = #{PATCHNUMBER,jdbcType=VARCHAR},
+      </if>
+      <if test="LANGUAGE != null">
+        LANGUAGE = #{LANGUAGE,jdbcType=VARCHAR},
+      </if>
+      <if test="OS != null">
+        OS = #{OS,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="PATCHINTRODUCTION != null">
+        PATCHINTRODUCTION = #{PATCHINTRODUCTION,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xjtu.iqa.po.PatchWithBLOBs">
+    update tbl_patch
+    set PATCHNUMBER = #{PATCHNUMBER,jdbcType=VARCHAR},
+      LANGUAGE = #{LANGUAGE,jdbcType=VARCHAR},
+      OS = #{OS,jdbcType=LONGVARCHAR},
+      PATCHINTRODUCTION = #{PATCHINTRODUCTION,jdbcType=LONGVARCHAR}
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.Patch">
+    update tbl_patch
+    set PATCHNUMBER = #{PATCHNUMBER,jdbcType=VARCHAR},
+      LANGUAGE = #{LANGUAGE,jdbcType=VARCHAR}
+    where CONFIGUREID = #{CONFIGUREID,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.ComputerMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.Computer">
+    <id column="EQUIPMENTID" jdbcType="VARCHAR" property="EQUIPMENTID" />
+    <result column="GRAPHICCARD" jdbcType="VARCHAR" property="GRAPHICCARD" />
+    <result column="AUDIOCARD" jdbcType="VARCHAR" property="AUDIOCARD" />
+    <result column="NETWORKCARD" jdbcType="VARCHAR" property="NETWORKCARD" />
+    <result column="MOTHERBOARD" jdbcType="VARCHAR" property="MOTHERBOARD" />
+    <result column="OSNAME" jdbcType="VARCHAR" property="OSNAME" />
+    <result column="OSID" jdbcType="VARCHAR" property="OSID" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    EQUIPMENTID, GRAPHICCARD, AUDIOCARD, NETWORKCARD, MOTHERBOARD, OSNAME, OSID
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.ComputerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_computer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_computer
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_computer
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.Computer">
+    insert into tbl_computer (EQUIPMENTID, GRAPHICCARD, AUDIOCARD, 
+      NETWORKCARD, MOTHERBOARD, OSNAME, 
+      OSID)
+    values (#{EQUIPMENTID,jdbcType=VARCHAR}, #{GRAPHICCARD,jdbcType=VARCHAR}, #{AUDIOCARD,jdbcType=VARCHAR}, 
+      #{NETWORKCARD,jdbcType=VARCHAR}, #{MOTHERBOARD,jdbcType=VARCHAR}, #{OSNAME,jdbcType=VARCHAR}, 
+      #{OSID,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.Computer">
+    insert into tbl_computer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="EQUIPMENTID != null">
+        EQUIPMENTID,
+      </if>
+      <if test="GRAPHICCARD != null">
+        GRAPHICCARD,
+      </if>
+      <if test="AUDIOCARD != null">
+        AUDIOCARD,
+      </if>
+      <if test="NETWORKCARD != null">
+        NETWORKCARD,
+      </if>
+      <if test="MOTHERBOARD != null">
+        MOTHERBOARD,
+      </if>
+      <if test="OSNAME != null">
+        OSNAME,
+      </if>
+      <if test="OSID != null">
+        OSID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="EQUIPMENTID != null">
+        #{EQUIPMENTID,jdbcType=VARCHAR},
+      </if>
+      <if test="GRAPHICCARD != null">
+        #{GRAPHICCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="AUDIOCARD != null">
+        #{AUDIOCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="NETWORKCARD != null">
+        #{NETWORKCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="MOTHERBOARD != null">
+        #{MOTHERBOARD,jdbcType=VARCHAR},
+      </if>
+      <if test="OSNAME != null">
+        #{OSNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="OSID != null">
+        #{OSID,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.Computer">
+    update tbl_computer
+    <set>
+      <if test="GRAPHICCARD != null">
+        GRAPHICCARD = #{GRAPHICCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="AUDIOCARD != null">
+        AUDIOCARD = #{AUDIOCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="NETWORKCARD != null">
+        NETWORKCARD = #{NETWORKCARD,jdbcType=VARCHAR},
+      </if>
+      <if test="MOTHERBOARD != null">
+        MOTHERBOARD = #{MOTHERBOARD,jdbcType=VARCHAR},
+      </if>
+      <if test="OSNAME != null">
+        OSNAME = #{OSNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="OSID != null">
+        OSID = #{OSID,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.Computer">
+    update tbl_computer
+    set GRAPHICCARD = #{GRAPHICCARD,jdbcType=VARCHAR},
+      AUDIOCARD = #{AUDIOCARD,jdbcType=VARCHAR},
+      NETWORKCARD = #{NETWORKCARD,jdbcType=VARCHAR},
+      MOTHERBOARD = #{MOTHERBOARD,jdbcType=VARCHAR},
+      OSNAME = #{OSNAME,jdbcType=VARCHAR},
+      OSID = #{OSID,jdbcType=VARCHAR}
+    where EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR}
+  </update>
+</mapper>

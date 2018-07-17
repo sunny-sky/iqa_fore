@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.Department">
+    <id column="DEPARTMENTID" jdbcType="VARCHAR" property="DEPARTMENTID" />
+    <result column="DEPARTMENTNAME" jdbcType="VARCHAR" property="DEPARTMENTNAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DEPARTMENTID, DEPARTMENTNAME
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.DepartmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_department
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_department
+    where DEPARTMENTID = #{DEPARTMENTID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_department
+    where DEPARTMENTID = #{DEPARTMENTID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.Department">
+    insert into tbl_department (DEPARTMENTID, DEPARTMENTNAME)
+    values (#{DEPARTMENTID,jdbcType=VARCHAR}, #{DEPARTMENTNAME,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.Department">
+    insert into tbl_department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="DEPARTMENTID != null">
+        DEPARTMENTID,
+      </if>
+      <if test="DEPARTMENTNAME != null">
+        DEPARTMENTNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="DEPARTMENTID != null">
+        #{DEPARTMENTID,jdbcType=VARCHAR},
+      </if>
+      <if test="DEPARTMENTNAME != null">
+        #{DEPARTMENTNAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.Department">
+    update tbl_department
+    <set>
+      <if test="DEPARTMENTNAME != null">
+        DEPARTMENTNAME = #{DEPARTMENTNAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DEPARTMENTID = #{DEPARTMENTID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.Department">
+    update tbl_department
+    set DEPARTMENTNAME = #{DEPARTMENTNAME,jdbcType=VARCHAR}
+    where DEPARTMENTID = #{DEPARTMENTID,jdbcType=VARCHAR}
+  </update>
+</mapper>

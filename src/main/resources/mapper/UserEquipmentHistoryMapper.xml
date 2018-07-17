@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtu.iqa.mapper.UserEquipmentHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.xjtu.iqa.po.UserEquipmentHistory">
+    <id column="USEREQUIPMENTHISTORYID" jdbcType="VARCHAR" property="USEREQUIPMENTHISTORYID" />
+    <result column="USERID" jdbcType="VARCHAR" property="USERID" />
+    <result column="EQUIPMENTID" jdbcType="VARCHAR" property="EQUIPMENTID" />
+    <result column="ALLOCATIONSTARTTIME" jdbcType="VARCHAR" property="ALLOCATIONSTARTTIME" />
+    <result column="ALLOCATIONENDTIME" jdbcType="VARCHAR" property="ALLOCATIONENDTIME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    USEREQUIPMENTHISTORYID, USERID, EQUIPMENTID, ALLOCATIONSTARTTIME, ALLOCATIONENDTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.xjtu.iqa.po.UserEquipmentHistoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_user_equipment_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_user_equipment_history
+    where USEREQUIPMENTHISTORYID = #{USEREQUIPMENTHISTORYID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_user_equipment_history
+    where USEREQUIPMENTHISTORYID = #{USEREQUIPMENTHISTORYID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xjtu.iqa.po.UserEquipmentHistory">
+    insert into tbl_user_equipment_history (USEREQUIPMENTHISTORYID, USERID, EQUIPMENTID, 
+      ALLOCATIONSTARTTIME, ALLOCATIONENDTIME)
+    values (#{USEREQUIPMENTHISTORYID,jdbcType=VARCHAR}, #{USERID,jdbcType=VARCHAR}, #{EQUIPMENTID,jdbcType=VARCHAR}, 
+      #{ALLOCATIONSTARTTIME,jdbcType=VARCHAR}, #{ALLOCATIONENDTIME,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xjtu.iqa.po.UserEquipmentHistory">
+    insert into tbl_user_equipment_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="USEREQUIPMENTHISTORYID != null">
+        USEREQUIPMENTHISTORYID,
+      </if>
+      <if test="USERID != null">
+        USERID,
+      </if>
+      <if test="EQUIPMENTID != null">
+        EQUIPMENTID,
+      </if>
+      <if test="ALLOCATIONSTARTTIME != null">
+        ALLOCATIONSTARTTIME,
+      </if>
+      <if test="ALLOCATIONENDTIME != null">
+        ALLOCATIONENDTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="USEREQUIPMENTHISTORYID != null">
+        #{USEREQUIPMENTHISTORYID,jdbcType=VARCHAR},
+      </if>
+      <if test="USERID != null">
+        #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="EQUIPMENTID != null">
+        #{EQUIPMENTID,jdbcType=VARCHAR},
+      </if>
+      <if test="ALLOCATIONSTARTTIME != null">
+        #{ALLOCATIONSTARTTIME,jdbcType=VARCHAR},
+      </if>
+      <if test="ALLOCATIONENDTIME != null">
+        #{ALLOCATIONENDTIME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xjtu.iqa.po.UserEquipmentHistory">
+    update tbl_user_equipment_history
+    <set>
+      <if test="USERID != null">
+        USERID = #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="EQUIPMENTID != null">
+        EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR},
+      </if>
+      <if test="ALLOCATIONSTARTTIME != null">
+        ALLOCATIONSTARTTIME = #{ALLOCATIONSTARTTIME,jdbcType=VARCHAR},
+      </if>
+      <if test="ALLOCATIONENDTIME != null">
+        ALLOCATIONENDTIME = #{ALLOCATIONENDTIME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USEREQUIPMENTHISTORYID = #{USEREQUIPMENTHISTORYID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xjtu.iqa.po.UserEquipmentHistory">
+    update tbl_user_equipment_history
+    set USERID = #{USERID,jdbcType=VARCHAR},
+      EQUIPMENTID = #{EQUIPMENTID,jdbcType=VARCHAR},
+      ALLOCATIONSTARTTIME = #{ALLOCATIONSTARTTIME,jdbcType=VARCHAR},
+      ALLOCATIONENDTIME = #{ALLOCATIONENDTIME,jdbcType=VARCHAR}
+    where USEREQUIPMENTHISTORYID = #{USEREQUIPMENTHISTORYID,jdbcType=VARCHAR}
+  </update>
+</mapper>
