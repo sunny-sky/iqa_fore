@@ -112,4 +112,9 @@
       WORKAGE = #{WORKAGE,jdbcType=VARCHAR}
     where USERID = #{USERID,jdbcType=VARCHAR}
   </update>
+  
+  <select id="IT" resultMap="BaseResultMap">
+  	SELECT * FROM TBL_IT WHERE USERID=#{0}
+  </select>
+  
 </mapper>

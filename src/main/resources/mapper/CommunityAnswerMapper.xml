@@ -191,4 +191,61 @@
       ISNOTICE = #{ISNOTICE,jdbcType=INTEGER}
     where COMMUNITYANSWERID = #{COMMUNITYANSWERID,jdbcType=VARCHAR}
   </update>
+  
+  <select id="question_CommunityAnswer" parameterType="String"
+		resultMap="BaseResultMap">
+		SELECT * FROM TBL_CommunityAnswer WHERE COMMUNITYQUESTIONID=#{0}
+	</select>
+	<select id="question_CommunityAnswerCount" parameterType="String"
+		resultType="int">
+		SELECT COUNT(1) FROM TBL_CommunityAnswer WHERE COMMUNITYQUESTIONID=#{0}
+	</select>
+	<select id="question_iscurrentAnswer" resultMap="BaseResultMap">
+		SELECT * FROM TBL_CommunityAnswer WHERE COMMUNITYQUESTIONID=#{0} AND
+		ISBESTANSWER=#{1}
+	</select>
+	<select id="findAnswerIdFromBestAnswer" resultType="String">
+		SELECT COMMUNITYANSWERID FROM TBL_CommunityAnswer WHERE
+		COMMUNITYQUESTIONID=#{0} AND ISBESTANSWER=#{1}
+	</select>
+	<select id="getUserIdByAnswerId" parameterType="String"
+		resultType="String">
+		SELECT USERID FROM TBL_CommunityAnswer WHERE COMMUNITYANSWERID=#{0}
+	</select>
+	<select id="question_CommunityAnswerId" parameterType="String"
+		resultMap="BaseResultMap">
+		SELECT * FROM TBL_CommunityAnswer WHERE COMMUNITYANSWERID=#{0}
+	</select>
+	<update id="saveBestAnswer">
+		UPDATE TBL_CommunityAnswer SET ISBESTANSWER=#{1} WHERE
+		COMMUNITYANSWERID=#{0}
+	</update>
+	<select id="answerSizeByUserId" parameterType="String"
+		resultType="int">
+		SELECT COUNT(1) FROM TBL_CommunityAnswer WHERE USERID=#{0}
+	</select>
+	<select id="question_CommunityAnswer_userId" parameterType="String"
+		resultMap="BaseResultMap">
+		SELECT * FROM TBL_CommunityAnswer WHERE USERID=#{0}
+	</select>
+	<select id="getCommunityAnswerLike" parameterType="String"
+		resultType="int">
+		SELECT COUNT(1) FROM TBL_CommunityAnswer,TBL_Agree WHERE
+		TBL_CommunityAnswer.COMMUNITYANSWERID=TBL_Agree.COMMUNITYANSWERID AND
+		TBL_CommunityAnswer.USERID=#{0}
+	</select>
+	<select id="question_CommunityAnswer_other" resultMap="BaseResultMap">
+		SELECT * FROM TBL_CommunityAnswer WHERE COMMUNITYQUESTIONID=#{0} AND
+		ISBESTANSWER='0' ORDER BY TIME ASC LIMIT #{1},5
+	</select>
+	<select id="question_IsCommunityAnswer" resultType="String">
+		SELECT COMMUNITYANSWERID FROM TBL_CommunityAnswer WHERE USERID=#{0} AND CONTENT=#{1} AND COMMUNITYQUESTIONID=#{2}
+	</select>
+	<select id="personal2_ReplyCommunity" resultMap="BaseResultMap">
+		SELECT * FROM TBL_CommunityAnswer WHERE USERID=#{0} ORDER BY TIME DESC LIMIT #{1},#{2}
+	</select>
+	<select id="notice_CommunityAnswer" resultMap="BaseResultMap">
+		SELECT * FROM TBL_CommunityAnswer WHERE COMMUNITYQUESTIONID=#{0} AND ISNOTICE=#{1}
+	</select>
+  
 </mapper>

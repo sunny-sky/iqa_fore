@@ -123,4 +123,9 @@
       BEGINTIME = #{BEGINTIME,jdbcType=VARCHAR}
     where TIMEID = #{TIMEID,jdbcType=VARCHAR}
   </update>
+  
+  <insert id="addTimeStamp">
+  	INSERT INTO TBL_TIMESTAMP VALUES(#{0},#{1},#{2},#{3})
+  </insert>
+  
 </mapper>

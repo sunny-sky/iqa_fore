@@ -147,4 +147,21 @@
       ISNOTICE = #{ISNOTICE,jdbcType=INTEGER}
     where AGREEID = #{AGREEID,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getAgree" resultType="String">
+  	SELECT AGREEID FROM TBL_Agree WHERE COMMUNITYANSWERID=#{0} AND USERID=#{1}
+  </select>
+  <insert id="saveAgree">
+  	INSERT INTO TBL_Agree(AGREEID,COMMUNITYANSWERID,USERID,TOUSERID,TIME,ISNOTICE) VALUES (#{0},#{1},#{2},#{3},#{4},#{5})
+  </insert>
+  <delete id="deleteAgree">
+  	DELETE FROM TBL_Agree WHERE AGREEID=#{0}
+  </delete>
+  <select id="getAgreeSizeByAnswerId" resultType="int">
+  	SELECT COUNT(1) FROM TBL_Agree WHERE COMMUNITYANSWERID=#{0}
+  </select>
+  <select id="getAgreebyUserId" resultType="int">
+  	SELECT COUNT(1) FROM TBL_Agree WHERE USERID=#{0}
+  </select>
+  
 </mapper>

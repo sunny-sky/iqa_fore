@@ -53,8 +53,8 @@
                 <div class="header_top_wrap_left" style="height: 100%;width: 70%">
 		            <ul>
 		                <li><a class="new_a" href="robot" data-pos="categorys_1_1">智能小朵</a></li>
-		                <li><a class="new_a" href="faq.html" data-pos="categorys_1_1">知识库</a></li>
-		                <li><a class="new_a" href="question.html?c=all&type=all" data-pos="categorys_1_1">问题中心</a></li>
+		                <li><a class="new_a" href="faq" data-pos="categorys_1_1">知识库</a></li>
+		                <li><a class="new_a" href="question?c=all&type=all" data-pos="categorys_1_1">问题中心</a></li>
 		               <!--  <li><a class="new_a" href="advise.html" data-pos="categorys_1_1">意见建议</a></li> -->
 		               <!--  <li>
 		                    <a class="new_a" href="service.html">关于我们</a>

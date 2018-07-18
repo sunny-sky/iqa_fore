@@ -134,4 +134,12 @@
       TIME = #{TIME,jdbcType=VARCHAR}
     where SCOREID = #{SCOREID,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getScoreList" resultMap="BaseResultMap">
+  	SELECT * FROM TBL_Score WHERE FAQQUESTIONID=#{0}
+  </select>
+  <select id="getScore" resultType="String">
+  	SELECT SUM(SCORE) FROM TBL_Score WHERE FAQQUESTIONID=#{0}
+  </select>
+  
 </mapper>

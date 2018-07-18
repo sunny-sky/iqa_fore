@@ -18,8 +18,19 @@ public class Comment {
     private String TOUSERID;
 
     private Integer ISNOTICE;
+    
+    //非数据库项
+    private String NUM;
 
-    public String getCOMMENTID() {
+    public String getNUM() {
+		return NUM;
+	}
+
+	public void setNUM(String nUM) {
+		NUM = nUM;
+	}
+
+	public String getCOMMENTID() {
         return COMMENTID;
     }
 
