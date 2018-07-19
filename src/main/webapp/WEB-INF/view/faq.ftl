@@ -1,4 +1,4 @@
-<#assign base=request.contextPath />
+<#assign base=rc.contextPath />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<input type="hidden" id="base" value="${basePath}" />
+<input type="hidden" id="base" value="${base}" />
 	<!-- 头部开始 -->
 	<div class="header" id="head"> 
 	<#include "inc/incTop.ftl">
@@ -176,7 +176,7 @@
 		//var classifyId = $("#secondNavStep").attr("value");
 			$.ajax({
 				type:"post",
-				url:base+"/showMoreRecommend.html",
+				url:base+"/showMoreRecommend",
 				data:{
 					"num":num,
 					//"classifyId":classifyId

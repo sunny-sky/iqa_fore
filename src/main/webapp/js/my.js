@@ -4,7 +4,7 @@ $(document).ready(
 function(){
 	 $.ajax({
 	 type: "GET",
-	 url: base+"/getFirstLevel.html",            
+	 url: base+"/getFirstLevel",            
 	 dataType: "json",
 	 success: function(data){
 	 		for(var i in data){

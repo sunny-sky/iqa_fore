@@ -21,6 +21,7 @@ import com.xjtu.iqa.mapper.UserMapper;
 import com.xjtu.iqa.po.Comment;
 import com.xjtu.iqa.po.It;
 import com.xjtu.iqa.po.User;
+import com.xjtu.iqa.service.CommentService;
 import com.xjtu.iqa.vo.Faq1_UserActive;
 import com.xjtu.iqa.vo.Faq2_faqUserView;
 import com.xjtu.iqa.vo.Faq3_CommentReplyView;
@@ -29,7 +30,7 @@ import com.xjtu.iqa.vo.Question2_CommunityReplayView;
 
 @Service
 @Transactional
-public class CommentServiceImpl {
+public class CommentServiceImpl implements CommentService{
 	@Autowired
 	UserMapper userMapper;
 	@Autowired
@@ -43,8 +44,9 @@ public class CommentServiceImpl {
 	@Autowired
 	CommentMapper commentMapper;
 	/**
-	 * zyq_question2_获得更多的回复
+	 * question2_获得更多的回复
 	 */
+	@Override
 	public List<Question2_CommunityReplayView> question2_CommunityReplayViews(String questionId,String answerId,Integer startnumber){
 		List<Question2_CommunityReplayView> question2_CommunityReplayViews = new ArrayList<Question2_CommunityReplayView>();
 		List<Comment> commentPersistences = commentMapper.question2_getMoreComment(questionId, answerId, startnumber);
@@ -61,8 +63,9 @@ public class CommentServiceImpl {
 	}
 	
 	/**
-	 * zyq_question2_设为最佳答案
+	 * question2_设为最佳答案
 	 */
+	@Override
 	public void saveBestAnswer(String questionId,String answerId) {
 		//更新社区答案ISBESTANSWER字段
 		communityAnswerMapper.saveBestAnswer(answerId,1);
@@ -71,8 +74,9 @@ public class CommentServiceImpl {
 	}
 	
 	/**
-	 * zyq_faq1_查看活跃用户
+	 * faq1_查看活跃用户
 	 */
+	@Override
 	public List<Faq1_UserActive> faq1_userActive() {
 		List<Faq1_UserActive> faq1_UserActives = new ArrayList<Faq1_UserActive>();
   	    Date date=new Date();
@@ -96,8 +100,9 @@ public class CommentServiceImpl {
 	}
 	
 	/**
-	 * zyq_faq1_查看活跃用户_按周查询
+	 * faq1_查看活跃用户_按周查询
 	 */
+	@Override
 	public List<Faq1_UserActive> faq1_userActive_week() {
 		List<Faq1_UserActive> faq1_UserActives = new ArrayList<Faq1_UserActive>();
   	    Date date=new Date();
@@ -128,6 +133,7 @@ public class CommentServiceImpl {
 	}
 	
 	//获取日期
+	@Override
 	public String getdate(int i){ // //获取前后日期 i为正数 向后推迟i天，负数时向前提前i天
 		 Date dat = null;
 		 Calendar cd = Calendar.getInstance();
@@ -139,8 +145,9 @@ public class CommentServiceImpl {
 	 }
 	
 	/**
-	 * zyq_faq3_获得评论列表
+	 * faq3_获得评论列表
 	 */
+	@Override
 	public List<Faq3_CommentView> faq3_comment(String questionId,int startnumber) {
 		List<Faq3_CommentView> faq3_CommentViews = new ArrayList<Faq3_CommentView>();
 		List<Comment> commentPersistences = commentMapper.getCommentMore(questionId,startnumber,"0");
@@ -186,8 +193,9 @@ public class CommentServiceImpl {
 	}
 	
 	/**
-	 * zyq_faq3_ajax_添加评论
+	 * faq3_ajax_添加评论
 	 */
+	@Override
 	public void addComment(String userid, String faqquestionid, String comment,String faquserid) {		
 		Date date=new Date();
 	    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -204,8 +212,9 @@ public class CommentServiceImpl {
 	}
 	
 	/**
-	 * zyq_question2_ajax_添加评论的回复
+	 * question2_ajax_添加评论的回复
 	 */
+	@Override
 	public void saveCommunityComment(String userid,String communityquestionId,String comment,String answerId){
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -222,8 +231,9 @@ public class CommentServiceImpl {
 	}
 	
 	/**
-	 * zyq_faq3_ajax_添加评论的回复
+	 * faq3_ajax_添加评论的回复
 	 */
+	@Override
 	public void saveFaqComment(String userid,String faqquestionId,String comment,String commentId,String duo){
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -245,8 +255,9 @@ public class CommentServiceImpl {
 	}
 	
 	/**
-	 * zyq_faq3_获得更多的回复
+	 * faq3_获得更多的回复
 	 */
+	@Override
 	public List<Faq3_CommentReplyView> faq3_CommentReplyViews(String commentId,int startnumber){
 		List<Faq3_CommentReplyView> faq3_CommentReplyViews = new ArrayList<Faq3_CommentReplyView>();
 		List<Comment> commentPersistences = commentMapper.faq3_getCommentReply_Limit(commentId, startnumber);

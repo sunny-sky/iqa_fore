@@ -147,4 +147,9 @@
       ROBOTNOKNOW = #{ROBOTNOKNOW,jdbcType=VARCHAR}
     where ROBOTID = #{ROBOTID,jdbcType=VARCHAR}
   </update>
+  
+  <select id="robotinfo" resultMap="BaseResultMap">
+  	SELECT * FROM TBL_Robot
+  </select>
+  
 </mapper>

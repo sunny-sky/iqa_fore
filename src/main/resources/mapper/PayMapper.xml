@@ -123,4 +123,34 @@
       TIME = #{TIME,jdbcType=VARCHAR}
     where PAYID = #{PAYID,jdbcType=VARCHAR}
   </update>
+  
+  <select id="payList_Limit" resultMap="BaseResultMap">
+  	SELECT * FROM TBL_Pay WHERE PAYUSERID=#{0} ORDER BY TIME DESC LIMIT #{1},#{2}
+  </select>
+  <select id="payList_time_Limit" resultMap="BaseResultMap">
+  	SELECT * FROM TBL_Pay WHERE PAYUSERID=#{0} AND STR_TO_DATE(TIME,'%Y-%m-%d %H:%i:%s')&gt;STR_TO_DATE(#{1},'%Y-%m-%d %H:%i:%s') ORDER BY TIME DESC LIMIT #{2},#{3}
+  </select>
+  <select id="payList_time_Limit_Time" resultMap="BaseResultMap">
+  	SELECT * FROM TBL_Pay WHERE PAYUSERID=#{0} AND STR_TO_DATE(TIME,'%Y-%m-%d %H:%i:%s')&gt;STR_TO_DATE(#{1},'%Y-%m-%d %H:%i:%s') AND STR_TO_DATE(TIME,'%Y-%m-%d %H:%i')&gt;STR_TO_DATE(#{4},'%Y-%m-%d %H:%i') ORDER BY TIME DESC LIMIT #{2},#{3}
+  </select>
+  <select id="payList" resultMap="BaseResultMap">
+  	SELECT * FROM TBL_Pay WHERE PAYUSERID=#{0}
+  </select>
+  <select id="bepayList" resultMap="BaseResultMap">
+  	SELECT * FROM TBL_Pay WHERE BEPAYUSERID=#{0}
+  </select>
+  <select id="getpayList" resultMap="BaseResultMap">
+  	SELECT * FROM TBL_Pay WHERE PAYUSERID=#{0} AND BEPAYUSERID=#{1}
+  </select>
+  <select id="payListSize" resultType="int">
+  	SELECT COUNT(PAYID) FROM TBL_Pay WHERE PAYUSERID=#{0}
+  </select>
+  <select id="bepayListSize" resultType="int">
+  	SELECT COUNT(PAYID) FROM TBL_Pay WHERE BEPAYUSERID=#{0}
+  </select>
+  <delete id="deletePay">
+  	DELETE FROM TBL_Pay WHERE PAYUSERID=#{0} AND BEPAYUSERID=#{1}
+  </delete>
+  
+  
 </mapper>

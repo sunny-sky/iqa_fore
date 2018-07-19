@@ -16,10 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xjtu.iqa.annotation.SystemControllerLog;
+import com.xjtu.iqa.lucene.LuceneIndex;
+import com.xjtu.iqa.mapper.CollectionMapper;
 import com.xjtu.iqa.mapper.CommentMapper;
 import com.xjtu.iqa.mapper.FaqClassifyMapper;
 import com.xjtu.iqa.mapper.FaqQuestionMapper;
 import com.xjtu.iqa.mapper.ItMapper;
+import com.xjtu.iqa.mapper.PayMapper;
 import com.xjtu.iqa.mapper.ScoreMapper;
 import com.xjtu.iqa.mapper.ShareMapper;
 import com.xjtu.iqa.mapper.TimeStampMapper;
@@ -35,6 +38,8 @@ import com.xjtu.iqa.service.CommentService;
 import com.xjtu.iqa.service.FaqClassifyService;
 import com.xjtu.iqa.service.FaqPictureService;
 import com.xjtu.iqa.service.FaqQuestionService;
+import com.xjtu.iqa.service.RobotService;
+import com.xjtu.iqa.service.ScoreService;
 import com.xjtu.iqa.util.JsonUtil;
 import com.xjtu.iqa.vo.Faq1_ClassifyView;
 import com.xjtu.iqa.vo.Faq1_UserActive;
@@ -43,6 +48,7 @@ import com.xjtu.iqa.vo.Faq3_CommentView;
 import com.xjtu.iqa.vo.Faq3_faqContentView;
 import com.xjtu.iqa.vo.Faq_CommendView;
 import com.xjtu.iqa.vo.Faq_UserDynamics;
+import com.xjtu.iqa.vo.robot_Chat;
 
 @Controller
 public class FaqController {
@@ -70,6 +76,14 @@ public class FaqController {
 	ItMapper itMapper;
 	@Autowired
 	ScoreMapper scoreMapper;
+	@Autowired
+	CollectionMapper collectionMapper;
+	@Autowired
+	PayMapper payMapper;
+	@Autowired
+	RobotService robotService;
+	@Autowired
+	ScoreService scoreService;
 
 
 	@RequestMapping(value = "faq", method = RequestMethod.GET)
@@ -388,7 +402,7 @@ public class FaqController {
 		if (username!=null) {	
 			modelAndView.addObject("userName", username);
 			//判断用户是否收藏
-			String collectionId = CollectionHelper.getCollection2(userId, q);		
+			String collectionId = collectionMapper.getCollection2(userId, q);		
 			modelAndView.addObject("collection", collectionId);
 			//判断用户是否评分
 			List<Score> scorePersistences = scoreMapper.getScoreList(q);
@@ -403,7 +417,7 @@ public class FaqController {
 			
 			}else {
 				//zzl_查看是否关注
-				List<Pay> payPersistences = PayHelper.getpayList(userId,questionUserId);
+				List<Pay> payPersistences = payMapper.getpayList(userId,questionUserId);
 				
 				if (payPersistences.size()==0) {
 					modelAndView.addObject("payList","0");
@@ -426,7 +440,7 @@ public class FaqController {
 			}
 		}
 		//查看相关的问题	！！！未看
-		List<robot_Chat> robot_Chats = RobotService.getRobotAnswer(faq3Views.get(0).getFaqTitle());
+		List<robot_Chat> robot_Chats = robotService.getRobotAnswer(faq3Views.get(0).getFaqTitle());
 				
 		modelAndView.addObject("commentNumber", commentCount);
 		modelAndView.addObject("classify", classify);
@@ -467,7 +481,7 @@ public class FaqController {
 		}else {
 			String userId = userMapper.getUserIdByName(username);
 			//保存评分
-			ScoreService.saveFAQscore(questionId, userId, score);
+			scoreService.saveFAQscore(questionId, userId, score);
 			jsonObject.put("value", "1");
 			String result = JsonUtil.toJsonString(jsonObject);
 			return result;
@@ -540,10 +554,11 @@ public class FaqController {
 	public ModelAndView faqSearch(HttpSession session,HttpServletRequest request) throws Exception{
 		String queryStr = request.getParameter("queryString");
 		ModelAndView modelAndView = new ModelAndView("faqSearch");
-		List<FaqQuestion> qList = LuceneIndex.searchFAQ(queryStr);
+		LuceneIndex luceneIndex = new LuceneIndex();
+		List<FaqQuestion> qList = luceneIndex.searchFAQ(queryStr);
 		
 		
-		List<Faq2_faqContentView> faq2List = LuceneIndex.faq2_faqContentViews(qList, 0 ,qList.size());
+		List<Faq2_faqContentView> faq2List = luceneIndex.faq2_faqContentViews(qList, 0 ,qList.size());
 		String urlPath="";
 		if (request.getQueryString()==null) {
 			urlPath = request.getServletPath();
@@ -575,8 +590,9 @@ public class FaqController {
 		}else{
 			String queryStr = request.getParameter("queryStr");
 			int starNum = Integer.parseInt(request.getParameter("starNumb"));
-			List<FaqQuestion> qList = LuceneIndex.searchFAQ(queryStr);
-			List<Faq2_faqContentView> faq2List = LuceneIndex.faq2_faqContentViews(qList, starNum ,qList.size());
+			LuceneIndex luceneIndex = new LuceneIndex();
+			List<FaqQuestion> qList = luceneIndex.searchFAQ(queryStr);
+			List<Faq2_faqContentView> faq2List = luceneIndex.faq2_faqContentViews(qList, starNum ,qList.size());
 			jsonObject.put("value", "1");
 			jsonObject.put("queryList", faq2List);
 			return JsonUtil.toJsonString(jsonObject);
