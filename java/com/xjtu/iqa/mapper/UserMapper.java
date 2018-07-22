@@ -28,8 +28,8 @@ public interface UserMapper {
  	// 判断用户名是否已存在
  	public Boolean getUserInfoByName(String name);
 
- 	// zyq_message_ajax_获得用户基本信息
- 	public List<User> getUserInfo(String username);
+ 	// message_ajax_获得用户基本信息
+ 	public User getUserInfo(String username);
 
  	// 通过username找userID
  	public String getUserIdByName(String username);
@@ -41,7 +41,7 @@ public interface UserMapper {
  	public void updateUserPassword(String userid, String password);
 
  	// zzl_获取指定用户信息_2017年11月10日11:46:39
- 	public List<User> getUserInfoById(String userId);
+ 	public User getUserInfoById(String userId);
 
  	// 通过用户Id获取用户名
  	public String getUserNameById(String userId);

@@ -124,29 +124,29 @@
     where FAQCLASSIFYID = #{FAQCLASSIFYID,jdbcType=VARCHAR}
   </update>
   
-  <select id="FirstClassify_robot" parameterType="com.xjtu.iqa.po.FaqClassify" resultMap="BaseResultMap">
+  <select id="FirstClassify_robot" resultMap="BaseResultMap">
 		SELECT
 		FAQCLASSIFYID,FAQCLASSIFYNAME FROM TBL_FAQclassify WHERE
 		FAQPARENTID='0'
 	</select>
-	<select id="question_ClassifyListByName" parameterType="com.xjtu.iqa.po.FaqClassify" resultMap="BaseResultMap">
+	<select id="question_ClassifyListByName" resultType="String">
 		SELECT
 		FAQCLASSIFYID FROM TBL_FAQclassify WHERE FAQCLASSIFYNAME=#{0} AND
 		FAQPARENTID=#{1}
 	</select>
-	<select id="getClassifyNameById" parameterType="com.xjtu.iqa.po.FaqClassify" resultType="String">
+	<select id="getClassifyNameById" resultType="String">
 		SELECT
 		FAQCLASSIFYNAME FROM TBL_FAQclassify WHERE FAQCLASSIFYID=#{0}
 	</select>
-	<select id="faq_parentId" parameterType="com.xjtu.iqa.po.FaqClassify" resultMap="BaseResultMap">
+	<select id="faq_parentId" resultType="String">
 		SELECT FAQPARENTID FROM
 		TBL_FAQclassify WHERE FAQCLASSIFYID=#{0}
 	</select>
-	<select id="getInfoById" parameterType="com.xjtu.iqa.po.FaqClassify" resultMap="BaseResultMap">
+	<select id="getInfoById" resultMap="BaseResultMap">
 		SELECT * FROM
 		TBL_FAQclassify WHERE FAQCLASSIFYID=#{0}
 	</select>
-	<select id="SecondClassify_robot" parameterType="com.xjtu.iqa.po.FaqClassify" resultMap="BaseResultMap">
+	<select id="SecondClassify_robot" resultMap="BaseResultMap">
 		SELECT
 		TBL_FAQclassify.FAQCLASSIFYID,TBL_FAQclassify.FAQCLASSIFYNAME,sum(TBL_FAQquestion.COLLECTION)
 		as a FROM TBL_FAQclassify,TBL_FAQquestion WHERE
@@ -155,7 +155,7 @@
 		TBL_FAQclassify.FAQPARENTID=#{0} GROUP BY
 		TBL_FAQquestion.FAQCLASSIFYID ORDER BY a DESC
 	</select>
-	<select id="SecondClassify_robot2" parameterType="com.xjtu.iqa.po.FaqClassify" resultMap="BaseResultMap">
+	<select id="SecondClassify_robot2" resultMap="BaseResultMap">
 		SELECT
 		TBL_FAQclassify.FAQCLASSIFYID,TBL_FAQclassify.FAQCLASSIFYNAME,sum(TBL_FAQquestion.SCAN+TBL_FAQquestion.COLLECTION*10)
 		as a FROM TBL_FAQclassify,TBL_FAQquestion WHERE
@@ -164,7 +164,7 @@
 		TBL_FAQclassify.FAQPARENTID=#{0} GROUP BY
 		TBL_FAQquestion.FAQCLASSIFYID ORDER BY a DESC
 	</select>
-	<select id="faq1_SecondClassify" parameterType="com.xjtu.iqa.po.FaqClassify" resultMap="BaseResultMap">
+	<select id="faq1_SecondClassify" resultMap="BaseResultMap">
 		SELECT
 		TBL_FAQclassify.FAQCLASSIFYID,TBL_FAQclassify.FAQCLASSIFYNAME,sum(SCAN)
 		as a FROM TBL_FAQquestion,TBL_FAQclassify WHERE
@@ -175,16 +175,16 @@
 		ORDER BY a DESC LIMIT 4
 
 	</select>
-	<select id="spider_ClassifyListByName" parameterType="com.xjtu.iqa.po.FaqClassify" resultMap="BaseResultMap">
+	<select id="spider_ClassifyListByName" resultMap="BaseResultMap">
 		SELECT *
 		FROM TBL_FAQclassify WHERE FAQCLASSIFYNAME=#{0} AND
 		FAQPARENTID=#{1}
 	</select>
-	<select id="secondClassifyCount" parameterType="com.xjtu.iqa.po.FaqClassify" resultType="int">
+	<select id="secondClassifyCount" resultType="int">
 		SELECT COUNT(1)
 		FROM TBL_FAQclassify WHERE FAQPARENTID=#{0}
 	</select>
-	<select id="getClassifyIdByName" parameterType="com.xjtu.iqa.po.FaqClassify" resultMap="BaseResultMap">
+	<select id="getClassifyIdByName" resultType="String">
 		SELECT
 		FAQCLASSIFYID FROM TBL_FAQclassify WHERE FAQCLASSIFYNAME=#{0} AND
 		FAQPARENTID=#{1}

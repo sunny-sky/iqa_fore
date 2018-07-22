@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>智能小朵-知识库</title>
-    <link href="${basePath}/ico/zyq.ico" type="image/x-icon" rel="shortcut icon">
+    <link href="${base}/ico/zyq.ico" type="image/x-icon" rel="shortcut icon">
     <link rel="stylesheet" type="text/css" href="new/front/style/reset.css" />   
     <link rel="stylesheet" type="text/css" href="new/front/style/util-rb.css">
     <link rel="stylesheet" type="text/css" href="new/front/style/util.css" />

@@ -64,6 +64,8 @@ public class Segmentation_ansj {
 //!!!		String localurl = System.getProperty("user.dir");
 		String localurl = System.getProperty("user.dir").replace("bin", "webapps");
 		
+
+		
 		Forest forest = Library.makeForest(localurl+"/iqa_fore/library/computer.dic");
 		Result terms = ToAnalysis.parse(text,forest);
 

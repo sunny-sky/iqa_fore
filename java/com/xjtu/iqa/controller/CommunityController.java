@@ -238,7 +238,7 @@ public class CommunityController {
 		String username = (String) session.getAttribute("UserName");
 		ModelAndView mv = new ModelAndView("question2");
 		//获取用户信息
-		List<User> userPersistences = userMapper.getUserInfo(username);
+		User userPersistences = userMapper.getUserInfo(username);
 		String userId = userMapper.getUserIdByName(username);
 		
 		//获取questionId = q 的问题详情
@@ -286,7 +286,7 @@ public class CommunityController {
 		
 		mv.addObject("userList", userPersistences);
 		mv.addObject("userid", userId);
-		mv.addObject("userName", userPersistences.get(0).getUSERNAME());
+		mv.addObject("userName", userPersistences.getUSERNAME());
 		mv.addObject("questionList", communityQuestionPersistences);
 		mv.addObject("classifyName", classifyName);
 				

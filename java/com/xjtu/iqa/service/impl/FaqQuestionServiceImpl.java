@@ -71,9 +71,9 @@ public class FaqQuestionServiceImpl implements FaqQuestionService {
 			}
 
 			// 根据用户Id获取用户信息
-			List<User> userPersistences = userMapper.getUserInfoById(questionPersistence.getUSERID());
-			faq_UserDynamics.setUserId(userPersistences.get(0).getUSERID());
-			faq_UserDynamics.setUserName(userPersistences.get(0).getUSERNAME());
+			User userPersistences = userMapper.getUserInfoById(questionPersistence.getUSERID());
+			faq_UserDynamics.setUserId(userPersistences.getUSERID());
+			faq_UserDynamics.setUserName(userPersistences.getUSERNAME());
 			userDynamics.add(faq_UserDynamics);
 		}
 		return userDynamics;
@@ -109,9 +109,9 @@ public class FaqQuestionServiceImpl implements FaqQuestionService {
 			int commentCount = commentMapper.commentInfo(questionPersistence.getFAQQUESTIONID());
 			faq_CommendView.setCOMMENTSUM(commentCount);
 
-			List<User> userInfo = userMapper.getUserInfoById(questionPersistence.getUSERID());
-			faq_CommendView.setFAQUSERNAME(userInfo.get(0).getUSERNAME());
-			faq_CommendView.setFAQUSERIMAGE(userInfo.get(0).getAVATAR());
+			User userInfo = userMapper.getUserInfoById(questionPersistence.getUSERID());
+			faq_CommendView.setFAQUSERNAME(userInfo.getUSERNAME());
+			faq_CommendView.setFAQUSERIMAGE(userInfo.getAVATAR());
 			faq_CommendViews.add(faq_CommendView);
 		}
 		return faq_CommendViews;
@@ -148,9 +148,9 @@ public class FaqQuestionServiceImpl implements FaqQuestionService {
 					faq_CommendView.setSCAN(questionPersistence.getSCAN());
 					int commentCount = commentMapper.commentInfo(questionPersistence.getFAQQUESTIONID());
 					faq_CommendView.setCOMMENTSUM(commentCount);
-					List<User> userInfo = userMapper.getUserInfoById(questionPersistence.getUSERID());
-					faq_CommendView.setFAQUSERNAME(userInfo.get(0).getUSERNAME());
-					faq_CommendView.setFAQUSERIMAGE(userInfo.get(0).getAVATAR());
+					User userInfo = userMapper.getUserInfoById(questionPersistence.getUSERID());
+					faq_CommendView.setFAQUSERNAME(userInfo.getUSERNAME());
+					faq_CommendView.setFAQUSERIMAGE(userInfo.getAVATAR());
 					faq_CommendViews.add(faq_CommendView);
 				}
 				break;
@@ -170,9 +170,9 @@ public class FaqQuestionServiceImpl implements FaqQuestionService {
 				faq_CommendView.setFAQDESCRIPTION(questionPersistence.getFAQDESCRIPTION());
 				int commentCount = commentMapper.commentInfo(questionPersistence.getFAQQUESTIONID());
 				faq_CommendView.setCOMMENTSUM(commentCount);
-				List<User> userInfo = userMapper.getUserInfoById(questionPersistence.getUSERID());
-				faq_CommendView.setFAQUSERNAME(userInfo.get(0).getUSERNAME());
-				faq_CommendView.setFAQUSERIMAGE(userInfo.get(0).getAVATAR());
+				User userInfo = userMapper.getUserInfoById(questionPersistence.getUSERID());
+				faq_CommendView.setFAQUSERNAME(userInfo.getUSERNAME());
+				faq_CommendView.setFAQUSERIMAGE(userInfo.getAVATAR());
 				faq_CommendViews.add(faq_CommendView);
 			}
 		}
@@ -241,11 +241,11 @@ public class FaqQuestionServiceImpl implements FaqQuestionService {
 		for (FaqQuestion questionPersistence : questionPersistences) {
 			List<Faq2_faqUserView> user_faq2Views = new ArrayList<Faq2_faqUserView>();
 			String userId = faqQuestionMapper.findUserIdByQuestionId(questionPersistence.getFAQQUESTIONID());
-			List<User> userPersistences = userMapper.getUserInfoById(userId);
-			for (User userPersistence : userPersistences) {
-				Faq2_faqUserView user_faq2View = new Faq2_faqUserView(userPersistence);
-				user_faq2Views.add(user_faq2View);
-			}
+			User userPersistences = userMapper.getUserInfoById(userId);
+
+			Faq2_faqUserView user_faq2View = new Faq2_faqUserView(userPersistences);
+			user_faq2Views.add(user_faq2View);
+			
 			Faq2_faqContentView faq2View = new Faq2_faqContentView(questionPersistence);
 			faq2View.setuList(user_faq2Views);
 			int commentCount = commentMapper.commentInfo(questionPersistence.getFAQQUESTIONID());
@@ -266,12 +266,12 @@ public class FaqQuestionServiceImpl implements FaqQuestionService {
 			List<Faq2_faqUserView> user_faq2Views = new ArrayList<Faq2_faqUserView>();
 			List<Faq3_faqAnswer> faq3_faqAnswers = new ArrayList<Faq3_faqAnswer>();
 			String userId = faqQuestionMapper.findUserIdByQuestionId(faqPersistence.getFAQQUESTIONID());
-			List<User> userPersistences = userMapper.getUserInfoById(userId);
+			User userPersistences = userMapper.getUserInfoById(userId);
 			List<FaqAnswer> answerPersistences = faqAnswerMapper.getAnswerByQuestionId(QuestionId);
-			for (User userPersistence : userPersistences) {
-				Faq2_faqUserView user_faq2View = new Faq2_faqUserView(userPersistence);
-				user_faq2Views.add(user_faq2View);
-			}
+
+			Faq2_faqUserView user_faq2View = new Faq2_faqUserView(userPersistences);
+			user_faq2Views.add(user_faq2View);
+		
 			for (FaqAnswer answerPersistence : answerPersistences) {
 				Faq3_faqAnswer faq3_faqAnswer = new Faq3_faqAnswer(answerPersistence);
 				faq3_faqAnswers.add(faq3_faqAnswer);

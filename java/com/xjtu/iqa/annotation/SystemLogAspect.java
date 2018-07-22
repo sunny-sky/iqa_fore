@@ -3,7 +3,6 @@ package com.xjtu.iqa.annotation;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,7 +64,7 @@ public class SystemLogAspect {
 
 		// 读取session中的用户
 		String username = (String) session.getAttribute("UserName");
-		List<User> list = userMapper.getUserInfo(username);
+		User list = userMapper.getUserInfo(username);
 		// 获取请求ip
 		String ip = getIP(request);
 		try {
@@ -107,7 +106,7 @@ public class SystemLogAspect {
 			// myLog.setNormal(LOG_NORMAL);
 
 			if (username != null) {
-				myLog.setUSERID(list.get(0).getUSERID());
+				myLog.setUSERID(list.getUSERID());
 			} else {
 				myLog.setUSERID("00000000-0000-0000-0000-000000000000");
 			}

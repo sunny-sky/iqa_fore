@@ -94,15 +94,15 @@ public class CommunityServiceImpl implements CommunityService {
 						question_CommunityView.setLikesNumber(Integer.toString(agreeCount));
 
 						// 最佳答案用户信息
-						List<User> userPersistences = userMapper.getUserInfoById(list.get(0).getUSERID());
+						User userPersistences = userMapper.getUserInfoById(list.get(0).getUSERID());
 						userInfo(question_CommunityView, userPersistences);
 
 						// zzl_用户点评
-						int answerCount = communityAnswerMapper.answerSizeByUserId(userPersistences.get(0).getUSERID());
+						int answerCount = communityAnswerMapper.answerSizeByUserId(userPersistences.getUSERID());
 						question_CommunityView.setTotalCommunityNumber(Integer.toString(answerCount));
 
 						// zzl_用户点赞
-						int likeCount = agreeMapper.getAgreebyUserId(userPersistences.get(0).getUSERID());
+						int likeCount = agreeMapper.getAgreebyUserId(userPersistences.getUSERID());
 						question_CommunityView.setTotalLikesNumber(Integer.toString(likeCount));
 						if (username != null) {
 							String agreeId = agreeMapper.getAgree(username,
@@ -166,15 +166,15 @@ public class CommunityServiceImpl implements CommunityService {
 						}
 
 						// 获取用户信息
-						List<User> userPersistences = userMapper.getUserInfoById(list.get(0).getUSERID());
+						User userPersistences = userMapper.getUserInfoById(list.get(0).getUSERID());
 						userInfo(question_CommunityView, userPersistences);
 
 						// zzl_用户点评
-						int answerCount = communityAnswerMapper.answerSizeByUserId(userPersistences.get(0).getUSERID());
+						int answerCount = communityAnswerMapper.answerSizeByUserId(userPersistences.getUSERID());
 						question_CommunityView.setTotalCommunityNumber(Integer.toString(answerCount));
 
 						// zzl_用户点赞
-						int likeCount = agreeMapper.getAgreebyUserId(userPersistences.get(0).getUSERID());
+						int likeCount = agreeMapper.getAgreebyUserId(userPersistences.getUSERID());
 						question_CommunityView.setTotalLikesNumber(Integer.toString(likeCount));
 					}
 					if (username != null) {
@@ -216,15 +216,15 @@ public class CommunityServiceImpl implements CommunityService {
 						question_CommunityView.setAnswer(list.get(0).getCONTENT());
 
 						// 获取用户信息
-						List<User> userPersistences = userMapper.getUserInfoById(list.get(0).getUSERID());
+						User userPersistences = userMapper.getUserInfoById(list.get(0).getUSERID());
 						userInfo(question_CommunityView, userPersistences);
 
 						// zzl_用户点评
-						int answerCount = communityAnswerMapper.answerSizeByUserId(userPersistences.get(0).getUSERID());
+						int answerCount = communityAnswerMapper.answerSizeByUserId(userPersistences.getUSERID());
 						question_CommunityView.setTotalCommunityNumber(Integer.toString(answerCount));
 
 						// zzl_用户点赞
-						int likeCount = agreeMapper.getAgreebyUserId(userPersistences.get(0).getUSERID());
+						int likeCount = agreeMapper.getAgreebyUserId(userPersistences.getUSERID());
 						question_CommunityView.setTotalLikesNumber(Integer.toString(likeCount));
 
 						// zzl_点赞
@@ -290,15 +290,15 @@ public class CommunityServiceImpl implements CommunityService {
 					question_CommunityView.setLikesNumber(Integer.toString(agreeCount));
 
 					// 获取用户信息
-					List<User> userPersistences = userMapper.getUserInfoById(list.get(0).getUSERID());
+					User userPersistences = userMapper.getUserInfoById(list.get(0).getUSERID());
 					userInfo(question_CommunityView, userPersistences);
 
 					// zzl_用户点评
-					int answerCount = communityAnswerMapper.answerSizeByUserId(userPersistences.get(0).getUSERID());
+					int answerCount = communityAnswerMapper.answerSizeByUserId(userPersistences.getUSERID());
 					question_CommunityView.setTotalCommunityNumber(Integer.toString(answerCount));
 
 					// zzl_用户点赞
-					int likeCount = agreeMapper.getAgreebyUserId(userPersistences.get(0).getUSERID());
+					int likeCount = agreeMapper.getAgreebyUserId(userPersistences.getUSERID());
 					question_CommunityView.setTotalLikesNumber(Integer.toString(likeCount));
 
 					if (username != null) {
@@ -321,11 +321,11 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 用户信息
 	private void userInfo(Question_CommunityView question_CommunityView,
-			List<User> userPersistences) {
-		question_CommunityView.setUserId(userPersistences.get(0).getUSERID());
-		question_CommunityView.setUserImage(userPersistences.get(0).getAVATAR());
-		question_CommunityView.setUserName(userPersistences.get(0).getUSERNAME());
-		question_CommunityView.setSignature(userPersistences.get(0).getUSERSIGNATURE());
+			User userPersistences) {
+		question_CommunityView.setUserId(userPersistences.getUSERID());
+		question_CommunityView.setUserImage(userPersistences.getAVATAR());
+		question_CommunityView.setUserName(userPersistences.getUSERNAME());
+		question_CommunityView.setSignature(userPersistences.getUSERSIGNATURE());
 	}
 
 	// 社区问题基本信息
@@ -376,12 +376,12 @@ public class CommunityServiceImpl implements CommunityService {
 			question2_CommunityView.setAnswer(communityAnswerPersistences.get(0).getCONTENT());
 
 			// 获取用户信息
-			List<User> userPersistences = userMapper
+			User userPersistences = userMapper
 					.getUserInfoById(communityAnswerPersistences.get(0).getUSERID());
-			question2_CommunityView.setUserImage(userPersistences.get(0).getAVATAR());
-			question2_CommunityView.setUserName(userPersistences.get(0).getUSERNAME());
-			question2_CommunityView.setUserId(userPersistences.get(0).getUSERID());
-			question2_CommunityView.setSignature(userPersistences.get(0).getUSERSIGNATURE());
+			question2_CommunityView.setUserImage(userPersistences.getAVATAR());
+			question2_CommunityView.setUserName(userPersistences.getUSERNAME());
+			question2_CommunityView.setUserId(userPersistences.getUSERID());
+			question2_CommunityView.setSignature(userPersistences.getUSERSIGNATURE());
 
 			List<Question2_CommunityReplayView> question2_CommunityReplayViews = new ArrayList<Question2_CommunityReplayView>();
 
@@ -392,11 +392,11 @@ public class CommunityServiceImpl implements CommunityService {
 			for (Comment commentPersistence : commentPersistences) {
 				Question2_CommunityReplayView question2_CommunityReplayView = new Question2_CommunityReplayView();
 				// 获取问题答案回复用户信息
-				List<User> userPersistences2 = userMapper.getUserInfoById(commentPersistence.getUSERID());
+				User userPersistences2 = userMapper.getUserInfoById(commentPersistence.getUSERID());
 
 				question2_CommunityReplayView.setCommentId(commentPersistence.getCOMMENTID());
-				question2_CommunityReplayView.setUserName(userPersistences2.get(0).getUSERNAME());
-				question2_CommunityReplayView.setUserImage(userPersistences2.get(0).getAVATAR());
+				question2_CommunityReplayView.setUserName(userPersistences2.getUSERNAME());
+				question2_CommunityReplayView.setUserImage(userPersistences2.getAVATAR());
 				question2_CommunityReplayView.setCommunity(commentPersistence.getCOMMENTCONTENT());
 				question2_CommunityReplayView.setTime(commentPersistence.getCOMMENTTIME());
 
@@ -475,11 +475,11 @@ public class CommunityServiceImpl implements CommunityService {
 			question2_CommunityView.setAnswer(communityAnswerPersistence.getCONTENT());
 
 			// 获取用户信息
-			List<User> userPersistences = userMapper.getUserInfoById(communityAnswerPersistence.getUSERID());
-			question2_CommunityView.setUserImage(userPersistences.get(0).getAVATAR());
-			question2_CommunityView.setUserName(userPersistences.get(0).getUSERNAME());
-			question2_CommunityView.setUserId(userPersistences.get(0).getUSERID());
-			question2_CommunityView.setSignature(userPersistences.get(0).getUSERSIGNATURE());
+			User userPersistences = userMapper.getUserInfoById(communityAnswerPersistence.getUSERID());
+			question2_CommunityView.setUserImage(userPersistences.getAVATAR());
+			question2_CommunityView.setUserName(userPersistences.getUSERNAME());
+			question2_CommunityView.setUserId(userPersistences.getUSERID());
+			question2_CommunityView.setSignature(userPersistences.getUSERSIGNATURE());
 
 			question2_CommunityView.setTime(communityAnswerPersistence.getTIME());
 
@@ -492,13 +492,13 @@ public class CommunityServiceImpl implements CommunityService {
 			for (Comment commentPersistence : commentPersistences) {
 				Question2_CommunityReplayView question2_CommunityReplayView = new Question2_CommunityReplayView();
 				// 获取用户信息
-				List<User> userPersistences2 = userMapper.getUserInfoById(commentPersistence.getUSERID());
+				User userPersistences2 = userMapper.getUserInfoById(commentPersistence.getUSERID());
 				question2_CommunityReplayView.setCommentId(commentPersistence.getCOMMENTID());
-				question2_CommunityReplayView.setUserName(userPersistences2.get(0).getUSERNAME());
-				question2_CommunityReplayView.setUserImage(userPersistences2.get(0).getAVATAR());
+				question2_CommunityReplayView.setUserName(userPersistences2.getUSERNAME());
+				question2_CommunityReplayView.setUserImage(userPersistences2.getAVATAR());
 				question2_CommunityReplayView.setCommunity(commentPersistence.getCOMMENTCONTENT());
 				question2_CommunityReplayView.setTime(commentPersistence.getCOMMENTTIME());
-				question2_CommunityReplayView.setUserId(userPersistences2.get(0).getUSERID());
+				question2_CommunityReplayView.setUserId(userPersistences2.getUSERID());
 
 				if (commentPersistence.getTOUSERID() != null) {
 					String toUserName = userMapper.getUserNameById(commentPersistence.getTOUSERID());

@@ -243,18 +243,18 @@
     where FAQQUESTIONID = #{FAQQUESTIONID,jdbcType=VARCHAR}
   </update>
   
-  <select id="SecondClassify_robot" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+  <select id="SecondClassify_robot" resultMap="BaseResultMap">
 		SELECT TBL_FAQquestion.FAQQUESTIONID,TBL_FAQquestion.FAQTITLE 
 		FROM TBL_FAQquestion WHERE TBL_FAQquestion.FAQCLASSIFYID=#{0} 
 		ORDER BY TBL_FAQquestion.COLLECTION DESC LIMIT 3
 
 	</select>
-	<select id="pageTotal" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="pageTotal" resultType="String">
 		SELECT COUNT(1) FROM
 		TBL_FAQquestion WHERE FAQCLASSIFYID=#{0}
 
 	</select>
-	<select id="faqAudited" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="faqAudited" resultMap="BaseResultMap">
 		SELECT * FROM
 		TBL_FAQquestion ,tbl_faqclassify WHERE
 		TBL_FAQquestion.FAQCLASSIFYID =
@@ -265,44 +265,44 @@
 		#{2},#{3}
 
 	</select>
-	<select id="faq1_faqPersistences" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="faq1_faqPersistences"  resultMap="BaseResultMap">
 		SELECT * FROM
 		TBL_FAQquestion WHERE FAQCLASSIFYID=#{0} AND FAQSTATE = #{1} ORDER BY
-		SCAN DESC LIMIT #{2}")
+		SCAN DESC LIMIT #{2}
 
 	</select>
-	<select id="faq1_faqPersistences2" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="faq1_faqPersistences2" resultMap="BaseResultMap">
 		SELECT * FROM
 		TBL_FAQquestion WHERE FAQCLASSIFYID=#{0} AND FAQSTATE = #{1}
 		ORDER BY
 		SCAN DESC LIMIT #{2},#{3}
 
 	</select>
-	<select id="faq2_faqlist" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="faq2_faqlist" resultMap="BaseResultMap">
 		SELECT * FROM
 		TBL_FAQquestion WHERE FAQCLASSIFYID=#{0} AND FAQSTATE = #{1}
 		LIMIT
 		#{2},#{3}
 
 	</select>
-	<select id="getFaqQuestion" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="getFaqQuestion" resultType="boolean">
 		SELECT
 		COUNT(FAQQUESTIONID) FROM TBL_FAQquestion WHERE FAQTITLE=#{0}
 
 	</select>
-	<select id="faq_userDynamics" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="faq_userDynamics" resultMap="BaseResultMap">
 		SELECT * FROM
 		TBL_FAQquestion WHERE FAQSTATE = #{0} ORDER BY MODIFYTIME DESC
 		LIMIT
 		#{1}
 
 	</select>
-	<select id="faqPendingAudits" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="faqPendingAudits" resultMap="BaseResultMap">
 		SELECT * FROM
 		TBL_FAQquestion WHERE FAQSTATE = #{0} ORDER BY MODIFYTIME DESC
 
 	</select>
-	<select id="faq_recommend_Limit" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="faq_recommend_Limit" resultMap="BaseResultMap">
 		SELECT
 		FAQQUESTIONID, FAQTITLE, MODIFYTIME, FAQDESCRIPTION
 		,COLLECTION,SCAN,USERID,sum(CAST(SCAN AS SIGNED)+CAST(COLLECTION AS
@@ -310,7 +310,7 @@
 		FAQQUESTIONID ORDER BY a DESC LIMIT #{1},#{2}
 
 	</select>
-	<select id="personal2_faq_Limit" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="personal2_faq_Limit" resultMap="BaseResultMap">
 		SELECT * FROM
 		TBL_FAQquestion,TBL_FAQanswer WHERE
 		TBL_FAQquestion.FAQQUESTIONID=TBL_FAQanswer.FAQQUESTIONID AND
@@ -318,32 +318,32 @@
 		TBL_FAQquestion.MODIFYTIME DESC LIMIT #{2},#{3}
 
 	</select>
-	<select id="personal2_Ismodify" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="personal2_Ismodify" resultType="boolean">
 		SELECT
 		COUNT(FAQQUESTIONID) FROM TBL_FAQquestion WHERE FAQQUESTIONID=#{0}
 		AND
 		MODIFYNUMBER=#{1}
 
 	</select>
-	<select id="faq3_faqclassifyId" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="faq3_faqclassifyId" resultType="String">
 		SELECT
 		FAQCLASSIFYID FROM TBL_FAQquestion WHERE FAQQUESTIONID=#{0}
 
 	</select>
-	<select id="findUserIdByQuestionId" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="findUserIdByQuestionId"  resultType="String">
 		SELECT USERID
 		FROM TBL_FAQquestion WHERE FAQQUESTIONID=#{0}
 
 	</select>
-	<select id="getFaqQuestionInfo" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="getFaqQuestionInfo" resultMap="BaseResultMap">
 		SELECT * FROM
 		TBL_FAQquestion WHERE FAQQUESTIONID=#{0}
 	</select>
-	<select id="getFaqScan" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="getFaqScan" resultType="String">
 		SELECT SCAN FROM
 		TBL_FAQquestion WHERE FAQQUESTIONID=#{0}
 	</select>
-	<select id="faq3_faqcontent" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="faq3_faqcontent" resultMap="BaseResultMap">
 		SELECT * FROM
 		TBL_FAQquestion WHERE FAQQUESTIONID=#{0} AND FAQSTATE = #{1}
 	</select>
@@ -368,7 +368,7 @@
 		= #{4} WHERE
 		TBL_FAQquestion.FAQQUESTIONID=#{0}
 	</update>
-	<select id="questionView" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="questionView" resultMap="BaseResultMap">
 		SELECT TBL_FAQquestion.FAQQUESTIONID,TBL_FAQquestion.FAQTITLE,
 		TBL_FAQquestion.COLLECTION,TBL_FAQquestion.SCAN,TBL_FAQquestion.MODIFYTIME,TBL_FAQquestion.FAQDESCRIPTION,
 		TBL_FAQquestion.USERID,sum(CAST(SCAN AS SIGNED)+CAST(COLLECTION AS
@@ -377,7 +377,7 @@
 		GROUP BY TBL_FAQquestion.FAQQUESTIONID 
 		ORDER BY a DESC LIMIT #{2},#{3}
 	</select>
-	<select id="faqInfo_limit" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="faqInfo_limit" resultMap="BaseResultMap">
 		SELECT TBL_FAQquestion.FAQQUESTIONID
 		,TBL_FAQquestion.FAQTITLE,TBL_FAQquestion.FAQDESCRIPTION FROM
 		TBL_FAQquestion ,TBL_FAQclassify WHERE
@@ -386,13 +386,13 @@
 		TBL_FAQquestion.COLLECTION DESC LIMIT 4
 
 	</select>
-	<select id="faqadd_iscurrent" parameterType="com.xjtu.iqa.po.FaqQuestion" resultType="String">
+	<select id="faqadd_iscurrent" resultType="String">
 		SELECT TBL_FAQquestion.FAQQUESTIONID FROM TBL_FAQquestion,TBL_FAQanswer
 		WHERE TBL_FAQquestion.FAQQUESTIONID=TBL_FAQanswer.FAQQUESTIONID AND
 		TBL_FAQquestion.FAQTITLE=#{0} AND TBL_FAQanswer.USERID=#{1}
 
 	</select>
-	<select id="personal2_faq_Limit_Time" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="personal2_faq_Limit_Time" resultMap="BaseResultMap">
 		SELECT * FROM TBL_FAQquestion,TBL_FAQanswer WHERE
 		TBL_FAQquestion.FAQQUESTIONID=TBL_FAQanswer.FAQQUESTIONID AND
 		TBL_FAQquestion.USERID=#{0} AND
@@ -400,27 +400,27 @@
 		TBL_FAQquestion.MODIFYTIME DESC LIMIT #{1},#{2}
 
 	</select>
-	<select id="titleIsExist" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="titleIsExist" resultMap="BaseResultMap">
 		SELECT * FROM TBL_FAQquestion WHERE FAQTITLE=#{0} AND USERID=#{1}
 
 	</select>
-	<select id="getFaq" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="getFaq"  resultMap="BaseResultMap">
 		SELECT * FROM TBL_FAQquestion
 		LIMIT 200
 	</select>
-	<select id="getFaqTotal" parameterType="com.xjtu.iqa.po.FaqQuestion" resultMap="BaseResultMap">
+	<select id="getFaqTotal" resultMap="BaseResultMap">
 		SELECT * FROM
 		TBL_FAQquestion
 	</select>
-	<select id="getQuestionCount" parameterType="com.xjtu.iqa.po.FaqQuestion" resultType="int">
+	<select id="getQuestionCount"  resultType="int">
 		SELECT COUNT(1) FROM
 		TBL_FAQquestion WHERE FAQCLASSIFYID=#{0}
 	</select>
-	<select id="getCount" parameterType="com.xjtu.iqa.po.FaqQuestion" resultType="int">
+	<select id="getCount" resultType="int">
 		SELECT COUNT(1) FROM
 		TBL_FAQquestion WHERE FAQSTATE = #{0}
 	</select>
-	<select id="faqAuditedCount" parameterType="com.xjtu.iqa.po.FaqQuestion" resultType="int">
+	<select id="faqAuditedCount" resultType="int">
 		SELECT COUNT(1) FROM TBL_FAQquestion ,TBL_FAQclassify WHERE
 		TBL_FAQclassify.FAQPARENTID=#{0} AND TBL_FAQquestion.FAQCLASSIFYID =
 		TBL_FAQclassify.FAQCLASSIFYID AND FAQSTATE = #{1}

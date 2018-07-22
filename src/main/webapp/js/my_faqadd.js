@@ -4,7 +4,7 @@ $(document).ready(
    function(){
          $.ajax({
              type: "GET",
-             url: base+"/getFirstLevel.html",            
+             url: base+"/getFirstLevel",            
              dataType: "json",
              success: function(data){            
      			 for(var i in data){ 
@@ -20,7 +20,7 @@ var element = document.getElementById("specialCategoryId");
 var classifyId = element.options[element.selectedIndex].value;
 $.ajax({
      type: "GET",
-     url: base+"/getSecondLevel.html"+"?"+"classifyId="+classifyId,            
+     url: base+"/getSecondLevel"+"?"+"classifyId="+classifyId,            
      dataType: "json",
      success: function(data){
  			 document.getElementById("subspecialCategoryId").options.length=0;              	
@@ -143,7 +143,7 @@ $("#sub").click(function(){
 			var faqcontent = UE.getEditor('editor').getContent();
 			$.ajax({
 				type:"POST",
-				url:base+"/saveFAQ.html",
+				url:base+"/saveFAQ",
 				data:{
 					"title":title,
 					"keywords":keywords,

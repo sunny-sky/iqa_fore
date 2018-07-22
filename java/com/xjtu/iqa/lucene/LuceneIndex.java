@@ -214,11 +214,11 @@ public class LuceneIndex {
 		for (int i = starNum; i < endNum; i++) {
 			List<Faq2_faqUserView> userViews = new ArrayList<Faq2_faqUserView>();
 			String userId = faqQuestionMapper.findUserIdByQuestionId(questionPersistence.get(i).getFAQQUESTIONID());
-			List<User> userPersistences = userMapper.getUserInfoById(userId);
-			for (User userPersistence : userPersistences) {
-				Faq2_faqUserView faq2_faqUserView = new Faq2_faqUserView(userPersistence);
-				userViews.add(faq2_faqUserView);
-			}
+			User userPersistences = userMapper.getUserInfoById(userId);
+			
+			Faq2_faqUserView faq2_faqUserView = new Faq2_faqUserView(userPersistences);
+			userViews.add(faq2_faqUserView);
+			
 			Faq2_faqContentView faq2View = new Faq2_faqContentView(questionPersistence.get(i));
 			faq2View.setuList(userViews);
 			int commentCount = commentMapper.commentInfo(questionPersistence.get(i).getFAQQUESTIONID());

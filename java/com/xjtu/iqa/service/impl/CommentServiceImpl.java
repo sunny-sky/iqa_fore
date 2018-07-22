@@ -54,9 +54,9 @@ public class CommentServiceImpl implements CommentService{
 			Question2_CommunityReplayView question2_CommunityReplayView = new Question2_CommunityReplayView();
 			question2_CommunityReplayView.setCommunity(commentPersistence.getCOMMENTCONTENT());
 			question2_CommunityReplayView.setTime(commentPersistence.getCOMMENTTIME());
-			List<User> userPersistences = userMapper.getUserInfoById(commentPersistence.getUSERID());
-			question2_CommunityReplayView.setUserImage(userPersistences.get(0).getAVATAR());
-			question2_CommunityReplayView.setUserName(userPersistences.get(0).getUSERNAME());
+			User userPersistences = userMapper.getUserInfoById(commentPersistence.getUSERID());
+			question2_CommunityReplayView.setUserImage(userPersistences.getAVATAR());
+			question2_CommunityReplayView.setUserName(userPersistences.getUSERNAME());
 			question2_CommunityReplayViews.add(question2_CommunityReplayView);
 		}
 		return question2_CommunityReplayViews;
@@ -86,13 +86,13 @@ public class CommentServiceImpl implements CommentService{
 		for(Comment commentPersistence:commentPersistences){
 			Faq1_UserActive faq1_UserActive = new Faq1_UserActive();
 			faq1_UserActive.setUserId(commentPersistence.getUSERID());
-			List<User> userPersistences = userMapper.getUserInfoById(commentPersistence.getUSERID());
-			faq1_UserActive.setUserImage(userPersistences.get(0).getAVATAR());
+			User userPersistences = userMapper.getUserInfoById(commentPersistence.getUSERID());
+			faq1_UserActive.setUserImage(userPersistences.getAVATAR());
 			List<It> itPersistences = itMapper.IT(commentPersistence.getUSERID());
 			if (itPersistences.size()!=0) {
 				faq1_UserActive.setWork(itPersistences.get(0).getGOODWORK());
 			}
-			faq1_UserActive.setUserName(userPersistences.get(0).getUSERNAME());
+			faq1_UserActive.setUserName(userPersistences.getUSERNAME());
 			faq1_UserActive.setFaqNumber(commentPersistence.getNUM());
 			faq1_UserActives.add(faq1_UserActive);
 		}
@@ -119,13 +119,13 @@ public class CommentServiceImpl implements CommentService{
 		for(Comment commentPersistence:commentPersistences){
 			Faq1_UserActive faq1_UserActive = new Faq1_UserActive();
 			faq1_UserActive.setUserId(commentPersistence.getUSERID());
-			List<User> userPersistences = userMapper.getUserInfoById(commentPersistence.getUSERID());
-			faq1_UserActive.setUserImage(userPersistences.get(0).getAVATAR());
+			User userPersistences = userMapper.getUserInfoById(commentPersistence.getUSERID());
+			faq1_UserActive.setUserImage(userPersistences.getAVATAR());
 			List<It> itPersistences = itMapper.IT(commentPersistence.getUSERID());
 			if (itPersistences.size()!=0) {
 				faq1_UserActive.setWork(itPersistences.get(0).getGOODWORK());
 			}
-			faq1_UserActive.setUserName(userPersistences.get(0).getUSERNAME());
+			faq1_UserActive.setUserName(userPersistences.getUSERNAME());
 			faq1_UserActive.setFaqNumber(commentPersistence.getNUM());
 			faq1_UserActives.add(faq1_UserActive);
 		}
@@ -154,11 +154,11 @@ public class CommentServiceImpl implements CommentService{
 		for(Comment commentPersistence : commentPersistences){
 			//获取用户信息
 			List<Faq2_faqUserView> faq2_faqUserViews = new ArrayList<Faq2_faqUserView>();
-			List<User> userPersistences = userMapper.getUserInfoById(commentPersistence.getUSERID());
-			for(User userPersistence:userPersistences){
-				Faq2_faqUserView userView = new Faq2_faqUserView(userPersistence);
-				faq2_faqUserViews.add(userView);
-			}
+			User userPersistences = userMapper.getUserInfoById(commentPersistence.getUSERID());
+			
+			Faq2_faqUserView userView = new Faq2_faqUserView(userPersistences);
+			faq2_faqUserViews.add(userView);
+			
 			
 			//获取faq3评论回复信息
 			List<Faq3_CommentReplyView> faq3_CommentReplyViews = new ArrayList<Faq3_CommentReplyView>();			
