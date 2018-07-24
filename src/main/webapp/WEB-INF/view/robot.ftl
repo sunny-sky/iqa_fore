@@ -1,11 +1,11 @@
-<#assign base=request.contextPath />
+<#assign base=rc.contextPath />
 <!DOCTYPE>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>智能小朵</title>
-    <link href="${basePath}/ico/zyq.ico" type="image/x-icon" rel="shortcut icon">
+    <link href="${base}/ico/zyq.ico" type="image/x-icon" rel="shortcut icon">
     <link rel="stylesheet" type="text/css" href="new/front/style/reset.css" />
     <link rel="stylesheet" type="text/css" href="new/front/style/util-rb.css" />
     <link rel="stylesheet" type="text/css" href="css/reset.css">
@@ -20,6 +20,17 @@
 	<link rel="stylesheet" href="zhao/classify/css/style-rb.css">
 	<link rel='stylesheet prefetch' href='http://www.jq22.com/jquery/font-awesome.4.6.0.css'>
 	<script src="zhao/classify/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+	</script>
 	<script src="zhao/classify/js/jquery.aimmenu.js"></script>
 	<script src="zhao/classify/js/knockout.js"></script>
 	<script type="text/javascript" src="js/chat.js"></script>
@@ -43,7 +54,7 @@
    </style>
 </head>
 <body style="margin: 0px;padding: 0px;height: 100%">
-<input type="hidden" id="base" value="${basePath}" />
+<input type="hidden" id="base" value="${base}" />
 <style>
 	.container .wp .macth_xv_categorys .macth_xv_cat_catlist{display:block;}
 </style>
@@ -226,14 +237,16 @@
         });
     });
     </script>
+    
     <script type="text/javascript">
+    <#--
         var currentRoute = false;
         $(document).on('ready', function () {
             // Init Waves
             Waves.init();
             Waves.attach('.drag-ripple', 'waves-block', true);
             Waves.attach('#bg-pattern', null, true);
-            init();
+            Waves.init();
             $(window).on('hashchange', routing);
             /**
              * Example source code click
@@ -257,6 +270,7 @@
                 }, 500);
             });
         });
+        -->
     </script>
     
     <script>

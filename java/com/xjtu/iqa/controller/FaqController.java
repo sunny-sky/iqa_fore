@@ -116,7 +116,7 @@ public class FaqController {
 			mv.addObject("faqlists", faqlists);
 			mv.addObject("faqlistSize", faqlists.size());
 		} else {
-			// zzl_已登录用户获取推荐faq_2017年9月14日21:43:52
+			// 已登录用户获取推荐faq_2017年9月14日21:43:52
 			String userId = userMapper.getUserIdByName(username);
 			int startnum = 0;
 			List<Faq_CommendView> faqlists = faqQuestionService.user_recommend_Limit(userId, 2, startnum, 5);
@@ -181,7 +181,7 @@ public class FaqController {
 	
 	
 	/*
-	 * zyq_faqadd_FAQ的增加页面
+	 * faqadd_FAQ的增加页面
 	 */
 	@RequestMapping(value="faqadd",method=RequestMethod.GET)
 	@SystemControllerLog(description = "FAQ的增加页面")
@@ -198,7 +198,7 @@ public class FaqController {
 	}
 	
 	/*
-	 * zyq_ajax_FAQ的增加
+	 * ajax_FAQ的增加
 	 */
 	@ResponseBody
 	@RequestMapping(value={"/saveFAQ"},method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="text/plain;charset=UTF-8")
@@ -218,11 +218,11 @@ public class FaqController {
 			//String risk_prompt = request.getParameter("risk_prompt");
 			String faqcontent = request.getParameter("faqcontent");
 			String userId = userMapper.getUserIdByName(username);
-			//zzl_faqadd_校验知识是否重复增添
+			//faqadd_校验知识是否重复增添
 			String questionId = faqQuestionMapper.faqadd_iscurrent(title,userId);
 			JSONObject jsonObject = new JSONObject();
 			if (questionId == null) {				
-				//zzl_保存知识
+				//保存知识
 				faqQuestionService.saveFAQ2(userId,title,keywords,subspecialCategoryId,description,faqcontent);
 				jsonObject.put("value", "1");
 				jsonObject.put("urlpath", url);
@@ -255,9 +255,9 @@ public class FaqController {
 		String path = request.getServletPath();	
 		
 		ModelAndView modelAndView = new ModelAndView("faq1");		
-		//zzl_获取一级分类信息
+		//获取一级分类信息
 		List<FaqClassify> classifyFirstInfo = faqClassifyMapper.getInfoById(p);
-		//zzl_获取二级分类
+		//获取二级分类
 		List<FaqClassify> classifySecondInfo = faqClassifyMapper.SecondClassify_robot2(p);
 		//获取faq1底部的4个推荐栏_按照浏览量
 		List<Faq1_ClassifyView> list2 = faqClassifyService.faq1_ClassifyView(p);
@@ -272,7 +272,7 @@ public class FaqController {
 			return null;
 		}
 		
-		//zzl_推荐知识_根据收藏量推荐前4个_2017年9月17日19:45:11
+		//推荐知识_根据收藏量推荐前4个_2017年9月17日19:45:11
 		List<Faq_CommendView> faq_list = faqQuestionService.faqInfo(p);
 				
 		modelAndView.addObject("classifyInfo", classifyFirstInfo);
@@ -390,7 +390,13 @@ public class FaqController {
 		//FAQ的总评分展示
 		List<Score> FAQlist = scoreMapper.getScoreList(q);
 		//获取该问题的总分
-		float totalscore = Float.parseFloat(scoreMapper.getScore(q));
+		float totalscore;
+		if(null == scoreMapper.getScore(q)){
+			totalscore = 0;
+		}else{
+			totalscore = Float.parseFloat(scoreMapper.getScore(q));
+		}
+		
 		int number;
 		if (totalscore==0) {
 			number = 1;
@@ -416,7 +422,7 @@ public class FaqController {
 			if (questionUserId.equals(userId)) {
 			
 			}else {
-				//zzl_查看是否关注
+				//查看是否关注
 				List<Pay> payPersistences = payMapper.getpayList(userId,questionUserId);
 				
 				if (payPersistences.size()==0) {
@@ -464,7 +470,7 @@ public class FaqController {
 	}
 	
 	/*
-	 * zyq_faq3_ajax_FAQ评分
+	 * faq3_ajax_FAQ评分
 	 */
 	@ResponseBody
 	@RequestMapping(value={"/saveFAQscore"},method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="application/json;charset=UTF-8")
@@ -489,7 +495,7 @@ public class FaqController {
 	}
 	
 	/*
-	 * zyq_faq3_ajax_FAQ分享
+	 * faq3_ajax_FAQ分享
 	 */
 	@ResponseBody
 	@RequestMapping(value={"/saveShare"},method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="application/json;charset=UTF-8")

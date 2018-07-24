@@ -103,19 +103,22 @@ public class UserController {
 		String password = request.getParameter("userPassword");
 		System.out.println(username+"  "+password);
 		
+		
 		JSONObject jsonObject = new JSONObject();
 		
 		//获取登录用户信息
 		Boolean isExist = userService.isLogin(username, password);
 		
+		System.out.println(isExist);
+		
 		/*用户名 或密码错误，返回登录页面重新登录;正确跳转至urlPath所指向页面*/		 
-		if (isExist == false) {			
+		if ( false == isExist ) {			
 			long executionTime = System.currentTimeMillis() - startTime;
 			
 			/*SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String dateStr = dateformat.format(startTime);*/
 			//记录运行时间
-			System.out.println("buzhemgque");
+			System.out.println("buzhengque");
 			timeStampMapper.addTimeStamp(UUID.randomUUID().toString(),path,executionTime,startTime);			
 			jsonObject.put("value", "0");
 			String result = JsonUtil.toJsonString(jsonObject); 			
@@ -123,7 +126,7 @@ public class UserController {
 			
 			//return "redirect:login.html";			
 		}else {
-			System.out.println("zhemgque");
+			System.out.println("zhengque");
 			//zzl_查找登录用户信息
 			User list = userService.loginUserInfo(username);
 			

@@ -147,4 +147,30 @@
       ISNOTICE = #{ISNOTICE,jdbcType=INTEGER}
     where COLLECTIONID = #{COLLECTIONID,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getCollection" resultType="String">
+  	SELECT COLLECTIONID FROM TBL_Collection WHERE USERID=#{0} AND COMMUNITYANSWERID=#{1}
+  </select>
+  <insert id="saveCollection">
+  	INSERT INTO TBL_Collection(COLLECTIONID,COMMUNITYANSWERID,USERID,TIME,ISNOTICE) VALUES (#{0},#{1},#{2},#{3},#{4})
+  </insert>
+  <select id="getCollection2" resultType="String">
+  	SELECT COLLECTIONID FROM TBL_Collection WHERE USERID=#{0} AND FAQQUESTIONID=#{1}
+  </select>
+  <insert id="saveCollection2">
+  	INSERT INTO TBL_Collection(COLLECTIONID,FAQQUESTIONID,USERID,TIME,ISNOTICE) VALUES (#{0},#{1},#{2},#{3},#{4})
+  </insert>
+  <delete id="deleteCollection">
+  	DELETE FROM TBL_Collection WHERE COLLECTIONID=#{0}
+  </delete>
+  <select id="getCollectionFaqCount" resultType="int">
+  	SELECT COUNT(COLLECTIONID) FROM TBL_Collection WHERE FAQQUESTIONID=#{0} AND COMMUNITYANSWERID IS NULL
+  </select>
+  <select id="getCollectionFaq" resultMap="BaseResultMap">
+  	SELECT * FROM TBL_Collection WHERE USERID=#{0} AND COMMUNITYANSWERID IS NULL ORDER BY TIME DESC LIMIT #{1},#{2}
+  </select>
+  <select id="personal2_PayCommunity_Limit" resultMap="BaseResultMap">
+  	SELECT * FROM TBL_Collection WHERE FAQQUESTIONID IS NULL AND USERID=#{0} ORDER BY TIME DESC LIMIT #{1},#{2}
+  </select>
+  
 </mapper>

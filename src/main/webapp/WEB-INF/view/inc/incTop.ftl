@@ -21,10 +21,10 @@
 								<div class="my_service_list" >
 									<div class="top_icon"></div>
 									<ul class="ul_list">
-										<li><a href="personal.html">个人信息</a></li>
+										<li><a href="personal">个人信息</a></li>
 									<!-- 	<li><a id="equipment" href="personal3.html">我的设备</a></li>
 										<li><a href="500.html">消息通知</a></li> -->
-										<li><a href="personal2.html">我的主页</a></li>
+										<li><a href="personal2">我的主页</a></li>
 										
 									</ul>
 								</div>

@@ -32,7 +32,7 @@ public class LogServiceImpl implements LogService{
 	public List<Log> getLogs(String userid) {
 		LogExample example =new LogExample();
         example.createCriteria().andUSERIDEqualTo(userid);
-        example.setOrderByClause("id desc");  
+        example.setOrderByClause("LOGTIME desc");  
         List<Log> logs =logMapper.selectByExample(example);
 		
 		return logs;

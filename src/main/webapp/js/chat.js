@@ -5,7 +5,7 @@ setTimeout("robot_welcome()",1000);
 function robot_welcome(){
 	 $.ajax({
 		 type: "GET",
-		 url: base+"/getRobotInfo.html",            
+		 url: base+"/getRobotInfo",            
 		 dataType: "json",
 		 success: function(data){
 			 	document.getElementById("chat01_content").innerHTML = '<li class="media">'
@@ -69,7 +69,7 @@ function questionSkill1(){
 	var html = document.getElementById("chat01_content").innerHTML;
 	 $.ajax({
 		 type: "GET",
-		 url: base+"/questionSkill.html",            
+		 url: base+"/questionSkill",            
 		 dataType: "json",
 		 success: function(data){
 			 if(data.value=="0"){
@@ -91,7 +91,7 @@ function questionSkill1(){
 			 }else{
 				 document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 				 +'<div style="width:48px;float:right;margin-left: 7px;">'
-				 +'<a href="personal2.html?='+data.robotUser[0].uSERID+'" target="_blank">'
+				 +'<a href="personal2?='+data.robotUser[0].uSERID+'" target="_blank">'
 				 +'<div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div>'
 				 +'</a>'
 				 +'<div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div></div>'
@@ -126,7 +126,7 @@ function chatWithRobot(){
 	}else{
 		$.ajax({
 			type:"POST",
-			url:base+"/chatWithRobot.html",
+			url:base+"/chatWithRobot",
 			data:{
 				"comment":comments,
 				"from":from
@@ -136,7 +136,7 @@ function chatWithRobot(){
 				$("#answerId").attr("value",data.answerId);
 				$("#questionId").attr("value",data.questionId);
 				if(data.value=="0"){
-					self.location='login.html';
+					self.location='login';
 				}else if(data.value=="1"){
 					
 					/*
@@ -178,7 +178,7 @@ function chatWithRobot(){
 							//已登录用户执行
 							document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 							+'<div style="width:48px;float:right;margin-left: 7px;">'
-							+'<a href="personal2.html?='+data.robotUser[0].uSERID+'" target="_blank"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div></a>'
+							+'<a href="personal2?='+data.robotUser[0].uSERID+'" target="_blank"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div></a>'
 							+'<div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div></div>'
 						+'<div class="media-body chat-pop2">'
 						+'<span class="pull-right"><i class="fa fa-clock-o"></i> <abbr class="timeago">'+showTime()+'</abbr> </span><p></p>'
@@ -256,7 +256,7 @@ function chatWithRobot(){
 								 */
 								var htmlss="";
 								for(var i=1;i<data.robotChat.length;i++){
-									htmlss = htmlss + '<a href="faq3.html?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
+									htmlss = htmlss + '<a href="faq3?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
 								}
 								document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 								+'<div style="width:48px;float:right;margin-left: 7px;">'
@@ -308,7 +308,7 @@ function chatWithRobot(){
 								 */
 								var htmlss="";
 								for(var i=1;i<=3;i++){
-									htmlss = htmlss + '<a href="faq3.html?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
+									htmlss = htmlss + '<a href="faq3?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
 								}
 								document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 								+'<div style="width:48px;float:right;margin-left: 7px;">'
@@ -365,7 +365,7 @@ function chatWithRobot(){
 							if(data.robotChat.length==1){
 								document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 								+'<div style="width:48px;float:right;margin-left: 7px;">'
-									+'<a href="personal2.html?='+data.robotUser[0].uSERID+'" target="_blank">'
+									+'<a href="personal2?='+data.robotUser[0].uSERID+'" target="_blank">'
 										+'<div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div>'
 									+'</a>'
 									+'<div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div>'
@@ -413,11 +413,11 @@ function chatWithRobot(){
 								 */							
 								var htmlss="";
 								for(var i=1;i<data.robotChat.length;i++){
-									htmlss = htmlss + '<a href="faq3.html?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
+									htmlss = htmlss + '<a href="faq3?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
 								}
 								document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 								+'<div style="width:48px;float:right;margin-left: 7px;">'
-								+'<a href="personal2.html?='+data.robotUser[0].uSERID+'" target="_blank">'
+								+'<a href="personal2?='+data.robotUser[0].uSERID+'" target="_blank">'
 									+'<div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div>'
 								+'</a>'
 								+'<div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div>'
@@ -466,11 +466,11 @@ function chatWithRobot(){
 								 */
 								var htmlss="";
 								for(var i=1;i<=3;i++){
-									htmlss = htmlss + '<a href="faq3.html?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
+									htmlss = htmlss + '<a href="faq3?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
 								}
 								document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 								+'<div style="width:48px;float:right;margin-left: 7px;">'
-								+'<a href="personal2.html?='+data.robotUser[0].uSERID+'" target="_blank">'
+								+'<a href="personal2?='+data.robotUser[0].uSERID+'" target="_blank">'
 									+'<div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div>'
 								+'</a>'
 								+'<div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div>'
@@ -540,7 +540,7 @@ function chatWithRobot2(){
 	}else{
 		$.ajax({
 			type:"POST",
-			url:base+"/chatWithRobot.html",
+			url:base+"/chatWithRobot",
 			data:{
 				"comment":comments,
 				"from":from
@@ -548,7 +548,7 @@ function chatWithRobot2(){
 			dataType:"json",
 			success:function(data){
 				if(data.value=="0"){
-					self.location='login.html';
+					self.location='login';
 				}else if(data.value=="1"){
 					if(data.robotChat.length==0){
 						document.getElementById("textarea").value="";
@@ -571,7 +571,7 @@ function chatWithRobot2(){
 						}else{
 							document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 							+'<div style="width:48px;float:right;margin-left: 7px;">'
-							+'<a href="personal2.html?='+data.robotUser[0].uSERID+'" target="_blank"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div></a>'
+							+'<a href="personal2?='+data.robotUser[0].uSERID+'" target="_blank"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div></a>'
 							+'<div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div></div>'
 						
 						+'<div class="media-body chat-pop2">'
@@ -635,7 +635,7 @@ function chatWithRobot2(){
 								}else if(eval(1)<eval(data.robotChat.length)&&eval(data.robotChat.length)<=eval(4)){
 								var htmlss="";
 								for(var i=1;i<data.robotChat.length;i++){
-									htmlss = htmlss + '<a href="faq3.html?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
+									htmlss = htmlss + '<a href="faq3?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
 								}
 								document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 								+'<div style="width:48px;float:right;margin-left: 7px;">'
@@ -685,7 +685,7 @@ function chatWithRobot2(){
 								}else{
 								var htmlss="";
 								for(var i=1;i<=3;i++){
-									htmlss = htmlss + '<a href="faq3.html?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
+									htmlss = htmlss + '<a href="faq3?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
 								}
 								document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 								+'<div style="width:48px;float:right;margin-left: 7px;">'
@@ -736,7 +736,7 @@ function chatWithRobot2(){
 							if(data.robotChat.length==1){
 								document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 								+'<div style="width:48px;float:right;margin-left: 7px;">'
-								+'<a href="personal2.html?='+data.robotUser[0].uSERID+'" target="_blank">'
+								+'<a href="personal2?='+data.robotUser[0].uSERID+'" target="_blank">'
 									+'<div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div>'
 								+'</a>'
 								+'<div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div>'
@@ -781,11 +781,11 @@ function chatWithRobot2(){
 							}else if(eval(1)<eval(data.robotChat.length)&&eval(data.robotChat.length)<=eval(4)){
 								var htmlss="";
 								for(var i=1;i<data.robotChat.length;i++){
-									htmlss = htmlss + '<a href="faq3.html?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
+									htmlss = htmlss + '<a href="faq3?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
 								}
 								document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 								+'<div style="width:48px;float:right;margin-left: 7px;">'
-								+'<a href="personal2.html?='+data.robotUser[0].uSERID+'" target="_blank">'
+								+'<a href="personal2?='+data.robotUser[0].uSERID+'" target="_blank">'
 									+'<div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div>'
 								+'</a>'
 								+'<div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div>'
@@ -834,11 +834,11 @@ function chatWithRobot2(){
 							}else{
 								var htmlss="";
 								for(var i=1;i<=3;i++){
-									htmlss = htmlss + '<a href="faq3.html?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
+									htmlss = htmlss + '<a href="faq3?q='+data.robotChat[i].questionId+'" target="_blank">'+data.robotChat[i].question+'</a><br>';
 								}
 								document.getElementById("chat01_content").innerHTML = html+'<li class="media">'
 								+'<div style="width:48px;float:right;margin-left: 7px;">'
-								+'<a href="personal2.html?='+data.robotUser[0].uSERID+'" target="_blank">'
+								+'<a href="personal2?='+data.robotUser[0].uSERID+'" target="_blank">'
 									+'<div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div>'
 								+'</a>'
 								+'<div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div>'
@@ -902,7 +902,7 @@ function beHelpful(answerId, questionId){
 	var html = document.getElementById("chat01_content").innerHTML;
 	 $.ajax({
 		 type: "GET",
-		 url: base+"/beHelpful.html",            
+		 url: base+"/beHelpful",            
 		 data:{
 				"answerId":answerId,
 				"questionId":questionId,
@@ -934,7 +934,7 @@ function beHelpful(answerId, questionId){
 				 
 				 
 			 }else if(data.value=="1"){
-				 document.getElementById("chat01_content").innerHTML = html+'<li class="media"><div style="width:48px;float:right;margin-left: 7px;"><a href="personal2.html?='+data.robotUser[0].uSERID+'" target="_blank"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div></a><div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div></div><div class="media-body chat-pop2"><span class="pull-right"><i class="fa fa-clock-o"></i> <abbr class="timeago">'+showTime()+'</abbr> </span><p></p><div style="float:left;"><span style="">'+"满意"+'<span style="color:blue"><a href="javascript:void(0);" onclick=""></a></span></span></div><p></p></div></li>'+'<li class="media"><div style="width:48px;float:left;margin-left: 7px;"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotInfo[0].rOBOTIMAGE+'"></div><div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotInfo[0].rOBOTNAME+'</div></div><div class="media-body chat-pop"><span class="pull-right"><i class="fa fa-clock-o"></i> <abbr class="timeago">'+showTime()+'</abbr> </span><p></p><div style="float:left;"><span style=""><div style="margin-bottom: 6px;color:#000000;font-size:13px;display:none"><b>经过我的判断，方案如下：</b></div><div class="head_msg">小朵为您推荐</div><div class="content_line">能够帮到您我很开心！如果有需要您可以继续提问哦^_^</div></span></div><p></p></div></li>';
+				 document.getElementById("chat01_content").innerHTML = html+'<li class="media"><div style="width:48px;float:right;margin-left: 7px;"><a href="personal2?='+data.robotUser[0].uSERID+'" target="_blank"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div></a><div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div></div><div class="media-body chat-pop2"><span class="pull-right"><i class="fa fa-clock-o"></i> <abbr class="timeago">'+showTime()+'</abbr> </span><p></p><div style="float:left;"><span style="">'+"满意"+'<span style="color:blue"><a href="javascript:void(0);" onclick=""></a></span></span></div><p></p></div></li>'+'<li class="media"><div style="width:48px;float:left;margin-left: 7px;"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotInfo[0].rOBOTIMAGE+'"></div><div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotInfo[0].rOBOTNAME+'</div></div><div class="media-body chat-pop"><span class="pull-right"><i class="fa fa-clock-o"></i> <abbr class="timeago">'+showTime()+'</abbr> </span><p></p><div style="float:left;"><span style=""><div style="margin-bottom: 6px;color:#000000;font-size:13px;display:none"><b>经过我的判断，方案如下：</b></div><div class="head_msg">小朵为您推荐</div><div class="content_line">能够帮到您我很开心！如果有需要您可以继续提问哦^_^</div></span></div><p></p></div></li>';
 			
 			 }else {
 					alert("满意度重复提交");
@@ -953,7 +953,7 @@ function NoHelpful(answerId, questionId){
 	var html = document.getElementById("chat01_content").innerHTML;
 	 $.ajax({
 		 type: "GET",
-		 url: base+"/NoHelpful.html",            
+		 url: base+"/NoHelpful",            
 		 data:{
 				"answerId":answerId,
 				"questionId":questionId,
@@ -979,13 +979,13 @@ function NoHelpful(answerId, questionId){
 				 			+'<span style="">'
 				 				+'<div style="margin-bottom: 6px;color:#000000;font-size:13px;display:none">'
 				 				+'</div>'
-				 				+'<div class="content_line">很抱歉没帮上您，小朵感到十分抱歉。可将您的问题<a href="question.html?c=all&type=all">添加到社区中心</a>，让大家帮您解答~' +'</div>'
+				 				+'<div class="content_line">很抱歉没帮上您，小朵感到十分抱歉。可将您的问题<a href="question?c=all&type=all">添加到社区中心</a>，让大家帮您解答~' +'</div>'
 				 			+'</span>'
 				 		+'</div>'
 				 	+'</div>'
 				 +'</li>';
 			 }else if(data.value=="1"){
-				 document.getElementById("chat01_content").innerHTML = html+'<li class="media"><div style="width:48px;float:right;margin-left: 7px;"><a href="personal2.html?='+data.robotUser[0].uSERID+'" target="_blank"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div></a><div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div></div><div class="media-body chat-pop2"><span class="pull-right"><i class="fa fa-clock-o"></i> <abbr class="timeago">'+showTime()+'</abbr> </span><p></p><div style="float:left;"><span style="">'+"不满意"+'<span style="color:blue"><a href="javascript:void(0);" onclick=""></a></span></span></div><p></p></div></li>'+'<li class="media"><div style="width:48px;float:left;margin-left: 7px;"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotInfo[0].rOBOTIMAGE+'"></div><div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotInfo[0].rOBOTNAME+'</div></div><div class="media-body chat-pop"><span class="pull-right"><i class="fa fa-clock-o"></i> <abbr class="timeago">'+showTime()+'</abbr> </span><p></p><div style="float:left;"><span style=""><div style="margin-bottom: 6px;color:#000000;font-size:13px;display:none"><b>经过我的判断，方案如下：</b></div><div class="head_msg">小朵为您推荐</div><div class="content_line">很抱歉没帮上您，小朵感到十分抱歉。可将您的问题<a href="question.html?c=all&type=all">添加到社区中心</a>，让大家帮您解答~</div></span></div><p></p></div></li>';		
+				 document.getElementById("chat01_content").innerHTML = html+'<li class="media"><div style="width:48px;float:right;margin-left: 7px;"><a href="personal2?='+data.robotUser[0].uSERID+'" target="_blank"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotUser[0].aVATAR+'"></div></a><div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotUser[0].uSERNAME+'</div></div><div class="media-body chat-pop2"><span class="pull-right"><i class="fa fa-clock-o"></i> <abbr class="timeago">'+showTime()+'</abbr> </span><p></p><div style="float:left;"><span style="">'+"不满意"+'<span style="color:blue"><a href="javascript:void(0);" onclick=""></a></span></span></div><p></p></div></li>'+'<li class="media"><div style="width:48px;float:left;margin-left: 7px;"><div class="lhead"><img class="media-object" alt="Generic placeholder image" src="'+data.robotInfo[0].rOBOTIMAGE+'"></div><div style="margin-top: 5px;text-align: center;color:#3FA1F3;font-size:12px;font-weight: bold;">'+data.robotInfo[0].rOBOTNAME+'</div></div><div class="media-body chat-pop"><span class="pull-right"><i class="fa fa-clock-o"></i> <abbr class="timeago">'+showTime()+'</abbr> </span><p></p><div style="float:left;"><span style=""><div style="margin-bottom: 6px;color:#000000;font-size:13px;display:none"><b>经过我的判断，方案如下：</b></div><div class="head_msg">小朵为您推荐</div><div class="content_line">很抱歉没帮上您，小朵感到十分抱歉。可将您的问题<a href="question?c=all&type=all">添加到社区中心</a>，让大家帮您解答~</div></span></div><p></p></div></li>';		
 			 }else {
 				alert("满意度重复提交");
 			}

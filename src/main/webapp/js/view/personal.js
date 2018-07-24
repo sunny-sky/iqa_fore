@@ -25,7 +25,7 @@ $("#submitupdatePassword").click(function(){
 	if(pw.test($("#password").val())&&pw.test($("#password2").val())&&(rpw==($("#password2").val()))){
 	$.ajax({
 		type:"POST",
-		url:base+"/updateUserPassword.html",
+		url:base+"/updateUserPassword",
 		data:{
 			"password":$("#password").val(),
 			"password2":$("#password2").val(),

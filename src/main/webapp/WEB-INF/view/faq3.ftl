@@ -1,4 +1,4 @@
-<#assign base=request.contextPath />
+<#assign base=rc.contextPath />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -7,23 +7,23 @@
     <#list faq3Views as a>
     <title>${a.faqTitle}</title>
     </#list>
-    <link href="${basePath}/ico/zyq.ico" type="image/x-icon" rel="shortcut icon">
-    <link rel="stylesheet" type="text/css" href="${basePath}/new/front/style/reset.css" />
-    <link rel="stylesheet" type="text/css" href="${basePath}/new/front/style/util.css" />
-        <link rel="stylesheet" type="text/css" href="${basePath}/new/front/style/utilDetails.css" />
-    <link href="${basePath}/zhao/lunbo/css/jquery.onebyone-min.css" rel="stylesheet" />
-    <link href="${basePath}/css/font-awesome.min.css" rel="stylesheet">
-    <link href="${basePath}/css/starScore.css" rel="stylesheet">
-    <script type="text/javascript" src="${basePath}/zhao/lunbo/js/jquery.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${basePath}/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${basePath}/ueditor/ueditor.all.min.js"> </script>
-    <script type="text/javascript" charset="utf-8" src="${basePath}/ueditor/lang/zh-cn/zh-cn.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${basePath}/js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${basePath}/js/starScore.js"></script>
-    <script type="text/javascript" src="${basePath}/js/browserEvent.js"></script>'
-    <link rel="stylesheet" href="${basePath}/share/css/share.min.css">
+    <link href="${base}/ico/zyq.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="${base}/new/front/style/reset.css" />
+    <link rel="stylesheet" type="text/css" href="${base}/new/front/style/util.css" />
+        <link rel="stylesheet" type="text/css" href="${base}/new/front/style/utilDetails.css" />
+    <link href="${base}/zhao/lunbo/css/jquery.onebyone-min.css" rel="stylesheet" />
+    <link href="${base}/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${base}/css/starScore.css" rel="stylesheet">
+    <script type="text/javascript" src="${base}/zhao/lunbo/js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="${base}/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="${base}/ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="${base}/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="${base}/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="${base}/js/starScore.js"></script>
+    <script type="text/javascript" src="${base}/js/browserEvent.js"></script>'
+    <link rel="stylesheet" href="${base}/share/css/share.min.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.8.2/jquery.js"></script>
-    <script src="${basePath}/share/js/jquery.share.min.js"></script>
+    <script src="${base}/share/js/jquery.share.min.js"></script>
     
 	<script type="text/javascript">
     $(function(){
@@ -138,13 +138,13 @@
 </head>
 
 <body>
-<input type="hidden" id="base" value="${basePath}" />
+<input type="hidden" id="base" value="${base}" />
 	<!-- 头部开始 -->
 	<div class="header" id="head"> 
 	<#include "inc/incTop.ftl">
    		<div class="headContent">
 			<div class="headTop clearfix">
-				<form class="avatar-form" action="faqSearch.html" enctype="multipart/form-data" method="post">
+				<form class="avatar-form" action="faqSearch" enctype="multipart/form-data" method="post">
 					<div class="queryBox">
 						<input type="text" class="text" value="输入关键字" onfocus="if(this.value=='输入关键字')this.value='';" onblur="if(this.value=='')this.value='输入关键字';" id="keyWordText" onkeydown="if (event.keyCode == 13) {queryKnowledgeByKey();}" autocomplete="off" name="queryString">
 						<a href="javascript:void(0);" class="queryBtn"></a>
@@ -167,14 +167,14 @@
 			<div class="leftMainWrapper ">
                 <!-- 所有分类开始 -->
                 <div class="nowPositionBox clearfix">
-                    <a href="${basePath}/faq.html"><span class="allType">所有分类</span></a>
+                    <a href="${base}/faq"><span class="allType">所有分类</span></a>
                     <span class="arrow">&gt;</span>
                     <#list classify as classify>
-                    <a href="${basePath}/faq1.html?p=${classify.FAQCLASSIFYID}" id="firstNavStep"><span id="fristProductionName">${classify.FAQCLASSIFYNAME}</span></a>
+                    <a href="${base}/faq1?p=${classify.FAQCLASSIFYID}" id="firstNavStep"><span id="fristProductionName">${classify.FAQCLASSIFYNAME}</span></a>
                     </#list>
                     <span class="arrow">&gt;</span>
                     <#list classify2 as classify2>
-                    <a href="${basePath}/faq2.html?c=${classify2.FAQCLASSIFYID}" id="secondNavStep"><span class="secondStep" id="subProductionName">${classify2.FAQCLASSIFYNAME}</span></a>
+                    <a href="${base}/faq2?c=${classify2.FAQCLASSIFYID}" id="secondNavStep"><span class="secondStep" id="subProductionName">${classify2.FAQCLASSIFYNAME}</span></a>
                     </#list>
                     <span class="arrow twoFlag">&gt;</span>
                     <span class="titleStep">${faq3Views.faqTitle}</span>
@@ -369,7 +369,7 @@
 	    	   if(userId!=touserId){
 		   		$.ajax({
 		   			type:"POST",
-		   			url:base+"/savePay.html",
+		   			url:base+"/savePay",
 		   			data:{
 		   				"userId":userId,
 		   				"touserId":touserId
@@ -377,7 +377,7 @@
 		   			dataType:"json",
 		   			success:function(data){
 		   				if(data.value=="0"){
-		   					self.location='login.html';
+		   					self.location='login';
 		   				}else if(data.value=="1"){
 		   					alert("关注成功！");
 		                    $("#overAttentionLink").removeClass("hidden");

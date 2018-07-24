@@ -134,4 +134,16 @@
       USERID = #{USERID,jdbcType=VARCHAR}
     where USERQUESTIONID = #{USERQUESTIONID,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getQuertionInfo" resultType="String">
+  	SELECT ROBOTANSWERID FROM TBL_RobotAnswer WHERE USERQUESTIONID = #{0}
+  </select>
+  <update id="updateRobotAnswerState">
+  	UPDATE TBL_RobotAnswer SET QUESTIONSTATE=#{1}  WHERE USERQUESTIONID=#{0}
+  </update>
+  <select id="getFaqAnswerIdByQuestionId" resultType="String">
+  	SELECT FAQANSWERID FROM TBL_RobotAnswer WHERE USERQUESTIONID=#{0}
+  </select>
+  
+  
 </mapper>

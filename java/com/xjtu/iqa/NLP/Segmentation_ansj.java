@@ -62,11 +62,12 @@ public class Segmentation_ansj {
 	 */
 	public static List<NLP_Word> similarScoreFirst(String text) throws Exception{
 //!!!		String localurl = System.getProperty("user.dir");
-		String localurl = System.getProperty("user.dir").replace("bin", "webapps");
-		
+//		String localurl = System.getProperty("user.dir").replace("bin", "webapps");
+		String localurl = "D:\\workspace\\eclipse";
 
 		
-		Forest forest = Library.makeForest(localurl+"/iqa_fore/library/computer.dic");
+//		Forest forest = Library.makeForest(localurl+"/iqa_fore/library/computer.dic");
+		Forest forest = Library.makeForest(localurl+"/iqa_fore/src/main/webapp/library/computer.dic");
 		Result terms = ToAnalysis.parse(text,forest);
 
 		Result result = terms.recognition(StopLibrary.get());

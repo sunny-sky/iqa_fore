@@ -1,11 +1,11 @@
-<#assign base=request.contextPath />
+<#assign base=rc.contextPath />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>智能小朵-问题中心</title>
-    <link href="${basePath}/ico/zyq.ico" type="image/x-icon" rel="shortcut icon">
+    <link href="${base}/ico/zyq.ico" type="image/x-icon" rel="shortcut icon">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="new/front/style/reset.css" />
     <link rel="stylesheet" type="text/css" href="new/front/style/util.css" />
@@ -25,7 +25,7 @@
    
 </head>
 <body>
-<input type="hidden" id="base" value="${basePath}" />
+<input type="hidden" id="base" value="${base}" />
 	<div class="header" id="head">      
 	    <!-- 头部开始 -->
 		<#include "inc/incTop.ftl">

@@ -80,7 +80,7 @@ function getMoreIndex(){
 	
 	$.ajax({
 		type:"POST",
-		url:base+"/getMoreIndex.html",
+		url:base+"/getMoreIndex",
 		data:{
 			"time1":time1,
 			"time2":time2,
@@ -161,14 +161,14 @@ function c_know(){
 	var userId = document.getElementsByClassName("user-info")[0].id;
 	$.ajax({
 		type:"POST",
-		url:base+"/getpersonalFaq.html",
+		url:base+"/getpersonalFaq",
 		data:{
 			"userId":userId
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(data.faqView==""){
 					document.getElementById("zhao2_article-main").innerHTML='<p class="notattend">你还没有任何原创知识，快去<a href="faq.html" class="red" target="_blank">发表知识</a>吧</p>';
@@ -213,14 +213,14 @@ function getMoreFaq1(){
 	var startnumber = document.getElementById("zhao2_article-main").getElementsByClassName("list-item article-item").length;
 	$.ajax({
 		type:"POST",
-		url:base+"/getMoreFaq1.html",
+		url:base+"/getMoreFaq1",
 		data:{
 			"startnumber":startnumber
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(document.getElementById("getMoreFaq1")!=null){
 					document.getElementById("getMoreFaq1").remove();
@@ -247,13 +247,13 @@ function getMoreFaq1(){
 function getCollectFaq(){
 	$.ajax({
 		type:"POST",
-		url:base+"/getCollectFaq.html",
+		url:base+"/getCollectFaq",
 		data:{
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(data.faqView==""){
 					document.getElementById("zhao2_article-main2").innerHTML='<p class="notattend">你还没有收藏任何原创知识，快去<a href="faq.html" class="red" target="_blank">发表知识</a>吧</p>';
@@ -284,14 +284,14 @@ function getMoreCollectFaq(){
 	var startnumber = document.getElementById("zhao2_article-main2").getElementsByClassName("list-item article-item").length;
 	$.ajax({
 		type:"POST",
-		url:base+"/getMoreCollectFaq.html",
+		url:base+"/getMoreCollectFaq",
 		data:{
 			"startnumber":startnumber
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(document.getElementById("getMoreCollection")!=null){
 					document.getElementById("getMoreCollection").remove();
@@ -324,13 +324,13 @@ function getMoreCollectFaq(){
 function getCommentFaq(){
 	$.ajax({
 		type:"POST",
-		url:base+"/getCommentFaq.html",
+		url:base+"/getCommentFaq",
 		data:{
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(data.faqView==""){
 					document.getElementById("zhao2_article-main3").innerHTML='<p class="notattend">你还没有评论任何知识，快去<a href="faq.html" class="red" target="_blank">知识首页查看</a>吧</p>';
@@ -366,14 +366,14 @@ function getMoreCommentFaq(){
 	var startnumber = document.getElementById("zhao2_article-main3").getElementsByClassName("list-item article-item").length;
 	$.ajax({
 		type:"POST",
-		url:base+"/getMoreCommentFaq.html",
+		url:base+"/getMoreCommentFaq",
 		data:{
 			"startnumber":startnumber
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(document.getElementById("getMoreComment")!=null){
 					document.getElementById("getMoreComment").remove();
@@ -414,14 +414,14 @@ function c_question(){
 	var userId = document.getElementsByClassName("user-info")[0].id;
 	$.ajax({
 		type:"POST",
-		url:base+"/getpersonalCommunity.html",
+		url:base+"/getpersonalCommunity",
 		data:{
 			"userId":userId
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(data.communityView==""){
 					document.getElementById("zhao3_article-main").innerHTML='<p class="notattend">你还没有任何提问记录，快去<a href="question.html?c=all&type=all" class="red" target="_blank">问题中心</a>吧</p>';
@@ -453,14 +453,14 @@ function getMoreCommunity(){
 	var startnumber = document.getElementById("zhao3_article-main").getElementsByClassName("ques-answer").length;
 	$.ajax({
 		type:"POST",
-		url:base+"/getMoreCommunity1.html",
+		url:base+"/getMoreCommunity1",
 		data:{
 			"startnumber":startnumber
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(document.getElementById("getMoreCommunity")!=null){
 					document.getElementById("getMoreCommunity").remove();
@@ -488,14 +488,14 @@ function getPayCommunity(){
 	var userId = document.getElementsByClassName("user-info")[0].id;
 	$.ajax({
 		type:"POST",
-		url:base+"/getPayCommunity.html",
+		url:base+"/getPayCommunity",
 		data:{
 			"userId":userId
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(data.communityView==""){
 					document.getElementById("zhao3_article-main2").innerHTML='<p class="notattend">你还没有关注提问记录，快去<a href="question.html?c=all&type=all" class="red" target="_blank">问题中心</a>吧</p>';
@@ -549,14 +549,14 @@ function getMorePayCommunity(){
 	var startnumber = document.getElementById("zhao3_article-main2").getElementsByClassName("ques-answer").length;
 	$.ajax({
 		type:"POST",
-		url:base+"/getMorePayCommunity.html",
+		url:base+"/getMorePayCommunity",
 		data:{
 			"startnumber":startnumber
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(document.getElementById("getMorePayCommunity")!=null){
 					document.getElementById("getMorePayCommunity").remove();
@@ -584,14 +584,14 @@ function getReplyCommunity(){
 	var userId = document.getElementsByClassName("user-info")[0].id;
 	$.ajax({
 		type:"POST",
-		url:base+"/getReplyCommunity.html",
+		url:base+"/getReplyCommunity",
 		data:{
 			"userId":userId
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(data.communityView==""){
 					document.getElementById("zhao3_article-main3").innerHTML='<p class="notattend">你还没有回复提问记录，快去<a href="question.html?c=all&type=all" class="red" target="_blank">问题中心</a>吧</p>';
@@ -627,14 +627,14 @@ function getMoreReplyCommunity(){
 	var startnumber = document.getElementById("zhao3_article-main3").getElementsByClassName("ques-answer").length;
 	$.ajax({
 		type:"POST",
-		url:base+"/getMoreReplyCommunity.html",
+		url:base+"/getMoreReplyCommunity",
 		data:{
 			"startnumber":startnumber
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(data.communityView==""){
 					document.getElementById("zhao3_article-main3").innerHTML='<p class="notattend">你还没有回复提问记录，快去<a href="question.html?c=all&type=all" class="red" target="_blank">问题中心</a>吧</p>';
@@ -679,14 +679,14 @@ function guanzhubutton(){
 	var userId = document.getElementsByClassName("user-info")[0].id;
 	$.ajax({
 		type:"POST",
-		url:base+"/getPay.html",
+		url:base+"/getPay",
 		data:{
 			"userId":userId
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(data.payView==""){
 					document.getElementById("zhao4").getElementsByClassName("article-main")[0].innerHTML='<div class="ques-list"><div class="nodata">您还没有关注任何人</div></div>';
@@ -726,14 +726,14 @@ function cancelAttention(id){
     	if(userId!=touserId){
     		$.ajax({
     			type:"POST",
-    			url:base+"/deletePay.html",
+    			url:base+"/deletePay",
     			data:{
     				"touserId":touserId
     			},
     			dataType:"json",
     			success:function(data){
     				if(data.value=="0"){
-    					self.location='login.html';
+    					self.location='login';
     				}else if(data.value=="1"){
     					alert("已取消关注！");
     					if(data.payView==""){
@@ -779,14 +779,14 @@ function beiguanzhubutton(){
 	var userId = document.getElementsByClassName("user-info")[0].id;
 	$.ajax({
 		type:"POST",
-		url:base+"/getbePay.html",
+		url:base+"/getbePay",
 		data:{
 			"userId":userId
 		},
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				if(data.bepayView==""){
 					document.getElementById("zhao4").getElementsByClassName("investment_con_list")[0].innerHTML='<div class="ques-list"><div class="nodata">您还没有任何粉丝关注</div></div>';
@@ -844,7 +844,7 @@ function guanzhu(){
 	if(userId!=touserId){
 		$.ajax({
 			type:"POST",
-			url:base+"/savePay.html",
+			url:base+"/savePay",
 			data:{
 				"userId":userId,
 				"touserId":touserId
@@ -852,7 +852,7 @@ function guanzhu(){
 			dataType:"json",
 			success:function(data){
 				if(data.value=="0"){
-					self.location='login.html';
+					self.location='login';
 				}else if(data.value=="1"){
 					document.getElementById("weiguanzhu0").style.display="none";
 					document.getElementById("yiguanzhu0").style.display="block";
@@ -869,14 +869,14 @@ function quguanzhu(){
 	if(userId!=touserId){
 		$.ajax({
 			type:"POST",
-			url:base+"/deletePay.html",
+			url:base+"/deletePay",
 			data:{
 				"touserId":touserId
 			},
 			dataType:"json",
 			success:function(data){
 				if(data.value=="0"){
-					self.location='login.html';
+					self.location='login';
 				}else if(data.value=="1"){
 					document.getElementById("weiguanzhu0").style.display="block";
 					document.getElementById("yiguanzhu0").style.display="none";

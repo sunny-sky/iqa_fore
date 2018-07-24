@@ -993,12 +993,12 @@
 .knowledgeDetail .shareBox .heart {
     width: 22px;
     height: 21px;
-    background: url(/01/images/gray_start.png) no-repeat;
+    background: url(/iqa_fore/images/gray_start.png) no-repeat;
 }
 .knowledgeDetail .shareBox .redheart {
     width: 22px;
     height: 21px;
-    background: url(/01//images/red_start.png) no-repeat;
+    background: url(/iqa_fore/images/red_start.png) no-repeat;
 }
 .knowledgeDetail .btnWrapper {
     float: left;
