@@ -100,8 +100,10 @@ public class RobotController {
 		}else {
 			jsonObject.put("value", "1");
 			//获取用户信息
-			User userPersistences = userMapper.getUserInfo(username);			
-			jsonObject.put("robotUser", userPersistences);
+			User userPersistences = userMapper.getUserInfo(username);
+			List<User> robotUser = new ArrayList<>();
+			robotUser.add(0, userPersistences);
+			jsonObject.put("robotUser", robotUser);
 		}
 		String result = JsonUtil.toJsonString(jsonObject);
 		return result;
@@ -115,6 +117,50 @@ public class RobotController {
 	@SystemControllerLog(description = "与机器人聊天")
 	public String ChatWithRobot(HttpServletRequest request, HttpSession session) throws Exception{
 		long startTime = System.currentTimeMillis();//计算开始日期
+		String path = request.getServletPath();	
+				
+		//记录前台用户提问
+		String comment = request.getParameter("comment");
+		String from = request.getParameter("from");
+		String username = (String) session.getAttribute("UserName");
+		String questionId = UUID.randomUUID().toString();
+
+		//zzl_记录用户提问记录_2017年10月22日11:23:00
+		userQuestionService.addUserQuestion(questionId,username,comment,from);
+		JSONObject jsonObject = new JSONObject();
+		List<robot_Chat> rb = robotService.getRobotAnswerEasy(comment);
+		String answerId;
+		if(rb.size()==0){
+			answerId = "00000000-0000-0000-0000-000000000000";
+		}else{
+			answerId = rb.get(0).getAnswerId();
+		}
+		
+		List<Robot> robot = robotMapper.robotinfo();
+		jsonObject.put("value", "1");
+		jsonObject.put("robotChat", rb);
+		jsonObject.put("robotInfo", robot);
+		jsonObject.put("questionId", questionId);
+		jsonObject.put("answerId", answerId);
+		
+		if(null != username){
+			User user = userMapper.getUserInfo(username);
+			List<User> robotUser = new ArrayList<>();
+			robotUser.add(0, user);
+			jsonObject.put("robotUser", robotUser);
+		}else{
+			List<User> robotUser = new ArrayList<>();
+			jsonObject.put("robotUser", robotUser);
+		}
+		
+		String result = JsonUtil.toJsonString(jsonObject);
+		long executionTime = System.currentTimeMillis() - startTime;
+		//记录运行时间
+		timeStampMapper.addTimeStamp(UUID.randomUUID().toString(),path,executionTime,startTime);
+		System.out.println(result);
+		return result;
+		/*暂用模糊搜索代替
+		 * long startTime = System.currentTimeMillis();//计算开始日期
 		String path = request.getServletPath();	
 				
 		//记录前台用户提问
@@ -162,7 +208,7 @@ public class RobotController {
 		long executionTime = System.currentTimeMillis() - startTime;
 		//记录运行时间
 		timeStampMapper.addTimeStamp(UUID.randomUUID().toString(),path,executionTime,startTime);
-		return result;
+		return result;*/
 	}
 	
 	/**

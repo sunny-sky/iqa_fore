@@ -15,7 +15,9 @@ import com.xjtu.iqa.mapper.FaqAnswerMapper;
 import com.xjtu.iqa.mapper.FaqQuestionMapper;
 import com.xjtu.iqa.mapper.RobotMapper;
 import com.xjtu.iqa.po.FaqAnswer;
+import com.xjtu.iqa.po.FaqAnswerExample;
 import com.xjtu.iqa.po.FaqQuestion;
+import com.xjtu.iqa.po.FaqQuestionExample;
 import com.xjtu.iqa.po.Robot;
 import com.xjtu.iqa.service.FaqQuestionService;
 import com.xjtu.iqa.service.RobotService;
@@ -120,5 +122,36 @@ public class RobotServiceImpl implements RobotService {
 			}
 		});
 		return list;
+	}
+	
+	@Override
+	public List<robot_Chat> getRobotAnswerEasy(String comment) throws Exception{
+		FaqQuestionExample example = new FaqQuestionExample();
+		example.createCriteria().andFAQKEYWORDSLike(comment);
+//		example.setOrderByClause("FAQQUESTIONID desc");
+		List<FaqQuestion> faqs = faqQuestionMapper.selectByExample(example);
+		List<robot_Chat> robotChats = new ArrayList<robot_Chat>();
+		if(0 != faqs.size()){
+
+			String fqid = faqs.get(0).getFAQQUESTIONID();
+			robotChats.get(0).setQuestionId(fqid);
+			robotChats.get(0).setQuestion(faqs.get(0).getFAQTITLE());
+			
+			
+			FaqAnswerExample faexample = new FaqAnswerExample();
+			faexample.createCriteria().andFAQQUESTIONIDEqualTo(fqid);
+			faexample.setOrderByClause("FAQANSWERID desc");
+			List<FaqAnswer> fas = faqAnswerMapper.selectByExample(faexample);
+			
+			robotChats.get(0).setAnswerId(fas.get(0).getFAQANSWERID());
+			robotChats.get(0).setAnswer(fas.get(0).getFAQCONTENT());
+		}
+//		}else{
+//			robotChats.setAnswer("未找到答案");
+//			robotChats.setAnswerId("00000000-0000-0000-0000-000000000000");
+//			robotChats.setQuestionId("0");
+//			robotChats.setQuestion("未找到类似问题");
+//		}
+		return robotChats;
 	}
 }

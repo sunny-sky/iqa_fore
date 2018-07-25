@@ -42,7 +42,7 @@
                <!--所有分类   -->
                 <div class="allFristTypeWrapper">
                     <p class="allFristType">
-                    	<a href="${basePath}/faq.html">
+                    	<a href="${base}/faq">
                     		<span class="type">所有分类</span>
                     	</a>
                     	<span> ></span>
@@ -90,14 +90,14 @@
                                 <img src="zhao/lunbo/images/${a2_index}.jpg"  class="topImage">
                                 <div class="topList clearfix">
                                     <div class="topTitle">
-                                        <a href="${basePath}/faq3.html?q=${b1.questionId}" target="_blank" >${b1.faqTitle}</a>
+                                        <a href="${base}/faq3.html?q=${b1.questionId}" target="_blank" >${b1.faqTitle}</a>
                                     </div>
                                     <p class="topContent" >${b1.faqDescription}</p>
                                 </div>
                             </li>
                             </#list>
                             <#list a2.content2 as b2>
-                            <li><a href="${basePath}/faq3.html?q=${b2.questionId}" target="_blank" >${b2.faqTitle}</a></li>
+                            <li><a href="${base}/faq3.html?q=${b2.questionId}" target="_blank" >${b2.faqTitle}</a></li>
                             </#list>
                         </ul>
                     </div>

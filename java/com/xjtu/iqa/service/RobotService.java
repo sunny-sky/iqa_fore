@@ -18,5 +18,10 @@ public interface RobotService {
 	 */
 	public List<robot_Chat> getRobotAnswer(String comment) throws Exception;
 	
+	/**
+	 * Robot聊天，暂用模糊搜索匹配
+	 */
+	public List<robot_Chat> getRobotAnswerEasy(String comment) throws Exception;
+	
 	
 }
