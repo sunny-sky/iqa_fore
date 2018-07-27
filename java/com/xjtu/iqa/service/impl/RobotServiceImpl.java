@@ -127,12 +127,13 @@ public class RobotServiceImpl implements RobotService {
 	@Override
 	public List<robot_Chat> getRobotAnswerEasy(String comment) throws Exception{
 		FaqQuestionExample example = new FaqQuestionExample();
-		example.createCriteria().andFAQKEYWORDSLike(comment);
+		example.createCriteria().andFAQTITLELike(comment);
 //		example.setOrderByClause("FAQQUESTIONID desc");
 		List<FaqQuestion> faqs = faqQuestionMapper.selectByExample(example);
 		List<robot_Chat> robotChats = new ArrayList<robot_Chat>();
 		if(0 != faqs.size()){
-
+			robot_Chat rc1 = new robot_Chat();
+			robotChats.add(rc1);
 			String fqid = faqs.get(0).getFAQQUESTIONID();
 			robotChats.get(0).setQuestionId(fqid);
 			robotChats.get(0).setQuestion(faqs.get(0).getFAQTITLE());
@@ -140,11 +141,14 @@ public class RobotServiceImpl implements RobotService {
 			
 			FaqAnswerExample faexample = new FaqAnswerExample();
 			faexample.createCriteria().andFAQQUESTIONIDEqualTo(fqid);
-			faexample.setOrderByClause("FAQANSWERID desc");
+
 			List<FaqAnswer> fas = faqAnswerMapper.selectByExample(faexample);
 			
 			robotChats.get(0).setAnswerId(fas.get(0).getFAQANSWERID());
-			robotChats.get(0).setAnswer(fas.get(0).getFAQCONTENT());
+			String content = faqAnswerMapper.selectByPrimaryKey(fas.get(0).getFAQANSWERID()).getFAQCONTENT();
+			System.out.println("content:"+content);
+			robotChats.get(0).setAnswer(content);
+
 		}
 //		}else{
 //			robotChats.setAnswer("未找到答案");

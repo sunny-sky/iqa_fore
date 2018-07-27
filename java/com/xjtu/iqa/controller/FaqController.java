@@ -48,7 +48,6 @@ import com.xjtu.iqa.vo.Faq3_CommentView;
 import com.xjtu.iqa.vo.Faq3_faqContentView;
 import com.xjtu.iqa.vo.Faq_CommendView;
 import com.xjtu.iqa.vo.Faq_UserDynamics;
-import com.xjtu.iqa.vo.robot_Chat;
 
 @Controller
 public class FaqController {
@@ -446,14 +445,14 @@ public class FaqController {
 			}
 		}
 		//查看相关的问题	！！！未看
-		List<robot_Chat> robot_Chats = robotService.getRobotAnswer(faq3Views.get(0).getFaqTitle());
+//		List<robot_Chat> robot_Chats = robotService.getRobotAnswer(faq3Views.get(0).getFaqTitle());
 				
 		modelAndView.addObject("commentNumber", commentCount);
 		modelAndView.addObject("classify", classify);
 		modelAndView.addObject("classify2", classify2);
 		modelAndView.addObject("faq3Views", faq3Views);
 		modelAndView.addObject("comment", faq3_CommentViews);
-		modelAndView.addObject("faqSimilarity", robot_Chats);
+//		modelAndView.addObject("faqSimilarity", robot_Chats);
 		modelAndView.addObject("uid", userId);
 		String urlPath="";
 		if (request.getQueryString()==null) {

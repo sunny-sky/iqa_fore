@@ -23,7 +23,7 @@
 	<#include "inc/incTop.ftl">
    		<div class="headContent">
 			<div class="headTop clearfix">
-				<form class="avatar-form" action="faqSearch.html" enctype="multipart/form-data" method="post">
+				<form class="avatar-form" action="faqSearch" enctype="multipart/form-data" method="post">
 					<div class="queryBox">
 						<input type="text" class="text" value="输入关键字" onfocus="if(this.value=='输入关键字')this.value='';" onblur="if(this.value=='')this.value='输入关键字';" id="keyWordText" onkeydown="if (event.keyCode == 13) {queryKnowledgeByKey();}" autocomplete="off" name="queryString">
 						<a href="javascript:void(0);" class="queryBtn"></a>
@@ -79,7 +79,7 @@
                         <ul class="topcontent">
                             <li>
                                 <p class="title">
-                                    <a href="faq3.html?q=${faqlists.FAQQUESTIONID} " target="_blank">${faqlists.FAQTITLE }</a>
+                                    <a href="faq3?q=${faqlists.FAQQUESTIONID} " target="_blank">${faqlists.FAQTITLE }</a>
                                 </p>
                             </li>
                             <li class="clearfix">
@@ -116,7 +116,7 @@
 						<li class="dynamicItem">
 							<p class="dynamicTime">${userDynamics.time}</p>
 							<p class="dynamicDesc">
-								<a href="personal2.html?u=${userDynamics.userId}">${userDynamics.userName}</a>: ${userDynamics.how}“<a href="faq3.html?q=${userDynamics.faqId}">${userDynamics.faqTitle}</a>”</p>
+								<a href="personal2?u=${userDynamics.userId}">${userDynamics.userName}</a>: ${userDynamics.how}“<a href="faq3?q=${userDynamics.faqId}">${userDynamics.faqTitle}</a>”</p>
 						</li>
 						</#list>
 					</ul>
@@ -195,7 +195,7 @@
 						+'<ul class="topcontent">'
 						+'<li>'
 						+'<p class="title">'
-						+'<a href="faq3.html?q='+data.faqlists[i].fAQQUESTIONID+'" target="_blank">'+data.faqlists[i].fAQTITLE+'</a>'
+						+'<a href="faq3?q='+data.faqlists[i].fAQQUESTIONID+'" target="_blank">'+data.faqlists[i].fAQTITLE+'</a>'
 						+'</p>'
 						+'</li>'
 						+'<li class="clearfix">'                        

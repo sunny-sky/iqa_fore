@@ -128,7 +128,7 @@ public class RobotController {
 		//zzl_记录用户提问记录_2017年10月22日11:23:00
 		userQuestionService.addUserQuestion(questionId,username,comment,from);
 		JSONObject jsonObject = new JSONObject();
-		List<robot_Chat> rb = robotService.getRobotAnswerEasy(comment);
+		List<robot_Chat> rb = robotService.getRobotAnswerEasy("%"+comment+"%");
 		String answerId;
 		if(rb.size()==0){
 			answerId = "00000000-0000-0000-0000-000000000000";

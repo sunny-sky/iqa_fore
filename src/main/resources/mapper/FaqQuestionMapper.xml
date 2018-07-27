@@ -425,5 +425,7 @@
 		TBL_FAQclassify.FAQPARENTID=#{0} AND TBL_FAQquestion.FAQCLASSIFYID =
 		TBL_FAQclassify.FAQCLASSIFYID AND FAQSTATE = #{1}
 	</select>
+	
+	
   
 </mapper>

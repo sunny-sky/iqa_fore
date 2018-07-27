@@ -306,7 +306,7 @@ public class UserController {
 	@RequestMapping(value = "/uploadUserImage",method=RequestMethod.POST)
 	@SystemControllerLog(description = "头像上传")
     public String uploadUserImage(HttpServletRequest request,HttpSession session) throws IOException {
-		String path1 = request.getContextPath();
+//		String path1 = request.getContextPath();
 		String username = (String) session.getAttribute("UserName");		
 		if (username==null) {
 			return "redirect:login.html";

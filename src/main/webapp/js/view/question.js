@@ -15,6 +15,7 @@ function questionForm(){
 
 //新问题提交
 $("#submit").click(function(){
+	console.log("进入提交JS");
 	var title = document.getElementById("title").value;
 	var description = UE.getEditor('editor').getContent();
 	
@@ -30,7 +31,7 @@ $("#submit").click(function(){
     if(check_val[0]!=null){
     $.ajax({
 			type:"POST",
-			url:base+"/saveCommunityQuestion.html",
+			url:base+"/saveCommunityQuestion",
 			data:{
 				"title":title,
 				"description":description,
@@ -39,7 +40,7 @@ $("#submit").click(function(){
 			dataType:"json",
 			success:function(data){
 				if(data.value=="0"){
-					self.location='login.html';
+					self.location='login';
 				}else if(data.value=="1"){
 				setTimeout("location.reload()",1000)
 					document.getElementById('lasturl').innerHTML=data.url;
@@ -95,7 +96,7 @@ $('#loading').click(function() {
 	var c = document.URL.split("c=")[1].split("&")[0];
 	$.ajax({
 		type:"POST",
-		url:base+"/getMoreCommunity.html",
+		url:base+"/getMoreCommunity",
 		data:{
 			"startnumber":startnumber,
 			"type":type,
@@ -104,7 +105,7 @@ $('#loading').click(function() {
 		dataType:"json",
 		success:function(data){
 			if(data.value=="0"){
-				self.location='login.html';
+				self.location='login';
 			}else if(data.value=="1"){
 				for(var i in data.communityViews){
 					if(data.communityViews[i].userId!=null){
@@ -120,7 +121,7 @@ $('#loading').click(function() {
 							+'<div class="time"><p>'+data.communityViews[i].time+'</p></div>'
 							+'</div>'
 							+'<div class="title">'
-							+'<h2><a href="question2.html?q='+data.communityViews[i].communityId+'">'+data.communityViews[i].communityTitle+'</a></h2>'
+							+'<h2><a href="question2?q='+data.communityViews[i].communityId+'">'+data.communityViews[i].communityTitle+'</a></h2>'
 							+'</div>'
 							+'<div class="description">'
 							+'<div class="answerer" data-id="270369">'
@@ -145,15 +146,15 @@ $('#loading').click(function() {
 							+'<span class="fold"><a data-fun="fold"><span class="foldicon"></span>收起</a></span></ul></div></article></li>';
 						}else{
 							var htmls = document.getElementById("searchResult").innerHTML;
-							document.getElementById("searchResult").innerHTML = htmls+ '<li id="'+data.communityViews[i].communityId+'_'+'"><article ><div class="tag"><ul><li>'+data.communityViews[i].classifyName+'</li><li class="type">回答</li></ul><div class="time"><p>'+data.communityViews[i].time+'</p></div></div><div class="title"><h2><a href="question2.html?q='+data.communityViews[i].communityId+'">'+data.communityViews[i].communityTitle+'</a></h2></div><div class="description"><div class="answerer" data-id="270369"><img class="answerImg" src="'+data.communityViews[i].userImage+'"><div><a href=""><span class="user_name">'+data.communityViews[i].userName+'</span>&nbsp;&nbsp;<span>'+data.communityViews[i].signature+'</span></a></div><div><img src="images/bluepoint.png" class="bluepoint">贡献'+data.communityViews[i].totalCommunityNumber+'个回答，获得'+data.communityViews[i].totalLikesNumber+'个赞</div></div><div class="detail"><div class="detailP">'+data.communityViews[i].answer+'</div></div><div class="fullDetail hidden"><p>'+data.communityViews[i].answer+'</p></div></div><div class="options"><ul><li class="special"><a  class="unVoted" onclick="getAgreeAnswer()"><span class="status">点赞</span>  |  <span class="number">'+data.communityViews[i].likesNumber+'</span></a></li><li><a data-fun="toComment" class="fm_ele" fm-type="button" fm-name="answer_comment" fm-operation="click" fm-zoon="option_area"><span>评论 </span><span class="number">'+data.communityViews[i].communityNumber+'</span></a></li><span class="fold"><a data-fun="fold"><span class="foldicon"></span>收起</a></span></ul></div></article></li>';
+							document.getElementById("searchResult").innerHTML = htmls+ '<li id="'+data.communityViews[i].communityId+'_'+'"><article ><div class="tag"><ul><li>'+data.communityViews[i].classifyName+'</li><li class="type">回答</li></ul><div class="time"><p>'+data.communityViews[i].time+'</p></div></div><div class="title"><h2><a href="question2?q='+data.communityViews[i].communityId+'">'+data.communityViews[i].communityTitle+'</a></h2></div><div class="description"><div class="answerer" data-id="270369"><img class="answerImg" src="'+data.communityViews[i].userImage+'"><div><a href=""><span class="user_name">'+data.communityViews[i].userName+'</span>&nbsp;&nbsp;<span>'+data.communityViews[i].signature+'</span></a></div><div><img src="images/bluepoint.png" class="bluepoint">贡献'+data.communityViews[i].totalCommunityNumber+'个回答，获得'+data.communityViews[i].totalLikesNumber+'个赞</div></div><div class="detail"><div class="detailP">'+data.communityViews[i].answer+'</div></div><div class="fullDetail hidden"><p>'+data.communityViews[i].answer+'</p></div></div><div class="options"><ul><li class="special"><a  class="unVoted" onclick="getAgreeAnswer()"><span class="status">点赞</span>  |  <span class="number">'+data.communityViews[i].likesNumber+'</span></a></li><li><a data-fun="toComment" class="fm_ele" fm-type="button" fm-name="answer_comment" fm-operation="click" fm-zoon="option_area"><span>评论 </span><span class="number">'+data.communityViews[i].communityNumber+'</span></a></li><span class="fold"><a data-fun="fold"><span class="foldicon"></span>收起</a></span></ul></div></article></li>';
 						}
 					}else{
 						if(data.communityViews[i].communityQuestion.length>100){
 							var htmls = document.getElementById("searchResult").innerHTML;
-							document.getElementById("searchResult").innerHTML = htmls+ '<li id="'+data.communityViews[i].communityId+'_'+'"><article ><div class="tag"><ul><li>'+data.communityViews[i].classifyName+'</li><li class="type">问题</li></ul><div class="time"><p>'+data.communityViews[i].time+'</p></div></div><div class="title"><h2><a href="question2.html?q='+data.communityViews[i].communityId+'">'+data.communityViews[i].communityTitle+'</a></h2></div><div class="description"><div class="detail"><div class="detailP">'+data.communityViews[i].communityQuestion.substr(0,100)+'......'+'<span class="readMore">查看更多</span></div></div><div class="fullDetail hidden"><p>'+data.communityViews[i].communityQuestion+'</p></div></div><div class="options"><ul><li class="special"><a onclick="create_edit(this)" class="unFocused fm_ele" ><span class="status" id="'+data.communityViews[i].communityId+'">回答</span></a></li><li><a data-fun="toComment" class="fm_ele" fm-type="button" fm-name="answer_comment" fm-operation="click" fm-zoon="option_area"><span>评论 </span><span class="number">'+data.communityViews[i].communityNumber+'</span></a></li><span class="fold"><a data-fun="fold"><span class="foldicon"></span>收起</a></span></ul></div></article></li>';										
+							document.getElementById("searchResult").innerHTML = htmls+ '<li id="'+data.communityViews[i].communityId+'_'+'"><article ><div class="tag"><ul><li>'+data.communityViews[i].classifyName+'</li><li class="type">问题</li></ul><div class="time"><p>'+data.communityViews[i].time+'</p></div></div><div class="title"><h2><a href="question2?q='+data.communityViews[i].communityId+'">'+data.communityViews[i].communityTitle+'</a></h2></div><div class="description"><div class="detail"><div class="detailP">'+data.communityViews[i].communityQuestion.substr(0,100)+'......'+'<span class="readMore">查看更多</span></div></div><div class="fullDetail hidden"><p>'+data.communityViews[i].communityQuestion+'</p></div></div><div class="options"><ul><li class="special"><a onclick="create_edit(this)" class="unFocused fm_ele" ><span class="status" id="'+data.communityViews[i].communityId+'">回答</span></a></li><li><a data-fun="toComment" class="fm_ele" fm-type="button" fm-name="answer_comment" fm-operation="click" fm-zoon="option_area"><span>评论 </span><span class="number">'+data.communityViews[i].communityNumber+'</span></a></li><span class="fold"><a data-fun="fold"><span class="foldicon"></span>收起</a></span></ul></div></article></li>';										
 						}else{
 							var htmls = document.getElementById("searchResult").innerHTML;
-							document.getElementById("searchResult").innerHTML = htmls+ '<li id="'+data.communityViews[i].communityId+'_'+'"><article ><div class="tag"><ul><li>'+data.communityViews[i].classifyName+'</li><li class="type">问题</li></ul><div class="time"><p>'+data.communityViews[i].time+'</p></div></div><div class="title"><h2><a href="question2.html?q='+data.communityViews[i].communityId+'">'+data.communityViews[i].communityTitle+'</a></h2></div><div class="description"><div class="detail"><div class="detailP">'+data.communityViews[i].communityQuestion+'</div></div><div class="fullDetail hidden"><p>'+data.communityViews[i].communityQuestion+'</p></div></div><div class="options"><ul><li class="special"><a onclick="create_edit(this)" class="unFocused fm_ele" ><span class="status" id="'+data.communityViews[i].communityId+'">回答</span></a></li><li><a data-fun="toComment" class="fm_ele" fm-type="button" fm-name="answer_comment" fm-operation="click" fm-zoon="option_area"><span>评论 </span><span class="number">'+data.communityViews[i].communityNumber+'</span></a></li><span class="fold"><a data-fun="fold"><span class="foldicon"></span>收起</a></span></ul></div></article></li>';	
+							document.getElementById("searchResult").innerHTML = htmls+ '<li id="'+data.communityViews[i].communityId+'_'+'"><article ><div class="tag"><ul><li>'+data.communityViews[i].classifyName+'</li><li class="type">问题</li></ul><div class="time"><p>'+data.communityViews[i].time+'</p></div></div><div class="title"><h2><a href="question2?q='+data.communityViews[i].communityId+'">'+data.communityViews[i].communityTitle+'</a></h2></div><div class="description"><div class="detail"><div class="detailP">'+data.communityViews[i].communityQuestion+'</div></div><div class="fullDetail hidden"><p>'+data.communityViews[i].communityQuestion+'</p></div></div><div class="options"><ul><li class="special"><a onclick="create_edit(this)" class="unFocused fm_ele" ><span class="status" id="'+data.communityViews[i].communityId+'">回答</span></a></li><li><a data-fun="toComment" class="fm_ele" fm-type="button" fm-name="answer_comment" fm-operation="click" fm-zoon="option_area"><span>评论 </span><span class="number">'+data.communityViews[i].communityNumber+'</span></a></li><span class="fold"><a data-fun="fold"><span class="foldicon"></span>收起</a></span></ul></div></article></li>';	
 						}
 					}
 				}
@@ -236,14 +237,14 @@ function getAgreeAnswer(){
 	if(questionid!="searchResult"){
 		$.ajax({
 			type:"POST",
-			url:base+"/saveAgreeAnswer2.html",
+			url:base+"/saveAgreeAnswer2",
 			data:{
 				"questionId":questionId
 			},
 			dataType:"json",
 			success:function(data){
 				if(data.value=="0"){
-					self.location='login.html';
+					self.location='login';
 				}else if(data.value=="1"){
 					document.getElementById(questionid).getElementsByClassName("status")[0].innerHTML="已点赞";
 					var number = parseInt(document.getElementById(questionid).getElementsByClassName("number")[0].innerHTML);

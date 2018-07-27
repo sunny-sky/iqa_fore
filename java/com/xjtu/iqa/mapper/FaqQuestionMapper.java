@@ -115,4 +115,9 @@ public interface FaqQuestionMapper {
 
 	// 获取该分类下且faqState=2的总条数
 	int faqAuditedCount(String classifyId, int faqState);
+	
+	/**
+	 * 模糊搜索，用于机器人对话
+	 */
+//	List<FaqQuestion> chatWithRobotEasy();
 }

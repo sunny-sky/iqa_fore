@@ -4,7 +4,7 @@ function queryMoreTop(){
 	var startnum = document.getElementById("tplWrapper").childElementCount;	
 	$.ajax({
 			type:"post",
-			url:base+"/getMoreFaqCommend.html",
+			url:base+"/getMoreFaqCommend",
 			data:{
 				"startnum":startnum
 			},
@@ -15,7 +15,7 @@ function queryMoreTop(){
 				//	var time = data.faqlist[i].faqModifytime.substring(0,10).replace(/-/,'/');
 					document.getElementById("tplWrapper").innerHTML = htmls+ '<div class="topList clearfix"><div class="imagesPotion"><a href="/detail/dc_143417.html" target="_blank"><img src="images/test/2'+i+'.jpg" alt=""></a></div>'
 					+ '<ul class="topcontent">'
-                    + '<li><p class="title"><a href="faq3.html?q=' + data.faqlists[i].FAQQUESTIONID +' " target="_blank">'+data.faqlists[i].FAQTITLE +'</a></p></li>'
+                    + '<li><p class="title"><a href="faq3?q=' + data.faqlists[i].FAQQUESTIONID +' " target="_blank">'+data.faqlists[i].FAQTITLE +'</a></p></li>'
                     + '<li class="clearfix"><span class="userPic"><img src="'+userImage+'"></span><span class="username">'+userName +'</span><span class="dot">-</span><span class="time">' + data.faqlists[i].MODIFYTIME + '</span><span class="line">|</span><span class="showCount">'+ data.faqlists[i].SCAN  + '</span><span class="message">34</span><span class="collection">'+ data.faqlists[i].COLLECTION + '</span></li>'
                     + '<li class="content">' + data.faqlists[i].FAQDESCRIPTION + '</li>'
                     + '</ul> </div>'
@@ -43,7 +43,7 @@ $('#querymorelink').click(function() {
 					dataType:"json",
 					success:function(data){
 						if(data.value=="0"){
-							self.location='login.html';
+							self.location='login';
 						}else if(data.value=="1"){
 							for(var i in data.faqlists){
 								if(data.faqlists[i].userId==null){									
