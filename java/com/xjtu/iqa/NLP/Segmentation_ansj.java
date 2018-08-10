@@ -34,10 +34,11 @@ public class Segmentation_ansj {
 	public static List<robot_Chat> robot_Chats(String comment) throws Exception{
 		List<NLP_Word> nList = Segmentation_ansj.similarScoreFirst(comment);
 
-		//!!!String localurl = System.getProperty("user.dir");
-		String tomcatPath = System.getProperty("user.dir").replace("bin", "webapps");
-
-		File file1 = new File(tomcatPath+"/iqa_fore/library/faqKeywords.txt");//Text文件
+		String tomcatPath = System.getProperty("user.dir");
+		// String tomcatPath = System.getProperty("user.dir").replace("bin", "webapps");
+		System.out.println(tomcatPath);
+		
+		File file1 = new File(tomcatPath+"/library/faqKeywords.txt");//Text文件
 		BufferedReader br = new BufferedReader(new FileReader(file1));//构造一个BufferedReader类来读取文件
 		String s = null;
 		List<robot_Chat> robot_Chats = new ArrayList<robot_Chat>();
@@ -67,7 +68,7 @@ public class Segmentation_ansj {
 
 		
 //		Forest forest = Library.makeForest(localurl+"/iqa_fore/library/computer.dic");
-		Forest forest = Library.makeForest(localurl+"/iqa_fore/src/main/webapp/library/computer.dic");
+		Forest forest = Library.makeForest(localurl+"/iqa_fore/library/computer.dic");
 		Result terms = ToAnalysis.parse(text,forest);
 
 		Result result = terms.recognition(StopLibrary.get());
